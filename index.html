@@ -15,16 +15,44 @@
   <hr>
 
   <h3>Swap Token for ETH</h3>
-  <input id="tokenIn" placeholder="Token address (ERC20)" value="0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48" />
-  <input id="amountIn" placeholder="Amount to swap (in wei)" />
-  <input id="slippageIn" placeholder="Slippage (%)" value="1" />
-  <button onclick="swapTokenForETH()">Swap</button>
+  <table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Token Address (ERC20)</th>
+        <th>Amount to Swap (in wei)</th>
+        <th>Slippage (%)</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input id="tokenIn" value="0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48" /></td>
+        <td><input id="amountIn" /></td>
+        <td><input id="slippageIn" value="1" /></td>
+        <td><button onclick="swapTokenForETH()">Swap</button></td>
+      </tr>
+    </tbody>
+  </table>
 
   <h3>Swap ETH for Token</h3>
-  <input id="tokenOut" placeholder="Token address (ERC20)" value="0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48" />
-  <input id="slippageOut" placeholder="Slippage (%)" value="1" />
-  <input id="ethAmount" placeholder="ETH to send (in wei)" />
-  <button onclick="swapETHForToken()">Swap</button>
+  <table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Token Address (ERC20)</th>
+        <th>Slippage (%)</th>
+        <th>ETH to Send (in wei)</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input id="tokenOut" value="0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48" /></td>
+        <td><input id="slippageOut" value="1" /></td>
+        <td><input id="ethAmount" /></td>
+        <td><button onclick="swapETHForToken()">Swap</button></td>
+      </tr>
+    </tbody>
+  </table>
 
   <hr>
 
