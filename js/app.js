@@ -32,7 +32,7 @@ async function connectWallet() {
   }
 }
 
-async function swapTokenForETH() {
+/*async function swapTokenForETH() {
   const amount = document.getElementById("amountIn").value;
   const slippage = Number(document.getElementById("slippageIn").value);
 
@@ -50,7 +50,43 @@ async function swapTokenForETH() {
     console.error("swapTokenForETH error:", err);
     alert("Swap failed. Check console for details.");
   }
+}*/
+
+async function swapTokenForETH() {
+  const amount = document.getElementById("amountIn").value;
+  const slippage = Number(document.getElementById("slippageIn").value);
+
+  if (slippage > 50) {
+    alert("Slippage cannot exceed 50%");
+    return;
+  }
+
+  try {
+    const amountIn = ethers.parseUnits(amount, 6); // ✅ USDC has 6 decimals
+
+    // Approve the contract to spend USDC
+    const usdcContract = new ethers.Contract(
+      USDC_ADDRESS,
+      [
+        "function approve(address spender, uint256 amount) public returns (bool)"
+      ],
+      signer
+    );
+
+    const approveTx = await usdcContract.approve(CONTRACT_ADDRESS, amountIn);
+    await approveTx.wait();
+    console.log("USDC approved");
+
+    // Now perform the swap
+    const tx = await contract.swapTokenForETHWithSlippage(USDC_ADDRESS, amountIn, slippage);
+    await tx.wait();
+    alert("USDC → ETH swap completed!");
+  } catch (err) {
+    console.error("swapTokenForETH error:", err);
+    alert("Swap failed. Check console for details.");
+  }
 }
+
 
 async function swapETHForToken() {
   const ethAmount = document.getElementById("ethAmount").value;
