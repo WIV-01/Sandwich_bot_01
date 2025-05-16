@@ -145,8 +145,13 @@ async function swapTokenForETH() {
     alert("USDC → ETH swap completed!");
     await updateBalances(await signer.getAddress());
   } catch (err) {
-    console.error("swapTokenForETH error:", err);
-    alert("Swap failed. See console for details.");
+      if (err.code === 4001) {
+        alert("Transaction rejected by user.");
+      } else {
+        console.error("swapTokenForETH error:", err);
+        alert("Swap failed. See console for details.");
+      }
+      console.error("Error:", err);
   } finally {
     swapBtn.disabled = false; // Re-enable button
   }
@@ -180,8 +185,13 @@ async function swapETHForToken() {
     alert("ETH → USDC swap completed!");
     await updateBalances(await signer.getAddress());
   } catch (err) {
-    console.error("swapETHForToken error:", err);
-    alert("Swap failed. See console for details.");
+      if (err.code === 4001) {
+        alert("Transaction rejected by user.");
+      } else {
+        console.error("swapETHForToken error:", err);
+        alert("Swap failed. See console for details.");
+      }
+      console.error("Error:", err);
   } finally {
     swapEthBtn.disabled = false; // Re-enable button
   }
