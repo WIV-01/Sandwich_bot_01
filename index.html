@@ -5,8 +5,8 @@
   <title>Uniswap Trading Bot UI</title>
   <link rel="stylesheet" href="css/style.css" />
   <script src="https://cdn.jsdelivr.net/npm/ethers@6.6.2/dist/ethers.umd.min.js"></script>
-  <script src="abi.js"></script> <!-- Load ABI here -->
-  <script src="js/app.js" defer></script> <!-- Your JS file -->
+  <script src="js/abi.js"></script> <!-- Load ABI here -->
+  <script src="js/app.js" defer></script> <!-- Your bot JS file -->
 </head>
 <body>
   <h1>Uniswap Trading Bot Interface</h1>
@@ -27,8 +27,8 @@
     </thead>
     <tbody>
       <tr>
-        <td><input id="amountIn" type="number" min="0" step="0.000000001" /></td>
-        <td><input id="slippageIn" type="number" min="0" max="50" value="1" /></td>
+        <td><input id="amountIn" type="number" min="0" step="0.0001" /></td>
+        <td><input id="slippageIn" type="number" min="0" max="50" step="0.5" value="1" /></td>
         <td><button id="swapTokenBtn">Swap</button></td>
       </tr>
     </tbody>
