@@ -6,7 +6,6 @@ const CONTRACT_ADDRESS = "0x9ddd5962f9441a0400be0ab95777381bbfd4ec59"; // ✅ Yo
 const USDC_ADDRESS = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"; // ✅ USDC Mainnet
 const CONTRACT_ABI = window.CONTRACT_ABI; // ✅ Contract ABI
 
-// Minimal ABI for interacting with USDC's approve and allowance
 const usdcAbi = [
   "function approve(address spender, uint256 amount) public returns (bool)",
   "function allowance(address owner, address spender) public view returns (uint256)"
@@ -40,30 +39,31 @@ async function connectWallet() {
 }
 
 async function swapTokenForETH() {
-  const amount = document.getElementById("amountIn").value;
-  const slippage = Number(document.getElementById("slippageIn").value);
+  const amount = document.getElementById("amountIn").value.trim();
+  if (!amount || isNaN(amount) || Number(amount) <= 0) {
+    alert("Please enter a valid USDC amount greater than 0.");
+    return;
+  }
 
-  if (slippage > 50) {
-    alert("Slippage cannot exceed 50%");
+  const slippage = Number(document.getElementById("slippageIn").value);
+  if (isNaN(slippage) || slippage < 0 || slippage > 50) {
+    alert("Slippage must be a number between 0 and 50.");
     return;
   }
 
   try {
     const amountIn = ethers.parseUnits(amount, 6); // ✅ USDC has 6 decimals
 
-    // Prepare USDC contract instances
     const usdcContract = new ethers.Contract(USDC_ADDRESS, usdcAbi, signer);
     const ownerAddress = await signer.getAddress();
     const allowance = await usdcContract.allowance(ownerAddress, CONTRACT_ADDRESS);
 
-    // Only approve if allowance is too low
     if (allowance.lt(amountIn)) {
       const approveTx = await usdcContract.approve(CONTRACT_ADDRESS, amountIn);
       await approveTx.wait();
       console.log("USDC approved for contract.");
     }
 
-    // Call the swap function
     const tx = await contract.swapTokenForETHWithSlippage(USDC_ADDRESS, amountIn, slippage);
     await tx.wait();
     alert("USDC → ETH swap completed!");
@@ -74,16 +74,21 @@ async function swapTokenForETH() {
 }
 
 async function swapETHForToken() {
-  const ethAmount = document.getElementById("ethAmount").value;
-  const slippage = Number(document.getElementById("slippageOut").value);
+  const ethAmount = document.getElementById("ethAmount").value.trim(); 
+  
+  if (!ethAmount || isNaN(ethAmount) || Number(ethAmount) <= 0) {
+    alert("Please enter a valid ETH amount greater than 0.");
+    return;
+  }
 
-  if (slippage > 50) {
-    alert("Slippage cannot exceed 50%");
+  const slippage = Number(document.getElementById("slippageOut").value);
+  if (isNaN(slippage) || slippage < 0 || slippage > 50) {
+    alert("Slippage must be a number between 0 and 50.");
     return;
   }
 
   try {
-    const value = ethers.parseEther(ethAmount); // ✅ USDC has 6 decimals
+    const value = ethers.parseEther(ethAmount); // ✅ ETH has 18 decimals
     const tx = await contract.swapETHForTokenWithSlippage(USDC_ADDRESS, slippage, { value });
     await tx.wait();
     alert("ETH → USDC swap completed!");
