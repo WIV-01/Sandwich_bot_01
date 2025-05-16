@@ -13,6 +13,8 @@
 
   <button id="connectWalletBtn" onclick="connectWallet()">🔌 Connect Wallet</button>
   <p id="walletAddress">Not connected</p>
+  <p id="ethBalance">ETH Balance: -</p>
+  <p id="usdcBalance">USDC Balance: -</p>
 
   <hr>
 
@@ -27,8 +29,8 @@
     </thead>
     <tbody>
       <tr>
-        <td><input id="amountIn" type="number" min="0.01" step="0.00001" /></td>
-        <td><input id="slippageIn" type="number" min="0" max="50" step="0.5" value="1" /></td>
+        <td><input id="amountIn" type="number" min="0.01" step="0.01" /></td>
+        <td><input id="slippageIn" type="number" min="0" max="50" step="0.25" value="1" /></td>
         <td><button id="swapTokenBtn">Swap</button></td>
       </tr>
     </tbody>
@@ -46,7 +48,7 @@
     <tbody>
       <tr>
         <td><input id="ethAmount" type="number" min="0.0001" step="0.00001" /></td>
-        <td><input id="slippageOut" type="number" min="0" max="50" value="1" /></td>
+        <td><input id="slippageOut" type="number" min="0" max="50" step="0.25" value="1" /></td>
         <td><button id="swapEthBtn">Swap</button></td>
       </tr>
     </tbody>
