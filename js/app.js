@@ -45,7 +45,9 @@ async function swapTokenForETH() {
     return;
   }
 
-  const slippage = Number(document.getElementById("slippageIn").value);
+  const slippageInput = document.getElementById("slippageIn").value.trim();
+  const slippage = Number(slippageInput);
+  
   if (isNaN(slippage) || slippage < 0 || slippage > 50) {
     alert("Slippage must be a number between 0 and 50.");
     return;
@@ -81,7 +83,9 @@ async function swapETHForToken() {
     return;
   }
 
-  const slippage = Number(document.getElementById("slippageOut").value);
+  const slippageInput = document.getElementById("slippageOut").value.trim();
+  const slippage = Number(slippageInput);
+  
   if (isNaN(slippage) || slippage < 0 || slippage > 50) {
     alert("Slippage must be a number between 0 and 50.");
     return;
