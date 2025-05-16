@@ -4,16 +4,8 @@
   <meta charset="UTF-8" />
   <title>Uniswap Trading Bot UI</title>
   <link rel="stylesheet" href="css/style.css" />
-
-  <script type="module">
-    import { BrowserProvider, formatEther, formatUnits } from "https://esm.sh/ethers@6.8.1";
-    window.ethers = {
-      BrowserProvider,
-      formatEther,
-      formatUnits
-    };
-  </script>
-
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.6.2/dist/ethers.umd.min.js"></script>
+  <script src="https://cdn.ethers.io/lib/ethers-6.0.0.min.js"></script>
   <script src="js/abi.js"></script> <!-- Load ABI here -->
   <script src="js/app.js" defer></script> <!-- Your bot JS file -->
 </head>
