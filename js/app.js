@@ -37,6 +37,10 @@ function toggleControls(connected) {
 async function updateBalances(address) {
   try {
     const ethBalance = await provider.getBalance(address);
+
+    console.log("ethers object is:", ethers);
+    console.log("ethers.formatEther is:", ethers.formatEther);
+    
     const ethFormatted = ethers.formatEther(ethBalance);
     document.getElementById("ethBalance").innerText = `ETH Balance: ${parseFloat(ethFormatted).toFixed(4)} ETH`;
 
