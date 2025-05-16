@@ -130,6 +130,7 @@ async function swapETHForToken() {
   
   if (!ethAmount || isNaN(ethAmount) || Number(ethAmount) <= 0) {
     alert("Please enter a valid ETH amount greater than 0.");
+    swapEthBtn.disabled = false;
     return;
   }
 
@@ -138,11 +139,13 @@ async function swapETHForToken() {
   
   if (isNaN(slippage) || slippage < 0 || slippage > 50) {
     alert("Slippage must be a number between 0 and 50.");
+    swapEthBtn.disabled = false;
     return;
   }
 
   try {
     const value = ethers.parseEther(ethAmount); // ✅ ETH has 18 decimals
+    
     const tx = await contract.swapETHForTokenWithSlippage(USDC_ADDRESS, slippage, { value });
     await tx.wait();
     alert("ETH → USDC swap completed!");
@@ -150,6 +153,8 @@ async function swapETHForToken() {
   } catch (err) {
     console.error("swapETHForToken error:", err);
     alert("Swap failed. See console for details.");
+  } finally {
+    swapEthBtn.disabled = false; // Re-enable button
   }
 }
 
