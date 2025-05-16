@@ -160,6 +160,8 @@ async function swapTokenForETH() {
 
     await tx.wait();
 
+    showTxStatus("Swap completed successfully! 🎉");
+    
     // Update UI after success
     document.getElementById("txStatus").innerHTML = "Swap completed successfully! 🎉";
     
@@ -168,9 +170,11 @@ async function swapTokenForETH() {
   } catch (err) {
       if (err.code === 4001) {
         alert("Transaction rejected by user.");
+        showTxStatus("Transaction rejected by user.", true);
       } else {
         console.error("swapTokenForETH error:", err);
         alert("Swap failed. See console for details.");
+        showTxStatus("Swap failed. See console for details.", true);
       }
       console.error("Error:", err);
   } finally {
