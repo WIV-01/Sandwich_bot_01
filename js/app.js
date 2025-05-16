@@ -157,9 +157,7 @@ async function swapTokenForETH() {
     
     // Immediately update the status with the tx hash & link
     document.getElementById("txStatus").innerHTML = `Transaction sent! <a href="https://etherscan.io/tx/${tx.hash}" target="_blank" rel="noopener noreferrer">View on Etherscan</a>`;
-
     await tx.wait();
-
     showTxStatus("Swap completed successfully! 🎉");
     
     // Update UI after success
@@ -184,7 +182,9 @@ async function swapTokenForETH() {
 
 async function swapETHForToken() {
   const swapEthBtn = document.getElementById("swapEthBtn");
+  
   swapEthBtn.disabled = true; // Disable button immediately to prevent double submissions
+  showTxStatus(''); // Clear status on start
   
   const ethAmount = document.getElementById("ethAmount").value.trim(); 
   
@@ -205,16 +205,25 @@ async function swapETHForToken() {
 
   try {
     const value = ethers.parseEther(ethAmount); // ✅ ETH has 18 decimals
+    
+    showTxStatus(`Swapping ETH for USDC...`);
+    
     const tx = await contract.swapETHForTokenWithSlippage(USDC_ADDRESS, slippage, { value });
+
+    showTxStatus(`Transaction sent! <a href="https://etherscan.io/tx/${tx.hash}" target="_blank" rel="noopener noreferrer">View on Etherscan</a>`);
     await tx.wait();
     alert("ETH → USDC swap completed!");
+    showTxStatus("Swap completed successfully! 🎉");
     await updateBalances(await signer.getAddress());
+    
   } catch (err) {
       if (err.code === 4001) {
         alert("Transaction rejected by user.");
+        showTxStatus("Transaction rejected by user.", true);
       } else {
         console.error("swapETHForToken error:", err);
         alert("Swap failed. See console for details.");
+        showTxStatus("Swap failed. See console for details.", true);
       }
       console.error("Error:", err);
   } finally {
