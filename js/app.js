@@ -34,6 +34,9 @@ function toggleControls(connected) {
   document.getElementById("resumeBotBtn").disabled = !connected; 
 }
 
+console.log(ethers);
+console.log("ethBalance raw:", ethBalance);
+
 async function connectWallet() {
   if (!window.ethereum) {
     alert("Please install MetaMask.");
