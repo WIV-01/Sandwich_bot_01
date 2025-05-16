@@ -67,6 +67,9 @@ async function updateBalances(address) {
 }
 
 async function swapTokenForETH() {
+  const swapBtn = document.getElementById("swapTokenBtn");
+  swapBtn.disabled = true; // Disable button immediately to prevent double submissions
+  
   const amount = document.getElementById("amountIn").value.trim();
   if (!amount || isNaN(amount) || Number(amount) <= 0) {
     alert("Please enter a valid USDC amount greater than 0.");
@@ -105,6 +108,9 @@ async function swapTokenForETH() {
 }
 
 async function swapETHForToken() {
+  const swapEthBtn = document.getElementById("swapEthBtn");
+  swapEthBtn.disabled = true; // Disable button immediately to prevent double submissions
+  
   const ethAmount = document.getElementById("ethAmount").value.trim(); 
   
   if (!ethAmount || isNaN(ethAmount) || Number(ethAmount) <= 0) {
@@ -133,6 +139,9 @@ async function swapETHForToken() {
 }
 
 async function pauseBot() {
+  const pauseBtn = document.getElementById("pauseBotBtn");
+  pauseBtn.disabled = true;
+  
   try {
     const tx = await contract.pauseBot();
     await tx.wait();
@@ -141,10 +150,15 @@ async function pauseBot() {
   } catch (err) {
     console.error("pauseBot error:", err);
     alert("Pause failed. Are you the contract owner?");
+  } finally {
+    pauseBtn.disabled = false;
   }
 }
 
 async function resumeBot() {
+  const resumeBtn = document.getElementById("resumeBotBtn");
+  resumeBtn.disabled = true;
+  
   try {
     const tx = await contract.resumeBot();
     await tx.wait();
@@ -153,5 +167,7 @@ async function resumeBot() {
   } catch (err) {
     console.error("resumeBot error:", err);
     alert("Resume failed. Are you the contract owner?");
+  } finally {
+    resumeBtn.disabled = false;
   }
 }
