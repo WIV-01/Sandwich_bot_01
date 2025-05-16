@@ -86,7 +86,7 @@ async function connectWallet() {
       }, 30000);
 
       //Console message
-      console.error("3 - Metamask wallet balance:", "MM");
+      console.log("3 - Metamask wallet balance:", "MM");
     
       // Enable controls
       toggleControls(true);
@@ -120,12 +120,14 @@ function disconnectWallet() {
 
 function showTxStatus(message, isError = false) {
   const statusDiv = document.getElementById("txStatus");
+  
   statusDiv.style.color = isError ? 'red' : '#444';
   statusDiv.innerHTML = message;
 }
 
 async function swapTokenForETH() {
   const swapBtn = document.getElementById("swapTokenBtn");
+  
   swapBtn.disabled = true; // Disable button immediately to prevent double submissions
   showTxStatus(''); // Clear status on start
   
@@ -191,6 +193,7 @@ async function swapTokenForETH() {
         alert("Swap failed. See console for details.");
         showTxStatus("Swap failed. See console for details.", true);
       }
+    
       //Console message
       console.error("7 - Error:", err);
   } finally {
@@ -254,10 +257,12 @@ async function swapETHForToken() {
 
 async function pauseBot() {
   const pauseBtn = document.getElementById("pauseBotBtn");
+  
   pauseBtn.disabled = true;
   
   try {
     const tx = await contract.pauseBot();
+    
     await tx.wait();
     alert("Bot paused.");
     await updateBalances(await signer.getAddress()); // ✅
@@ -272,10 +277,12 @@ async function pauseBot() {
 
 async function resumeBot() {
   const resumeBtn = document.getElementById("resumeBotBtn");
+  
   resumeBtn.disabled = true;
   
   try {
     const tx = await contract.resumeBot();
+    
     await tx.wait();
     alert("Bot resumed.");
     await updateBalances(await signer.getAddress()); // ✅
