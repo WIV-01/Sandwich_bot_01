@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Uniswap Trading Bot UI</title>
   <script src="https://cdn.jsdelivr.net/npm/ethers@6.6.2/dist/ethers.umd.min.js"></script>
+  <script src="abi.js"></script> <!-- Load ABI here -->
 </head>
 <body>
   <h1>Uniswap Trading Bot Interface</h1>
@@ -14,17 +15,17 @@
   <hr>
 
   <h3>Swap Token for ETH</h3>
-  <input id="tokenIn" placeholder="Token address (ERC20)" />
+  <input id="tokenIn" placeholder="Token address (ERC20)" value="0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48" />
   <input id="amountIn" placeholder="Amount to swap (in wei)" />
-  <input id="slippageIn" placeholder="Slippage (%)" />
+  <input id="slippageIn" placeholder="Slippage (%)" value="1" />
   <button onclick="swapTokenForETH()">Swap</button>
 
-  <h3>Swap ETH for Token (USDC)</h3>
-  <input id="tokenOut" value="0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48" readonly style="width: 400px;" />
-  <input id="slippageOut" placeholder="Slippage (%)" />
+  <h3>Swap ETH for Token</h3>
+  <input id="tokenOut" placeholder="Token address (ERC20)" value="0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48" />
+  <input id="slippageOut" placeholder="Slippage (%)" value="1" />
   <input id="ethAmount" placeholder="ETH to send (in wei)" />
   <button onclick="swapETHForToken()">Swap</button>
-  
+
   <hr>
 
   <h3>Admin Actions</h3>
@@ -37,7 +38,6 @@
     let contract;
 
     const CONTRACT_ADDRESS = "0x9ddd5962f9441a0400be0ab95777381bbfd4ec59";
-    const CONTRACT_ABI = [/* <-- Paste ABI here */];
 
     async function connectWallet() {
       if (window.ethereum) {
