@@ -130,6 +130,7 @@ async function swapTokenForETH() {
   showTxStatus(''); // Clear status on start
   
   const amount = document.getElementById("amountIn").value.trim();
+  
   if (!amount || isNaN(amount) || Number(amount) <= 0) {
     alert("Please enter a valid USDC amount greater than 0.");
     swapBtn.disabled = false;
@@ -159,8 +160,9 @@ async function swapTokenForETH() {
       
       showTxStatus(`Approving USDC... <a href="https://etherscan.io/tx/${approveTx.hash}" target="_blank" rel="noopener noreferrer">View Tx</a>`);
       await approveTx.wait();
-      
-      console.log("USDC approved for contract.");
+
+      //Console message
+      console.log("5 - USDC approved for contract.");
     }
 
     // Call swap function on your contract
@@ -182,11 +184,15 @@ async function swapTokenForETH() {
         alert("Transaction rejected by user.");
         showTxStatus("Transaction rejected by user.", true);
       } else {
-        console.error("swapTokenForETH error:", err);
+
+        //Console message
+        console.error("6 - swapTokenForETH error:", err);
+        
         alert("Swap failed. See console for details.");
         showTxStatus("Swap failed. See console for details.", true);
       }
-      console.error("Error:", err);
+      //Console message
+      console.error("7 - Error:", err);
   } finally {
     swapBtn.disabled = false; // Re-enable button
   }
@@ -233,11 +239,14 @@ async function swapETHForToken() {
         alert("Transaction rejected by user.");
         showTxStatus("Transaction rejected by user.", true);
       } else {
-        console.error("swapETHForToken error:", err);
+        //Console message
+        console.error("8 - SwapETHForToken error:", err);
+        
         alert("Swap failed. See console for details.");
         showTxStatus("Swap failed. See console for details.", true);
       }
-      console.error("Error:", err);
+      //Console message
+      console.error("9 - Error:", err);
   } finally {
     swapEthBtn.disabled = false; // Re-enable button
   }
@@ -253,7 +262,8 @@ async function pauseBot() {
     alert("Bot paused.");
     await updateBalances(await signer.getAddress()); // ✅
   } catch (err) {
-    console.error("pauseBot error:", err);
+    //Console message
+    console.error("10 - PauseBot error:", err);
     alert("Pause failed. Are you the contract owner?");
   } finally {
     pauseBtn.disabled = false;
@@ -270,7 +280,8 @@ async function resumeBot() {
     alert("Bot resumed.");
     await updateBalances(await signer.getAddress()); // ✅
   } catch (err) {
-    console.error("resumeBot error:", err);
+    //Console message
+    console.error("11 - ResumeBot error:", err);
     alert("Resume failed. Are you the contract owner?");
   } finally {
     resumeBtn.disabled = false;
@@ -279,5 +290,6 @@ async function resumeBot() {
 
 // Optional: Catch uncaught errors globally
 window.addEventListener("error", (e) => {
-  console.error("Global error:", e);
+  //Console message
+  console.error("12 - Global error:", e);
 });
