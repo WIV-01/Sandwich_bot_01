@@ -21,7 +21,7 @@ window.addEventListener("DOMContentLoaded", () => {
   document.getElementById("swapEthBtn").addEventListener("click", swapETHForToken);
   document.getElementById("pauseBotBtn").addEventListener("click", pauseBot);
   document.getElementById("resumeBotBtn").addEventListener("click", resumeBot);
-
+  
   toggleControls(false);
 });
 
@@ -87,6 +87,12 @@ function disconnectWallet() {
   toggleControls(false);
 }
 
+function showTxStatus(message, isError = false) {
+  const statusDiv = document.getElementById("txStatus");
+  statusDiv.style.color = isError ? 'red' : '#444';
+  statusDiv.innerHTML = message;
+}
+
 async function updateBalances(address) {
   try {
     const ethBalance = await provider.getBalance(address);
@@ -108,6 +114,7 @@ async function updateBalances(address) {
 async function swapTokenForETH() {
   const swapBtn = document.getElementById("swapTokenBtn");
   swapBtn.disabled = true; // Disable button immediately to prevent double submissions
+  showTxStatus(''); // Clear status on start
   
   const amount = document.getElementById("amountIn").value.trim();
   if (!amount || isNaN(amount) || Number(amount) <= 0) {
@@ -126,6 +133,8 @@ async function swapTokenForETH() {
   }
 
   try {
+    showTxStatus("Approving and sending transaction...");
+    
     const usdcContract = new ethers.Contract(USDC_ADDRESS, usdcAbi, signer);
     const amountIn = ethers.parseUnits(amount, 6); // ✅ USDC has 6 decimals
     const ownerAddress = await signer.getAddress();
@@ -134,13 +143,25 @@ async function swapTokenForETH() {
     // Approve contract if allowance insufficient
     if (allowance.lt(amountIn)) {
       const approveTx = await usdcContract.approve(CONTRACT_ADDRESS, amountIn);
+      
+      showTxStatus(`Approving USDC... <a href="https://etherscan.io/tx/${approveTx.hash}" target="_blank" rel="noopener noreferrer">View Tx</a>`);
       await approveTx.wait();
+      
       console.log("USDC approved for contract.");
     }
 
     // Call swap function on your contract
     const tx = await contract.swapTokenForETHWithSlippage(USDC_ADDRESS, amountIn, slippage);
+
+    showTxStatus(`Swapping USDC for ETH... <a href="https://etherscan.io/tx/${tx.hash}" target="_blank" rel="noopener noreferrer">View Tx</a>`);
+    
+    // Immediately update the status with the tx hash & link
+    document.getElementById("txStatus").innerHTML = `Transaction sent! <a href="https://etherscan.io/tx/${tx.hash}" target="_blank" rel="noopener noreferrer">View on Etherscan</a>`;
+
     await tx.wait();
+
+    // Update UI after success
+    document.getElementById("txStatus").innerHTML = "Swap completed successfully! 🎉";
     
     alert("USDC → ETH swap completed!");
     await updateBalances(await signer.getAddress());
