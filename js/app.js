@@ -76,6 +76,28 @@ async function connectWallet() {
   }
 }
 
+function disconnectWallet() {
+  if (balanceInterval) {
+    clearInterval(balanceInterval);
+    balanceInterval = null;
+  }
+
+  provider = null;
+  signer = null;
+  contract = null;
+
+  document.getElementById("walletAddress").innerText = "Wallet disconnected";
+  document.getElementById("ethBalance").innerText = "ETH Balance:";
+  document.getElementById("usdcBalance").innerText = "USDC Balance:";
+
+  // Disable controls
+  document.getElementById("swapTokenBtn").disabled = true;
+  document.getElementById("swapEthBtn").disabled = true;
+  document.getElementById("pauseBotBtn").disabled = true;
+  document.getElementById("resumeBotBtn").disabled = true;
+  document.getElementById("disconnectWalletBtn").disabled = true;
+  document.getElementById("connectWalletBtn").disabled = false;
+}
 async function updateBalances(address) {
   try {
     const ethBalance = await provider.getBalance(address);
