@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Uniswap Trading Bot UI</title>
+  <link rel="stylesheet" href="css/style.css" />
   <script src="https://cdn.jsdelivr.net/npm/ethers@6.6.2/dist/ethers.umd.min.js"></script>
   <script src="abi.js"></script> <!-- Load ABI here -->
 </head>
@@ -15,10 +16,9 @@
   <hr>
 
   <h3>Swap Token for ETH</h3>
-  <table border="1" cellpadding="5" cellspacing="0">
+  <table>
     <thead>
       <tr>
-        <th>Token Address (ERC20)</th>
         <th>Amount to Swap (in wei)</th>
         <th>Slippage (%)</th>
         <th>Action</th>
@@ -26,7 +26,6 @@
     </thead>
     <tbody>
       <tr>
-        <td><input id="tokenIn" value="0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48" /></td>
         <td><input id="amountIn" /></td>
         <td><input id="slippageIn" value="1" /></td>
         <td><button onclick="swapTokenForETH()">Swap</button></td>
@@ -35,10 +34,9 @@
   </table>
 
   <h3>Swap ETH for Token</h3>
-  <table border="1" cellpadding="5" cellspacing="0">
+  <table>
     <thead>
       <tr>
-        <th>Token Address (ERC20)</th>
         <th>Slippage (%)</th>
         <th>ETH to Send (in wei)</th>
         <th>Action</th>
@@ -46,7 +44,6 @@
     </thead>
     <tbody>
       <tr>
-        <td><input id="tokenOut" value="0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48" /></td>
         <td><input id="slippageOut" value="1" /></td>
         <td><input id="ethAmount" /></td>
         <td><button onclick="swapETHForToken()">Swap</button></td>
@@ -81,9 +78,11 @@
     }
 
     async function swapTokenForETH() {
-      const token = document.getElementById("tokenIn").value;
       const amount = document.getElementById("amountIn").value;
       const slippage = document.getElementById("slippageIn").value;
+      // You may want to hardcode or set token address somewhere since it is removed here
+      const token = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"; // USDC as example
+
       try {
         const tx = await contract.swapTokenForETHWithSlippage(token, amount, slippage);
         await tx.wait();
@@ -95,9 +94,10 @@
     }
 
     async function swapETHForToken() {
-      const token = document.getElementById("tokenOut").value;
       const slippage = document.getElementById("slippageOut").value;
       const ethAmount = document.getElementById("ethAmount").value;
+      const token = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"; // USDC as example
+
       try {
         const tx = await contract.swapETHForTokenWithSlippage(token, slippage, {
           value: ethAmount
