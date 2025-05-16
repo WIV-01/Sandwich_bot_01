@@ -81,20 +81,21 @@ hr {
 }
 
 /* Center the Connect Wallet button */
-body > button:first-of-type {
+#connectWalletBtn {
   display: block;
   margin: 20px auto 10px auto;
 }
 
-/* Center Bot Action buttons */
+/* Center Bot Action buttons container */
 .bot-actions {
   display: flex;
   justify-content: center;
   gap: 15px;
-  margin-bottom: 30px;
+  margin: 20px auto 30px auto;
+  max-width: 300px;
 }
 
-/* Admin buttons side by side (optional) */
+/* Admin buttons side by side (if any left outside bot-actions container) */
 h3 + button {
   margin-right: 10px;
 }
