@@ -13,7 +13,7 @@ const usdcAbi = [
   "function decimals() view returns (uint8)"
 ];
 
-window.addEventListener("DOMContentLoaded", () => {
+/*window.addEventListener("DOMContentLoaded", () => {
   document.getElementById("connectWalletBtn").addEventListener("click", connectWallet);
   document.getElementById("disconnectWalletBtn").addEventListener("click", disconnectWallet);
   document.getElementById("swapTokenBtn").addEventListener("click", swapTokenForETH);
@@ -22,7 +22,53 @@ window.addEventListener("DOMContentLoaded", () => {
   document.getElementById("resumeBotBtn").addEventListener("click", resumeBot);
   
   toggleControls(false);
+});*/
+
+window.addEventListener("DOMContentLoaded", async () => {
+  // Set up UI button event listeners
+  document.getElementById("connectWalletBtn").addEventListener("click", connectWallet);
+  document.getElementById("disconnectWalletBtn").addEventListener("click", disconnectWallet);
+  document.getElementById("swapTokenBtn").addEventListener("click", swapTokenForETH);
+  document.getElementById("swapEthBtn").addEventListener("click", swapETHForToken);
+  document.getElementById("pauseBotBtn").addEventListener("click", pauseBot);
+  document.getElementById("resumeBotBtn").addEventListener("click", resumeBot);
+
+  toggleControls(false); // Initially disable all actions
+
+  // 🔁 Auto-reconnect if wallet already authorized
+  if (window.ethereum) {
+    try {
+      const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+
+      if (accounts.length > 0) {
+        provider = new ethers.BrowserProvider(window.ethereum);
+        signer = await provider.getSigner();
+        contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+
+        const address = accounts[0];
+        document.getElementById("walletAddress").innerText = "Connected: " + address;
+        await updateBalances(address);
+
+        // Start polling balances
+        if (balanceInterval) clearInterval(balanceInterval);
+        balanceInterval = setInterval(async () => {
+          const currentAddress = await signer.getAddress();
+          await updateBalances(currentAddress);
+        }, 30000);
+
+        toggleControls(true); // Enable action buttons
+      }
+    } catch (err) {
+      console.error("13 - Auto-reconnect error:", err);
+    }
+  }
 });
+
+
+
+
+
+
 
 function toggleControls(connected) {
   document.getElementById("connectWalletBtn").disabled = connected;
