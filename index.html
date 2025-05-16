@@ -9,6 +9,14 @@
   <script src="js/app.js" defer></script> <!-- Your bot JS file -->
 </head>
 <body>
+
+<div id="ethersVersion"></div>
+
+<script>
+  document.getElementById('ethersVersion').innerText = `Ethers.js version: ${ethers.version}`;
+</script>
+
+  
   <h1>Uniswap Trading Bot Interface</h1>
 
   <button id="connectWalletBtn">🔌 Connect Wallet</button>
