@@ -33,6 +33,12 @@ async function connectWallet() {
       document.getElementById("walletAddress").innerText = "Connected: " + address;
       await updateBalances(address); // 👈 Initial fetch
 
+      // Save interval ID so you can clear it later if needed
+      balanceInterval = setInterval(async () => {
+        const currentAddress = await signer.getAddress();
+        await updateBalances(currentAddress);
+      }, 30000);
+      
       // ✅ Refresh balances every 30 seconds
       setInterval(async () => {
         const currentAddress = await signer.getAddress();
