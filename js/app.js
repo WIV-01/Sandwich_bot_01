@@ -29,6 +29,14 @@ async function connectWallet() {
 
       const address = await signer.getAddress();
       document.getElementById("walletAddress").innerText = "Connected: " + address;
+      await updateBalances(address); // 👈 Initial fetch
+
+      // ✅ Refresh balances every 30 seconds
+      setInterval(async () => {
+        const currentAddress = await signer.getAddress();
+        await updateBalances(currentAddress);
+      }, 30000);
+      
     } catch (err) {
       console.error("Wallet connection error:", err);
       alert("Failed to connect wallet.");
@@ -37,10 +45,6 @@ async function connectWallet() {
     alert("Please install MetaMask.");
   }
 }
-
-const address = await signer.getAddress();
-document.getElementById("walletAddress").innerText = "Connected: " + address;
-await updateBalances(address); // 👈 fetch balances here
 
 async function updateBalances(address) {
   try {
