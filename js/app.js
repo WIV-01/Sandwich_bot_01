@@ -34,6 +34,24 @@ function toggleControls(connected) {
   document.getElementById("resumeBotBtn").disabled = !connected; 
 }
 
+async function updateBalances(address) {
+  try {
+    const ethBalance = await provider.getBalance(address);
+    const ethFormatted = ethers.formatEther(ethBalance);
+    document.getElementById("ethBalance").innerText = `ETH Balance: ${parseFloat(ethFormatted).toFixed(4)} ETH`;
+
+    const usdcContract = new ethers.Contract(USDC_ADDRESS, usdcAbi, provider);
+    const usdcBalance = await usdcContract.balanceOf(address);
+    const usdcFormatted = ethers.formatUnits(usdcBalance, 6);
+    
+    document.getElementById("usdcBalance").innerText = `USDC Balance: ${parseFloat(usdcFormatted).toFixed(2)} USDC`;
+  } catch (err) {
+    console.error("Balance fetch error:", err);
+    document.getElementById("ethBalance").innerText = "ETH Balance: Error";
+    document.getElementById("usdcBalance").innerText = "USDC Balance: Error";
+  }
+}
+
 async function connectWallet() {
   if (!window.ethereum) {
     alert("Please install MetaMask.");
@@ -91,24 +109,6 @@ function showTxStatus(message, isError = false) {
   const statusDiv = document.getElementById("txStatus");
   statusDiv.style.color = isError ? 'red' : '#444';
   statusDiv.innerHTML = message;
-}
-
-async function updateBalances(address) {
-  try {
-    const ethBalance = await provider.getBalance(address);
-    const ethFormatted = ethers.formatEther(ethBalance);
-    document.getElementById("ethBalance").innerText = `ETH Balance: ${parseFloat(ethFormatted).toFixed(4)} ETH`;
-
-    const usdcContract = new ethers.Contract(USDC_ADDRESS, usdcAbi, provider);
-    const usdcBalance = await usdcContract.balanceOf(address);
-    const usdcFormatted = ethers.formatUnits(usdcBalance, 6);
-    
-    document.getElementById("usdcBalance").innerText = `USDC Balance: ${parseFloat(usdcFormatted).toFixed(2)} USDC`;
-  } catch (err) {
-    console.error("Balance fetch error:", err);
-    document.getElementById("ethBalance").innerText = "ETH Balance: Error";
-    document.getElementById("usdcBalance").innerText = "USDC Balance: Error";
-  }
 }
 
 async function swapTokenForETH() {
