@@ -34,12 +34,6 @@ function toggleControls(connected) {
   document.getElementById("resumeBotBtn").disabled = !connected; 
 }
 
-const provider = new ethers.BrowserProvider(window.ethereum);
-const balance = await provider.getBalance(address);
-console.log("Balance raw:", balance);
-const ethString = ethers.formatEther(balance);
-console.log("Balance formatted:", ethString);
-
 async function connectWallet() {
   if (!window.ethereum) {
     alert("Please install MetaMask.");
