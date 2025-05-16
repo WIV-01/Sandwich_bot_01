@@ -64,12 +64,6 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-
-
-
-
-
-
 function toggleControls(connected) {
   document.getElementById("connectWalletBtn").disabled = connected;
   document.getElementById("disconnectWalletBtn").disabled = !connected;
