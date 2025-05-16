@@ -4,42 +4,49 @@ let contract;
 
 const CONTRACT_ADDRESS = "0x9ddd5962f9441a0400be0ab95777381bbfd4ec59";
 
-window.addEventListener('DOMContentLoaded', () => {
-  const connectWalletBtn = document.getElementById('connectWalletBtn');
-  const swapTokenBtn = document.getElementById('swapTokenBtn');
-  const swapEthBtn = document.getElementById('swapEthBtn');
-  const pauseBotBtn = document.getElementById('pauseBotBtn');
-  const resumeBotBtn = document.getElementById('resumeBotBtn');
+window.addEventListener("DOMContentLoaded", () => {
+  const connectBtn = document.getElementById("connectBtn");
+  const swapTokenBtn = document.getElementById("swapTokenBtn");
+  const swapETHBtn = document.getElementById("swapETHBtn");
+  const pauseBtn = document.getElementById("pauseBtn");
+  const resumeBtn = document.getElementById("resumeBtn");
 
-  connectWalletBtn.addEventListener('click', connectWallet);
-  swapTokenBtn.addEventListener('click', swapTokenForETH);
-  swapEthBtn.addEventListener('click', swapETHForToken);
-  pauseBotBtn.addEventListener('click', pauseBot);
-  resumeBotBtn.addEventListener('click', resumeBot);
+  connectBtn.addEventListener("click", connectWallet);
+  swapTokenBtn.addEventListener("click", swapTokenForETH);
+  swapETHBtn.addEventListener("click", swapETHForToken);
+  pauseBtn.addEventListener("click", pauseBot);
+  resumeBtn.addEventListener("click", resumeBot);
 });
 
 async function connectWallet() {
   if (window.ethereum) {
     try {
       await window.ethereum.request({ method: 'eth_requestAccounts' });
+
       provider = new ethers.BrowserProvider(window.ethereum);
       signer = await provider.getSigner();
       contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+
       const address = await signer.getAddress();
       document.getElementById("walletAddress").innerText = "Connected: " + address;
     } catch (err) {
-      console.error("User rejected wallet connection", err);
-      alert("Wallet connection rejected.");
+      if (err.code === 4001) {
+        console.log("User rejected wallet connection request.");
+        alert("Wallet connection rejected by user.");
+      } else {
+        console.error("Error connecting wallet:", err);
+        alert("Failed to connect wallet.");
+      }
     }
   } else {
-    alert("Install MetaMask first.");
+    alert("Please install MetaMask or another Ethereum wallet.");
   }
 }
 
 async function swapTokenForETH() {
   const amount = document.getElementById("amountIn").value;
   let slippage = Number(document.getElementById("slippageIn").value);
-  const token = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"; // USDC
+  const token = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"; // USDC example
 
   if (slippage > 50) {
     alert("Slippage cannot be more than 50%");
@@ -59,7 +66,7 @@ async function swapTokenForETH() {
 async function swapETHForToken() {
   const ethAmount = document.getElementById("ethAmount").value;
   let slippage = Number(document.getElementById("slippageOut").value);
-  const token = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"; // USDC
+  const token = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"; // USDC example
 
   if (slippage > 50) {
     alert("Slippage cannot be more than 50%");
@@ -68,7 +75,7 @@ async function swapETHForToken() {
 
   try {
     const tx = await contract.swapETHForTokenWithSlippage(token, slippage, {
-      value: ethAmount
+      value: ethers.parseEther(ethAmount.toString())
     });
     await tx.wait();
     alert("Swap completed!");
