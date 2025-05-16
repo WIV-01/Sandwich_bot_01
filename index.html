@@ -10,8 +10,10 @@
 <body>
   <h1>Uniswap Trading Bot Interface</h1>
 
-  <button onclick="connectWallet()">🔌 Connect Wallet</button>
-  <p id="walletAddress">Not connected</p>
+  <div class="center">
+    <button onclick="connectWallet()">🔌 Connect Wallet</button>
+    <p id="walletAddress">Not connected</p>
+  </div>
 
   <hr>
 
@@ -26,7 +28,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><input id="amountIn" type="number" min="0" /></td>
+        <td><input id="amountIn" type="number" min="0" step="9" /></td>
         <td><input id="slippageIn" type="number" min="0" max="50" value="1" /></td>
         <td><button onclick="swapTokenForETH()">Swap</button></td>
       </tr>
@@ -44,7 +46,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><input id="ethAmount" type="number" min="0" /></td>
+        <td><input id="ethAmount" type="number" min="0" step="9" /></td>
         <td><input id="slippageOut" type="number" min="0" max="50" value="1" /></td>
         <td><button onclick="swapETHForToken()">Swap</button></td>
       </tr>
@@ -64,26 +66,24 @@
 
     const CONTRACT_ADDRESS = "0x9ddd5962f9441a0400be0ab95777381bbfd4ec59";
 
-  async function connectWallet() {
-    if (window.ethereum) {
-      try {
-        // Request user to connect wallet
-        await window.ethereum.request({ method: 'eth_requestAccounts' });
-  
-        provider = new ethers.BrowserProvider(window.ethereum);
-        signer = await provider.getSigner();
-        contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
-  
-        const address = await signer.getAddress();
-        document.getElementById("walletAddress").innerText = "Connected: " + address;
-      } catch (err) {
-        console.error("User rejected wallet connection", err);
-        alert("Wallet connection rejected.");
+    async function connectWallet() {
+      if (window.ethereum) {
+        try {
+          await window.ethereum.request({ method: 'eth_requestAccounts' });
+          provider = new ethers.BrowserProvider(window.ethereum);
+          signer = await provider.getSigner();
+          contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+
+          const address = await signer.getAddress();
+          document.getElementById("walletAddress").innerText = "Connected: " + address;
+        } catch (err) {
+          console.error("User rejected wallet connection", err);
+          alert("Wallet connection rejected.");
+        }
+      } else {
+        alert("Install MetaMask first.");
       }
-    } else {
-      alert("Install MetaMask first.");
     }
-  }
 
     async function swapTokenForETH() {
       const amount = document.getElementById("amountIn").value;
