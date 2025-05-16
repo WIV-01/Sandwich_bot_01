@@ -6,15 +6,6 @@
   <link rel="stylesheet" href="css/style.css" />
   <script src="https://cdn.jsdelivr.net/npm/ethers@6.6.2/dist/ethers.umd.min.js"></script>
   <script src="abi.js"></script> <!-- Load ABI here -->
-  <style>
-    /* Added CSS for centering bot actions buttons */
-    .bot-actions {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 30px;
-    }
-  </style>
 </head>
 <body>
   <h1>Uniswap Trading Bot Interface</h1>
@@ -64,8 +55,8 @@
 
   <h3>Bot Actions</h3>
   <div class="bot-actions">
-    <button onclick="startBot()">▶️ Start Bot</button>
-    <button onclick="stopBot()">⏸ Stop Bot</button>
+    <button onclick="pauseBot()">⏸ Stop Bot</button>
+    <button onclick="resumeBot()">▶️ Start Bot</button>
   </div>
 
   <script>
@@ -82,7 +73,6 @@
           provider = new ethers.BrowserProvider(window.ethereum);
           signer = await provider.getSigner();
           contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
-
           const address = await signer.getAddress();
           document.getElementById("walletAddress").innerText = "Connected: " + address;
         } catch (err) {
@@ -136,25 +126,25 @@
       }
     }
 
-    async function startBot() {
-      try {
-        const tx = await contract.resumeBot();
-        await tx.wait();
-        alert("Bot started.");
-      } catch (err) {
-        console.error(err);
-        alert("Only the owner can start the bot.");
-      }
-    }
-
-    async function stopBot() {
+    async function pauseBot() {
       try {
         const tx = await contract.pauseBot();
         await tx.wait();
-        alert("Bot stopped.");
+        alert("Bot paused.");
       } catch (err) {
         console.error(err);
-        alert("Only the owner can stop the bot.");
+        alert("Only the owner can pause the bot.");
+      }
+    }
+
+    async function resumeBot() {
+      try {
+        const tx = await contract.resumeBot();
+        await tx.wait();
+        alert("Bot resumed.");
+      } catch (err) {
+        console.error(err);
+        alert("Only the owner can resume the bot.");
       }
     }
   </script>
