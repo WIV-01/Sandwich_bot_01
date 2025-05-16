@@ -1,12 +1,11 @@
 let provider;
 let signer;
 let contract;
-let balanceInterval = null; // Add this at the top of app.js
+let balanceInterval = null;
 
 const CONTRACT_ADDRESS = "0x9ddd5962f9441a0400be0ab95777381bbfd4ec59"; // ✅ Your deployed contract
 const USDC_ADDRESS = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"; // ✅ USDC Mainnet
 //const CONTRACT_ABI = window.CONTRACT_ABI; // ✅ Contract ABI
-
 const usdcAbi = [
   "function approve(address spender, uint256 amount) public returns (bool)",
   "function allowance(address owner, address spender) public view returns (uint256)",
@@ -38,8 +37,9 @@ async function updateBalances(address) {
   try {
     const ethBalance = await provider.getBalance(address);
 
-    console.log("ethers object is:", ethers);
-    console.log("ethers.formatEther is:", ethers.formatEther);
+    //Console message
+    console.log("1a - Ethers object is:", ethers);
+    console.log("1b - Ethers.formatEther is:", ethers.formatEther);
     
     const ethFormatted = ethers.formatEther(ethBalance);
     document.getElementById("ethBalance").innerText = `ETH Balance: ${parseFloat(ethFormatted).toFixed(4)} ETH`;
@@ -50,9 +50,11 @@ async function updateBalances(address) {
     
     document.getElementById("usdcBalance").innerText = `USDC Balance: ${parseFloat(usdcFormatted).toFixed(2)} USDC`;
   } catch (err) {
-    console.error("Balance fetch error:", err);
-    document.getElementById("ethBalance").innerText = "ETH Balance: Error";
-    document.getElementById("usdcBalance").innerText = "USDC Balance: Error";
+
+      //Console message
+      console.error("2 - Balance fetch error:", err);
+      document.getElementById("ethBalance").innerText = "ETH Balance: Error";
+      document.getElementById("usdcBalance").innerText = "USDC Balance: Error";
   }
 }
 
@@ -68,6 +70,7 @@ async function connectWallet() {
       contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
 
       const address = await signer.getAddress();
+    
       document.getElementById("walletAddress").innerText = "Connected: " + address;
       await updateBalances(address); // 👈 Initial fetch
 
@@ -75,18 +78,24 @@ async function connectWallet() {
         clearInterval(balanceInterval);
       }
       
-      // ✅ Refresh balances every 30 seconds
+      // ✅ Refresh Metamask wallet balances every 30 seconds
       // Save interval ID so you can clear it later if needed
       balanceInterval = setInterval(async () => {
         const currentAddress = await signer.getAddress();
         await updateBalances(currentAddress);
       }, 30000);
-      
-    // Enable controls
-    toggleControls(true);
+
+      //Console message
+      console.error("3 - Metamask wallet balance:", "MM");
+    
+      // Enable controls
+      toggleControls(true);
 
   } catch (err) {
-    console.error("Wallet connection error:", err);
+
+    //Console message
+    console.error("4 - Wallet connection error:", err);
+    
     alert(err?.data?.message || err?.message || "Failed to connect wallet.");
   }
 }
