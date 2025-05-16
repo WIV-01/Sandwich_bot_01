@@ -57,7 +57,7 @@ async function swapTokenForETH() {
     const allowance = await usdcContract.allowance(ownerAddress, CONTRACT_ADDRESS);
 
     // Only approve if allowance is too low
-    if (allowance < amountIn) {
+    if (allowance.lt(amountIn)) {
       const approveTx = await usdcContract.approve(CONTRACT_ADDRESS, amountIn);
       await approveTx.wait();
       console.log("USDC approved for contract.");
