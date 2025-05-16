@@ -6,14 +6,21 @@
   <link rel="stylesheet" href="css/style.css" />
   <script src="https://cdn.jsdelivr.net/npm/ethers@6.6.2/dist/ethers.umd.min.js"></script>
   <script src="abi.js"></script> <!-- Load ABI here -->
+  <style>
+    /* Added CSS for centering bot actions buttons */
+    .bot-actions {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+  </style>
 </head>
 <body>
   <h1>Uniswap Trading Bot Interface</h1>
 
-  <div class="center">
-    <button onclick="connectWallet()">🔌 Connect Wallet</button>
-    <p id="walletAddress">Not connected</p>
-  </div>
+  <button onclick="connectWallet()">🔌 Connect Wallet</button>
+  <p id="walletAddress">Not connected</p>
 
   <hr>
 
@@ -28,7 +35,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><input id="amountIn" type="number" min="0" step="9" /></td>
+        <td><input id="amountIn" type="number" min="0" step="0.000000001" /></td>
         <td><input id="slippageIn" type="number" min="0" max="50" value="1" /></td>
         <td><button onclick="swapTokenForETH()">Swap</button></td>
       </tr>
@@ -46,7 +53,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><input id="ethAmount" type="number" min="0" step="9" /></td>
+        <td><input id="ethAmount" type="number" min="0" step="0.000000001" /></td>
         <td><input id="slippageOut" type="number" min="0" max="50" value="1" /></td>
         <td><button onclick="swapETHForToken()">Swap</button></td>
       </tr>
@@ -56,8 +63,10 @@
   <hr>
 
   <h3>Bot Actions</h3>
-  <button onclick="pauseBot()">⏸ Pause Bot</button>
-  <button onclick="resumeBot()">▶️ Resume Bot</button>
+  <div class="bot-actions">
+    <button onclick="startBot()">▶️ Start Bot</button>
+    <button onclick="stopBot()">⏸ Stop Bot</button>
+  </div>
 
   <script>
     let provider;
@@ -127,25 +136,25 @@
       }
     }
 
-    async function pauseBot() {
-      try {
-        const tx = await contract.pauseBot();
-        await tx.wait();
-        alert("Bot paused.");
-      } catch (err) {
-        console.error(err);
-        alert("Only the owner can pause the bot.");
-      }
-    }
-
-    async function resumeBot() {
+    async function startBot() {
       try {
         const tx = await contract.resumeBot();
         await tx.wait();
-        alert("Bot resumed.");
+        alert("Bot started.");
       } catch (err) {
         console.error(err);
-        alert("Only the owner can resume the bot.");
+        alert("Only the owner can start the bot.");
+      }
+    }
+
+    async function stopBot() {
+      try {
+        const tx = await contract.pauseBot();
+        await tx.wait();
+        alert("Bot stopped.");
+      } catch (err) {
+        console.error(err);
+        alert("Only the owner can stop the bot.");
       }
     }
   </script>
