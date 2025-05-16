@@ -1,6 +1,7 @@
 let provider;
 let signer;
 let contract;
+let balanceInterval = null; // Add this at the top of app.js
 
 const CONTRACT_ADDRESS = "0x9ddd5962f9441a0400be0ab95777381bbfd4ec59"; // ✅ Your deployed contract
 const USDC_ADDRESS = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"; // ✅ USDC Mainnet
@@ -8,7 +9,8 @@ const CONTRACT_ABI = window.CONTRACT_ABI; // ✅ Contract ABI
 
 const usdcAbi = [
   "function approve(address spender, uint256 amount) public returns (bool)",
-  "function allowance(address owner, address spender) public view returns (uint256)"
+  "function allowance(address owner, address spender) public view returns (uint256)",
+  "function balanceOf(address owner) view returns (uint256)"  // <-- added here
 ];
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -135,6 +137,7 @@ async function pauseBot() {
     const tx = await contract.pauseBot();
     await tx.wait();
     alert("Bot paused.");
+    await updateBalances(await signer.getAddress()); // ✅
   } catch (err) {
     console.error("pauseBot error:", err);
     alert("Pause failed. Are you the contract owner?");
@@ -146,6 +149,7 @@ async function resumeBot() {
     const tx = await contract.resumeBot();
     await tx.wait();
     alert("Bot resumed.");
+    await updateBalances(await signer.getAddress()); // ✅
   } catch (err) {
     console.error("resumeBot error:", err);
     alert("Resume failed. Are you the contract owner?");
