@@ -161,8 +161,7 @@ async function swapTokenForETH() {
     showTxStatus("Swap completed successfully! 🎉");
     
     // Update UI after success
-    document.getElementById("txStatus").innerHTML = "Swap completed successfully! 🎉";
-    
+    //document.getElementById("txStatus").innerHTML = "Swap completed successfully! 🎉";
     alert("USDC → ETH swap completed!");
     await updateBalances(await signer.getAddress());
   } catch (err) {
