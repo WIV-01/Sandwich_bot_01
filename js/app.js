@@ -79,6 +79,7 @@ async function swapTokenForETH() {
   const amount = document.getElementById("amountIn").value.trim();
   if (!amount || isNaN(amount) || Number(amount) <= 0) {
     alert("Please enter a valid USDC amount greater than 0.");
+    swapBtn.disabled = false;
     return;
   }
 
@@ -87,6 +88,7 @@ async function swapTokenForETH() {
   
   if (isNaN(slippage) || slippage < 0 || slippage > 50) {
     alert("Slippage must be a number between 0 and 50.");
+    swapBtn.disabled = false;
     return;
   }
 
@@ -95,21 +97,28 @@ async function swapTokenForETH() {
 
     const usdcContract = new ethers.Contract(USDC_ADDRESS, usdcAbi, signer);
     const ownerAddress = await signer.getAddress();
+
+    // Check current allowance
     const allowance = await usdcContract.allowance(ownerAddress, CONTRACT_ADDRESS);
 
+    // Approve contract if allowance insufficient
     if (allowance.lt(amountIn)) {
       const approveTx = await usdcContract.approve(CONTRACT_ADDRESS, amountIn);
       await approveTx.wait();
       console.log("USDC approved for contract.");
     }
 
+    // Call swap function on your contract
     const tx = await contract.swapTokenForETHWithSlippage(USDC_ADDRESS, amountIn, slippage);
     await tx.wait();
+    
     alert("USDC → ETH swap completed!");
     await updateBalances(await signer.getAddress());
   } catch (err) {
     console.error("swapTokenForETH error:", err);
     alert("Swap failed. See console for details.");
+  } finally {
+    swapBtn.disabled = false; // Re-enable button
   }
 }
 
