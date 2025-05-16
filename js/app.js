@@ -183,7 +183,6 @@ async function swapETHForToken() {
 
   try {
     const value = ethers.parseEther(ethAmount); // ✅ ETH has 18 decimals
-    
     const tx = await contract.swapETHForTokenWithSlippage(USDC_ADDRESS, slippage, { value });
     await tx.wait();
     alert("ETH → USDC swap completed!");
@@ -229,3 +228,8 @@ async function resumeBot() {
     resumeBtn.disabled = false;
   }
 }
+
+// Optional: Catch uncaught errors globally
+window.addEventListener("error", (e) => {
+  console.error("Global error:", e);
+});
