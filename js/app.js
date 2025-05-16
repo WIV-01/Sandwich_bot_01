@@ -15,10 +15,18 @@ const usdcAbi = [
 
 window.addEventListener("DOMContentLoaded", () => {
   document.getElementById("connectWalletBtn").addEventListener("click", connectWallet);
+  document.getElementById("disconnectWalletBtn").addEventListener("click", disconnectWallet);
   document.getElementById("swapTokenBtn").addEventListener("click", swapTokenForETH);
   document.getElementById("swapEthBtn").addEventListener("click", swapETHForToken);
   document.getElementById("pauseBotBtn").addEventListener("click", pauseBot);
   document.getElementById("resumeBotBtn").addEventListener("click", resumeBot);
+
+  // Disable buttons initially
+  document.getElementById("swapTokenBtn").disabled = true;
+  document.getElementById("swapEthBtn").disabled = true;
+  document.getElementById("pauseBotBtn").disabled = true;
+  document.getElementById("resumeBotBtn").disabled = true;
+  document.getElementById("disconnectWalletBtn").disabled = true;
 });
 
 async function connectWallet() {
@@ -51,6 +59,7 @@ async function connectWallet() {
       }, 30000);
       */
       
+      // Enable controls
       document.getElementById("swapTokenBtn").disabled = false;
       document.getElementById("swapEthBtn").disabled = false;
       document.getElementById("pauseBotBtn").disabled = false;
