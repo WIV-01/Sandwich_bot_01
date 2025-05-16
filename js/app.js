@@ -2,7 +2,8 @@ let provider;
 let signer;
 let contract;
 
-const CONTRACT_ADDRESS = "0x9ddd5962f9441a0400be0ab95777381bbfd4ec59";
+const CONTRACT_ADDRESS = "0x9ddd5962f9441a0400be0ab95777381bbfd4ec59"; // ✅ Deployed contract address
+const USDC_ADDRESS = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"; // ✅ USDC Ethereum Mainnet
 
 window.addEventListener("DOMContentLoaded", () => {
   const connectBtn = document.getElementById("connectBtn");
@@ -46,7 +47,7 @@ async function connectWallet() {
 async function swapTokenForETH() {
   const amount = document.getElementById("amountIn").value;
   let slippage = Number(document.getElementById("slippageIn").value);
-  const token = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"; // USDC example
+  const token = USDC_ADDRESS; // USDC token
 
   if (slippage > 50) {
     alert("Slippage cannot be more than 50%");
@@ -66,7 +67,7 @@ async function swapTokenForETH() {
 async function swapETHForToken() {
   const ethAmount = document.getElementById("ethAmount").value;
   let slippage = Number(document.getElementById("slippageOut").value);
-  const token = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"; // USDC example
+  const token = USDC_ADDRESS; // USDC token
 
   if (slippage > 50) {
     alert("Slippage cannot be more than 50%");
