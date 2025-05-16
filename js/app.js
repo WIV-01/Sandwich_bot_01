@@ -38,6 +38,10 @@ async function connectWallet() {
   }
 }
 
+const address = await signer.getAddress();
+document.getElementById("walletAddress").innerText = "Connected: " + address;
+await updateBalances(address); // 👈 fetch balances here
+
 async function updateBalances(address) {
   try {
     const ethBalance = await provider.getBalance(address);
