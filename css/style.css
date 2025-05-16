@@ -99,3 +99,32 @@ hr {
 h3 + button {
   margin-right: 10px;
 }
+
+#resumeBotBtn {
+  background-color: #28a745; /* Bootstrap green */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#pauseBotBtn {
+  background-color: #dc3545; /* Bootstrap red */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Optional: Add hover effects */
+#resumeBotBtn:hover {
+  background-color: #218838;
+}
+
+#pauseBotBtn:hover {
+  background-color: #c82333;
+}
