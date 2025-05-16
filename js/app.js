@@ -38,6 +38,24 @@ async function connectWallet() {
   }
 }
 
+async function updateBalances(address) {
+  try {
+    const ethBalance = await provider.getBalance(address);
+    const ethFormatted = ethers.formatEther(ethBalance);
+    document.getElementById("ethBalance").innerText = `ETH Balance: ${parseFloat(ethFormatted).toFixed(4)} ETH`;
+
+    const usdcContract = new ethers.Contract(USDC_ADDRESS, usdcAbi, provider);
+    const usdcBalance = await usdcContract.balanceOf(address);
+    const usdcFormatted = ethers.formatUnits(usdcBalance, 6);
+    
+    document.getElementById("usdcBalance").innerText = `USDC Balance: ${parseFloat(usdcFormatted).toFixed(2)} USDC`;
+  } catch (err) {
+    console.error("Balance fetch error:", err);
+    document.getElementById("ethBalance").innerText = "ETH Balance: Error";
+    document.getElementById("usdcBalance").innerText = "USDC Balance: Error";
+  }
+}
+
 async function swapTokenForETH() {
   const amount = document.getElementById("amountIn").value.trim();
   if (!amount || isNaN(amount) || Number(amount) <= 0) {
@@ -69,6 +87,7 @@ async function swapTokenForETH() {
     const tx = await contract.swapTokenForETHWithSlippage(USDC_ADDRESS, amountIn, slippage);
     await tx.wait();
     alert("USDC → ETH swap completed!");
+    await updateBalances(await signer.getAddress());
   } catch (err) {
     console.error("swapTokenForETH error:", err);
     alert("Swap failed. See console for details.");
@@ -96,6 +115,7 @@ async function swapETHForToken() {
     const tx = await contract.swapETHForTokenWithSlippage(USDC_ADDRESS, slippage, { value });
     await tx.wait();
     alert("ETH → USDC swap completed!");
+    await updateBalances(await signer.getAddress());
   } catch (err) {
     console.error("swapETHForToken error:", err);
     alert("Swap failed. See console for details.");
