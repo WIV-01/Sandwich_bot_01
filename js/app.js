@@ -60,13 +60,6 @@ async function connectWallet() {
         await updateBalances(currentAddress);
       }, 30000);
       
-      /*
-      setInterval(async () => {
-        const currentAddress = await signer.getAddress();
-        await updateBalances(currentAddress);
-      }, 30000);
-      */
-      
     // Enable controls
     toggleControls(true);
 
@@ -135,7 +128,6 @@ async function swapTokenForETH() {
   try {
     const usdcContract = new ethers.Contract(USDC_ADDRESS, usdcAbi, signer);
     const amountIn = ethers.parseUnits(amount, 6); // ✅ USDC has 6 decimals
-    const usdcContract = new ethers.Contract(USDC_ADDRESS, usdcAbi, signer);
     const ownerAddress = await signer.getAddress();
     const allowance = await usdcContract.allowance(ownerAddress, CONTRACT_ADDRESS); // Check current allowance
 
