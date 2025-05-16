@@ -26,12 +26,12 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 function toggleControls(connected) {
+  document.getElementById("connectWalletBtn").disabled = connected;
+  document.getElementById("disconnectWalletBtn").disabled = !connected;
   document.getElementById("swapTokenBtn").disabled = !connected;
   document.getElementById("swapEthBtn").disabled = !connected;
   document.getElementById("pauseBotBtn").disabled = !connected;
-  document.getElementById("resumeBotBtn").disabled = !connected;
-  document.getElementById("disconnectWalletBtn").disabled = !connected;
-  document.getElementById("connectWalletBtn").disabled = connected;
+  document.getElementById("resumeBotBtn").disabled = !connected; 
 }
 
 async function connectWallet() {
