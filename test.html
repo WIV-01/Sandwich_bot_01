@@ -19,6 +19,7 @@
       const balance = await provider.getBalance(address);
       const ethFormatted = ethers.formatEther(balance);
       document.getElementById("ethBalance").innerText = `ETH Balance: ${ethFormatted}`;
+      alert("MetaMask not found");
     }
     test();
   </script>
