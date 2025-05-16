@@ -33,6 +33,10 @@ async function connectWallet() {
       document.getElementById("walletAddress").innerText = "Connected: " + address;
       await updateBalances(address); // 👈 Initial fetch
 
+      if (balanceInterval) {
+        clearInterval(balanceInterval);
+      }
+      
       // ✅ Refresh balances every 30 seconds
       // Save interval ID so you can clear it later if needed
       balanceInterval = setInterval(async () => {
@@ -46,6 +50,13 @@ async function connectWallet() {
         await updateBalances(currentAddress);
       }, 30000);
       */
+      
+      document.getElementById("swapTokenBtn").disabled = false;
+      document.getElementById("swapEthBtn").disabled = false;
+      document.getElementById("pauseBotBtn").disabled = false;
+      document.getElementById("resumeBotBtn").disabled = false;
+      document.getElementById("disconnectWalletBtn").disabled = false;
+      document.getElementById("connectWalletBtn").disabled = true;
       
     } catch (err) {
       console.error("Wallet connection error:", err);
