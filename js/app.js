@@ -10,7 +10,8 @@ const CONTRACT_ABI = window.CONTRACT_ABI; // ✅ Contract ABI
 const usdcAbi = [
   "function approve(address spender, uint256 amount) public returns (bool)",
   "function allowance(address owner, address spender) public view returns (uint256)",
-  "function balanceOf(address owner) view returns (uint256)"  // <-- added here
+  "function balanceOf(address owner) view returns (uint256)",
+  "function decimals() view returns (uint8)"
 ];
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -21,17 +22,24 @@ window.addEventListener("DOMContentLoaded", () => {
   document.getElementById("pauseBotBtn").addEventListener("click", pauseBot);
   document.getElementById("resumeBotBtn").addEventListener("click", resumeBot);
 
-  // Disable buttons initially
-  document.getElementById("swapTokenBtn").disabled = true;
-  document.getElementById("swapEthBtn").disabled = true;
-  document.getElementById("pauseBotBtn").disabled = true;
-  document.getElementById("resumeBotBtn").disabled = true;
-  document.getElementById("disconnectWalletBtn").disabled = true;
+  toggleControls(false);
 });
 
+function toggleControls(connected) {
+  document.getElementById("swapTokenBtn").disabled = !connected;
+  document.getElementById("swapEthBtn").disabled = !connected;
+  document.getElementById("pauseBotBtn").disabled = !connected;
+  document.getElementById("resumeBotBtn").disabled = !connected;
+  document.getElementById("disconnectWalletBtn").disabled = !connected;
+  document.getElementById("connectWalletBtn").disabled = connected;
+}
+
 async function connectWallet() {
-  if (window.ethereum) {
-    try {
+  if (!window.ethereum) {
+    alert("Please install MetaMask.");
+    return;
+  }
+  try {
       await window.ethereum.request({ method: 'eth_requestAccounts' });
       provider = new ethers.BrowserProvider(window.ethereum);
       signer = await provider.getSigner();
@@ -59,20 +67,12 @@ async function connectWallet() {
       }, 30000);
       */
       
-      // Enable controls
-      document.getElementById("swapTokenBtn").disabled = false;
-      document.getElementById("swapEthBtn").disabled = false;
-      document.getElementById("pauseBotBtn").disabled = false;
-      document.getElementById("resumeBotBtn").disabled = false;
-      document.getElementById("disconnectWalletBtn").disabled = false;
-      document.getElementById("connectWalletBtn").disabled = true;
-      
-    } catch (err) {
-      console.error("Wallet connection error:", err);
-      alert("Failed to connect wallet.");
-    }
-  } else {
-    alert("Please install MetaMask.");
+    // Enable controls
+    toggleControls(true);
+
+  } catch (err) {
+    console.error("Wallet connection error:", err);
+    alert(err?.data?.message || err?.message || "Failed to connect wallet.");
   }
 }
 
@@ -91,13 +91,9 @@ function disconnectWallet() {
   document.getElementById("usdcBalance").innerText = "USDC Balance:";
 
   // Disable controls
-  document.getElementById("swapTokenBtn").disabled = true;
-  document.getElementById("swapEthBtn").disabled = true;
-  document.getElementById("pauseBotBtn").disabled = true;
-  document.getElementById("resumeBotBtn").disabled = true;
-  document.getElementById("disconnectWalletBtn").disabled = true;
-  document.getElementById("connectWalletBtn").disabled = false;
+  toggleControls(false);
 }
+
 async function updateBalances(address) {
   try {
     const ethBalance = await provider.getBalance(address);
@@ -126,7 +122,7 @@ async function swapTokenForETH() {
     swapBtn.disabled = false;
     return;
   }
-
+ 
   const slippageInput = document.getElementById("slippageIn").value.trim();
   const slippage = Number(slippageInput);
   
@@ -137,13 +133,11 @@ async function swapTokenForETH() {
   }
 
   try {
+    const usdcContract = new ethers.Contract(USDC_ADDRESS, usdcAbi, signer);
     const amountIn = ethers.parseUnits(amount, 6); // ✅ USDC has 6 decimals
-
     const usdcContract = new ethers.Contract(USDC_ADDRESS, usdcAbi, signer);
     const ownerAddress = await signer.getAddress();
-
-    // Check current allowance
-    const allowance = await usdcContract.allowance(ownerAddress, CONTRACT_ADDRESS);
+    const allowance = await usdcContract.allowance(ownerAddress, CONTRACT_ADDRESS); // Check current allowance
 
     // Approve contract if allowance insufficient
     if (allowance.lt(amountIn)) {
