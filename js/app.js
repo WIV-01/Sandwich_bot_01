@@ -42,12 +42,11 @@ async function updateBalances(address) {
     console.log("1b - Ethers.formatEther is:", ethers.formatEther);
     
     const ethFormatted = ethers.formatEther(ethBalance);
-    document.getElementById("ethBalance").innerText = `ETH Balance: ${parseFloat(ethFormatted).toFixed(4)} ETH`;
-
     const usdcContract = new ethers.Contract(USDC_ADDRESS, usdcAbi, provider);
     const usdcBalance = await usdcContract.balanceOf(address);
     const usdcFormatted = ethers.formatUnits(usdcBalance, 6);
     
+    document.getElementById("ethBalance").innerText = `ETH Balance: ${parseFloat(ethFormatted).toFixed(4)} ETH`;
     document.getElementById("usdcBalance").innerText = `USDC Balance: ${parseFloat(usdcFormatted).toFixed(2)} USDC`;
   } catch (err) {
 
@@ -86,7 +85,7 @@ async function connectWallet() {
       }, 30000);
 
       //Console message
-      console.log("3 - Metamask wallet balance:", "MM");
+      //console.log("3 - Metamask wallet balance:", "MM");
     
       // Enable controls
       toggleControls(true);
