@@ -73,7 +73,7 @@ function toggleControls(connected) {
   document.getElementById("resumeBotBtn").disabled = !connected; 
 }
 
-async function getETHPriceUSD() {
+/*async function getETHPriceUSD() {
   try {
     const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd");
     const data = await response.json();
@@ -83,7 +83,7 @@ async function getETHPriceUSD() {
   } catch (err) {
     return null;
   }
-}
+}*/
 
 async function updateBalances(address) {
   try {
@@ -102,10 +102,12 @@ async function updateBalances(address) {
     const ethPriceUSD = await getETHPriceUSD();
     const usdValue = ethPriceUSD ? (parseFloat(ethFormatted) * ethPriceUSD).toFixed(2) : "N/A";
 
+    /*ETH price (USD): ${ethPriceUSD}
+    USDC price (USD): ${usdValue}*/
+    
     console.log(`
     === Wallet Balances ===
-    ETH price (USD): ${ethPriceUSD}
-    USDC price (USD): ${usdValue}
+
     ETH Balance: ${ethFormatted} ETH
     USDC Balance: ${usdcFormatted} USDC
     `);
