@@ -127,9 +127,9 @@ async function updateBalances(address) {
     
     console.log(`
     === Wallet Balances ===
-    ETH Balance         : ${ethFormatted.toFixed(5)} ETH
-    ETH in wallet value : ${usdValue.toFixed(2)} USDC
-    USDC Balance        : ${usdcFormatted.toFixed(2)} USDC
+    ETH Balance         : ${parseFloat(ethFormatted).toFixed(5)} ETH
+    ETH in wallet value : ${parseFloat(usdValue).toFixed(2)} USDC
+    USDC Balance        : ${usdcFormatted).toFixed(2)} USDC
     `);
         
     document.getElementById("ethBalance").innerText = `ETH Balance: ${parseFloat(ethFormatted).toFixed(4)} ETH`;
