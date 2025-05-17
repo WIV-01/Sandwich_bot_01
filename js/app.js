@@ -96,8 +96,8 @@ async function getETHPriceUSD() {
       const avg = ethPriceHistory.reduce((sum, val) => sum + val, 0) / ethPriceHistory.length;
       
       console.log(`
-      📈 ETH Price (USD): $${price}
-      SMA(10) Price (USD): $${avg}
+      📈 ETH Price (USD): $${price.toFixed(2)}
+      SMA(10) Price (USD): $${avg.toFixed(2)}
       `);
     }
 
@@ -124,14 +124,12 @@ async function updateBalances(address) {
     // 💰 Fetch and log ETH price
     const ethPriceUSD = await getETHPriceUSD();
     const usdValue = ethPriceUSD ? (parseFloat(ethFormatted) * ethPriceUSD).toFixed(2) : "N/A";
-
-    //USDC price (USD): ${usdValue}
     
     console.log(`
     === Wallet Balances ===
-    ETH Balance: ${ethFormatted} ETH
-    ETH value: ${usdValue} USDC
-    USDC Balance: ${usdcFormatted} USDC
+    ETH Balance         : ${ethFormatted} ETH
+    ETH in wallet value : ${usdValue} USDC
+    USDC Balance        : ${usdcFormatted} USDC
     `);
         
     document.getElementById("ethBalance").innerText = `ETH Balance: ${parseFloat(ethFormatted).toFixed(4)} ETH`;
