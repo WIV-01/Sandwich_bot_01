@@ -99,8 +99,8 @@ async function updateBalances(address) {
     const usdcFormatted = ethers.formatUnits(usdcBalance, 6);
     
     // 💰 Fetch and log ETH price
-    const ethPriceUSD = await getETHPriceUSD();
-    const usdValue = ethPriceUSD ? (parseFloat(ethFormatted) * ethPriceUSD).toFixed(2) : "N/A";
+    /**const ethPriceUSD = await getETHPriceUSD();
+    const usdValue = ethPriceUSD ? (parseFloat(ethFormatted) * ethPriceUSD).toFixed(2) : "N/A";*/
 
     /*ETH price (USD): ${ethPriceUSD}
     USDC price (USD): ${usdValue}*/
