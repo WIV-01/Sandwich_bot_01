@@ -81,7 +81,7 @@ async function getETHPriceUSD() {
     if (price) {
       cachedETHPrice = price;
       lastPriceFetchTime = now;
-      //console.log(`📈 ETH Price (USD): $${price}`);
+      console.log(`📈 ETH Price (USD): $${price}`);
     }
 
     return price;
@@ -108,7 +108,7 @@ async function updateBalances(address) {
     const ethPriceUSD = await getETHPriceUSD();
     const usdValue = ethPriceUSD ? (parseFloat(ethFormatted) * ethPriceUSD).toFixed(2) : "N/A";
 
-    console.log(`📈 ETH Price (USD): $${ethPriceUSD}`);
+    //console.log(`📈 ETH Price (USD): $${ethPriceUSD}`);
     //USDC price (USD): ${usdValue}
     
     console.log(`
