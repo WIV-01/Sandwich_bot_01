@@ -127,6 +127,7 @@ async function updateBalances(address) {
     
     console.log(`
     🔢=== Wallet Balances ===🔢
+    
     ETH Balance         : ${parseFloat(ethFormatted).toFixed(5)} ETH
     ETH in wallet value : ${parseFloat(usdValue).toFixed(2)} USDC
     
