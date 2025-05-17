@@ -119,13 +119,11 @@ async function updateBalances(address) {
     const ethPriceUSD = await getETHPriceUSD();
     const usdValue = ethPriceUSD ? (parseFloat(ethFormatted) * ethPriceUSD).toFixed(2) : "N/A";
 
-
-    
     console.log(`
-    === Wallet Balances ===
+    === Prices ===
     ETH price (USD): ${ethPriceUSD}
     USDC price (USD): ${usdValue}
-    -----------------------------
+    === Wallet Balances ===
     ETH Balance: ${ethFormatted} ETH
     USDC Balance: ${usdcFormatted} USDC
     `);
