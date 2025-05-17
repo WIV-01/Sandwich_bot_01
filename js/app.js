@@ -98,10 +98,15 @@ async function updateBalances(address) {
     const usdcContract = new ethers.Contract(USDC_ADDRESS, usdcAbi, provider);
     const usdcBalance = await usdcContract.balanceOf(address);
     const usdcFormatted = ethers.formatUnits(usdcBalance, 6);
+    
+    // 💰 Fetch and log ETH price
+    const ethPriceUSD = await getETHPriceUSD();
+    const usdValue = ethPriceUSD ? (parseFloat(ethFormatted) * ethPriceUSD).toFixed(2) : "N/A";
 
     console.log(`
     === Wallet Balances ===
     ETH price (USD): ${ethPriceUSD}
+    USDC price (USD): ${usdValue}
     ETH Balance: ${ethFormatted} ETH
     USDC Balance: ${usdcFormatted} USDC
     `);
