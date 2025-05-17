@@ -13,17 +13,6 @@ const usdcAbi = [
   "function decimals() view returns (uint8)"
 ];
 
-/*window.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("connectWalletBtn").addEventListener("click", connectWallet);
-  document.getElementById("disconnectWalletBtn").addEventListener("click", disconnectWallet);
-  document.getElementById("swapTokenBtn").addEventListener("click", swapTokenForETH);
-  document.getElementById("swapEthBtn").addEventListener("click", swapETHForToken);
-  document.getElementById("pauseBotBtn").addEventListener("click", pauseBot);
-  document.getElementById("resumeBotBtn").addEventListener("click", resumeBot);
-  
-  toggleControls(false);
-});*/
-
 window.addEventListener("DOMContentLoaded", async () => {
   // Set up UI button event listeners
   document.getElementById("connectWalletBtn").addEventListener("click", connectWallet);
@@ -92,7 +81,7 @@ async function getETHPriceUSD() {
     if (price) {
       cachedETHPrice = price;
       lastPriceFetchTime = now;
-      console.log(`📈 ETH Price (USD): $${price}`);
+      //console.log(`📈 ETH Price (USD): $${price}`);
     }
 
     return price;
@@ -119,13 +108,14 @@ async function updateBalances(address) {
     const ethPriceUSD = await getETHPriceUSD();
     const usdValue = ethPriceUSD ? (parseFloat(ethFormatted) * ethPriceUSD).toFixed(2) : "N/A";
 
+    console.log(`📈 ETH Price (USD): $${price}`);
+    //USDC price (USD): ${usdValue}
+    
     console.log(`
-    === Prices ===
-    ETH price (USD): ${ethPriceUSD}
-    USDC price (USD): ${usdValue}
     === Wallet Balances ===
     ETH Balance: ${ethFormatted} ETH
     USDC Balance: ${usdcFormatted} USDC
+    
     `);
         
     document.getElementById("ethBalance").innerText = `ETH Balance: ${parseFloat(ethFormatted).toFixed(4)} ETH`;
