@@ -54,7 +54,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         balanceInterval = setInterval(async () => {
           const currentAddress = await signer.getAddress();
           await updateBalances(currentAddress);
-        }, 30000);
+        }, 5000);
 
         toggleControls(true); // Enable action buttons
       }
@@ -78,13 +78,15 @@ async function updateBalances(address) {
     const ethBalance = await provider.getBalance(address);
 
     //Console message
-    console.log("1a - Ethers object is:", ethers);
-    console.log("1b - Ethers.formatEther is:", ethers.formatEther);
+    //console.log("1a - Ethers object is:", ethers);
+    //console.log("1b - Ethers.formatEther is:", ethers.formatEther);
     
     const ethFormatted = ethers.formatEther(ethBalance);
     const usdcContract = new ethers.Contract(USDC_ADDRESS, usdcAbi, provider);
     const usdcBalance = await usdcContract.balanceOf(address);
     const usdcFormatted = ethers.formatUnits(usdcBalance, 6);
+
+    console.log("0 - Ether price:", usdcBalance);
     
     document.getElementById("ethBalance").innerText = `ETH Balance: ${parseFloat(ethFormatted).toFixed(4)} ETH`;
     document.getElementById("usdcBalance").innerText = `USDC Balance: ${parseFloat(usdcFormatted).toFixed(2)} USDC`;
