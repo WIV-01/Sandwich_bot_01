@@ -85,8 +85,10 @@ async function updateBalances(address) {
     const usdcContract = new ethers.Contract(USDC_ADDRESS, usdcAbi, provider);
     const usdcBalance = await usdcContract.balanceOf(address);
     const usdcFormatted = ethers.formatUnits(usdcBalance, 6);
-
+    
     console.log("0 - Ether price:", usdcBalance);
+    console.log("USDC Balance:", usdcFormatted);
+    console.log("ETH Balance:", ethFormatted);
     
     document.getElementById("ethBalance").innerText = `ETH Balance: ${parseFloat(ethFormatted).toFixed(4)} ETH`;
     document.getElementById("usdcBalance").innerText = `USDC Balance: ${parseFloat(usdcFormatted).toFixed(2)} USDC`;
