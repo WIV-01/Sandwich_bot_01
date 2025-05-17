@@ -73,17 +73,35 @@ function toggleControls(connected) {
   document.getElementById("resumeBotBtn").disabled = !connected; 
 }
 
-/*async function getETHPriceUSD() {
+let cachedETHPrice = null;
+let lastPriceFetchTime = 0;
+
+async function getETHPriceUSD() {
+  const now = Date.now();
+
+  // If fetched in last 60 seconds, return cached value
+  if (cachedETHPrice !== null && (now - lastPriceFetchTime) < 60000) {
+    return cachedETHPrice;
+  }
+
   try {
     const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd");
     const data = await response.json();
     const price = data?.ethereum?.usd;
 
+    if (price) {
+      cachedETHPrice = price;
+      lastPriceFetchTime = now;
+      console.log(`📈 ETH Price (USD): $${price}`);
+    }
+
     return price;
   } catch (err) {
-    return null;
+    console.error("Error fetching ETH price:", err);
+    return cachedETHPrice; // Return old value if available
   }
-}*/
+}
+
 
 async function updateBalances(address) {
   try {
@@ -99,8 +117,8 @@ async function updateBalances(address) {
     const usdcFormatted = ethers.formatUnits(usdcBalance, 6);
     
     // 💰 Fetch and log ETH price
-    /**const ethPriceUSD = await getETHPriceUSD();
-    const usdValue = ethPriceUSD ? (parseFloat(ethFormatted) * ethPriceUSD).toFixed(2) : "N/A";*/
+    const ethPriceUSD = await getETHPriceUSD();
+    const usdValue = ethPriceUSD ? (parseFloat(ethFormatted) * ethPriceUSD).toFixed(2) : "N/A";
 
     /*ETH price (USD): ${ethPriceUSD}
     USDC price (USD): ${usdValue}*/
