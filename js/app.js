@@ -81,7 +81,6 @@ async function getETHPriceUSD() {
 
     return price;
   } catch (err) {
-    
     return null;
   }
 }
