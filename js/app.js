@@ -65,6 +65,8 @@ function toggleControls(connected) {
 let cachedETHPrice = null;
 let lastPriceFetchTime = 0;
 
+const ethPriceHistory = [];
+
 async function getETHPriceUSD() {
   const now = Date.now();
 
@@ -81,7 +83,22 @@ async function getETHPriceUSD() {
     if (price) {
       cachedETHPrice = price;
       lastPriceFetchTime = now;
-      console.log(`📈 ETH Price (USD): $${price}`);
+
+      // Add to history
+      ethPriceHistory.push(price);
+
+      // Keep only last 10 prices
+      if (ethPriceHistory.length > 10) {
+        ethPriceHistory.shift(); // Remove oldest
+      }
+
+      // Calculate average
+      const avg = ethPriceHistory.reduce((sum, val) => sum + val, 0) / ethPriceHistory.length;
+      
+      console.log(`
+      📈 ETH Price (USD): $${price}
+      SMA(10) Price (USD): $${avg}
+      `);
     }
 
     return price;
@@ -115,7 +132,6 @@ async function updateBalances(address) {
     ETH Balance: ${ethFormatted} ETH
     ETH value: ${usdValue} USDC
     USDC Balance: ${usdcFormatted} USDC
-    
     `);
         
     document.getElementById("ethBalance").innerText = `ETH Balance: ${parseFloat(ethFormatted).toFixed(4)} ETH`;
