@@ -68,7 +68,7 @@ async function getContractETHBalance() {
   console.log(`Contract ETH Balance: ${ethers.formatEther(balance)} ETH`);
 }
 
-getContractETHBalance();
+
 
 function toggleControls(connected) {
   document.getElementById("connectWalletBtn").disabled = connected;
@@ -151,6 +151,7 @@ async function updateBalances(address) {
     ETH in wallet value : ${parseFloat(usdValue).toFixed(2)} USDC
 
     🔢=== Contrac wallet Balances ===🔢
+    ETH Balance        : {getContractETHBalance()}
     USDC Balance        : ${parseFloat(usdcFormatted).toFixed(2)} USDC
     `);
         
