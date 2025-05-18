@@ -158,8 +158,9 @@ async function updateBalances(address) {
     
     Buy criterias:
     ------------------------
-    - Buy when price drops >1%
-    - sell all when marketprice >= average price + 2%
+    - buy when price drops 1% or more
+    - if buy again while we still have one ore position(pyramiding >=1), buy twice as much (martin gale principle) 
+    - sell all when marketprice >= average position price + 2% or more
     
     `);
 
