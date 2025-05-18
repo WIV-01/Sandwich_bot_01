@@ -152,12 +152,12 @@ async function updateBalances(address) {
     
     ETH Balance         : ${contractEthBalance} ETH
     USDC Balance        : ${parseFloat(usdcFormatted).toFixed(2)} USDC
-    `);
 
-    console.log(`
     ℹ️=== Information ===ℹ️
 
-   `);
+    `);
+
+
 
     
     document.getElementById("ethBalance").innerText = `ETH Balance: ${parseFloat(ethFormatted).toFixed(4)} ETH`;
