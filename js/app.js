@@ -132,10 +132,12 @@ function dh_trades(price) {
     }
 
     // Calculate average price from arr_buy_Trades, or use current price if empty
-    const avg = arr_buy_Trades.length === 0
+    /*const avg = arr_buy_Trades.length === 0
       ? price
-      : arr_buy_Trades.reduce((sum, trade) => sum + Number(trade["ETH Price (USD)"]), 0) / arr_buy_Trades.length;
-
+      : arr_buy_Trades.reduce((sum, trade) => sum + Number(trade["ETH Price (USD)"]), 0) / arr_buy_Trades.length;*/
+    const tempSum = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade["ETH Price (USD)"]), 0) + price;
+    const avg = tempSum / (arr_buy_Trades.length + 1);
+    
     // Add trade to table
     arr_buy_Trades.push({
       Timestamp: new Date().toLocaleString(),
