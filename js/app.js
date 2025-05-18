@@ -140,7 +140,7 @@ function dh_trades(price) {
       Timestamp: new Date().toLocaleString(),
       "ETH Price (USD)": price.toFixed(2),
       "Average Price (ETH)": avg.toFixed(2),
-      "Martin gale factor:": dbl_Martingale_factor ^ arr_buy_Trades.length
+      "Martin gale factor:": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length)
     });
 
     // Log all trades in readable format
