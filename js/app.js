@@ -9,14 +9,11 @@ let lastPriceFetchTime = 0;
 
 //ℹ️ Constant variables
 const ethPriceHistory = [];
-const trade_ethPriceHistory = [];
-
 const timestamp = Date.now();
 const arr_PnL = [];
 const arr_buy_Trades = [];
 const arr_sell_Trades = [];
 const table_Trades = [];
-const arr_Data = [];
 
 //ℹ️ Metamask ETH address used
 const ETH_ADDRESS = "0xA93ab4D0405fBAE445334566B147470AeF9A1528"; // ✅ ETH
@@ -150,17 +147,17 @@ async function getETHPriceUSD() {
 function trades(price) {
   try {
     // Add trade to table
-    table_Trades.push({
+    arr_buy_Trades.push({
       Timestamp: new Date().toLocaleString(),
       "ETH Price (USD)": price.toFixed(2)
     });
 
     // Log all trades in readable format
     console.log(`ℹ️=== Trade information ===ℹ️`);
-    console.table(table_Trades);
+    console.table(arr_buy_Trades);
 
   } catch (err) {
-    console.error("12 - Trade information error:", err);
+    console.error("14 - Trade information error:", err);
   }
 }
 
