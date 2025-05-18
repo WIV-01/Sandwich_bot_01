@@ -138,6 +138,7 @@ async function updateBalances(address) {
     const usdcContract = new ethers.Contract(USDC_ADDRESS, usdcAbi, provider);
     const usdcBalance = await usdcContract.balanceOf(address);
     const usdcFormatted = ethers.formatUnits(usdcBalance, 6);
+    const contractEthBalance = await getContractETHBalance(); // ✅ await here
     
     // 💰 Fetch and log ETH price
     const ethPriceUSD = await getETHPriceUSD();
@@ -150,7 +151,8 @@ async function updateBalances(address) {
     ETH in wallet value : ${parseFloat(usdValue).toFixed(2)} USDC
 
     🔢=== Contrac wallet Balances ===🔢
-    ETH Balance        : ${getContractETHBalance()}
+    
+    ETH Balance         : ${contractEthBalance} ETH
     USDC Balance        : ${parseFloat(usdcFormatted).toFixed(2)} USDC
     `);
         
