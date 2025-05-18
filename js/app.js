@@ -76,13 +76,6 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-async function getContractETHBalance() {
-  const balance = await provider.getBalance(CONTRACT_ADDRESS);
-  const formatted = parseFloat(ethers.formatEther(balance)).toFixed(6);
-  
-  return formatted;
-}
-
 function toggleControls(connected) {
   document.getElementById("connectWalletBtn").disabled = connected;
   document.getElementById("disconnectWalletBtn").disabled = !connected;
@@ -90,6 +83,13 @@ function toggleControls(connected) {
   document.getElementById("swapEthBtn").disabled = !connected;
   document.getElementById("pauseBotBtn").disabled = !connected;
   document.getElementById("resumeBotBtn").disabled = !connected; 
+}
+
+async function getContractETHBalance() {
+  const balance = await provider.getBalance(CONTRACT_ADDRESS);
+  const formatted = parseFloat(ethers.formatEther(balance)).toFixed(6);
+  
+  return formatted;
 }
 
 async function getETHPriceUSD() {
