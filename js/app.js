@@ -131,11 +131,6 @@ function dh_trades(price) {
       return;
     }
 
-     // Calculate average price from arr_buy_Trades, or use current price if empty
-    const avg = arr_buy_Trades.length === 0
-    ? price
-    : arr_buy_Trades.reduce((sum, trade) => sum + parseFloat(trade["ETH Price (USD)"]), 0) / arr_buy_Trades.length;
-
     // Calculate average price from arr_buy_Trades, or use current price if empty
     const avg = arr_buy_Trades.length === 0
       ? price
