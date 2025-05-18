@@ -8,11 +8,12 @@ let cachedETHPrice = null;
 let lastPriceFetchTime = 0;
 
 //ℹ️ Constant variables
-const ethPriceHistory = [];
 const timestamp = Date.now();
 const arr_PnL = [];
 const arr_buy_Trades = [];
 const arr_sell_Trades = [];
+const dbl_Martingale_factor = 2;
+const dbl_Initila_investment = 0.0000001; // Initial investment in ETH
 
 //ℹ️ Metamask ETH address used
 const ETH_ADDRESS = "0xA93ab4D0405fBAE445334566B147470AeF9A1528"; // ✅ ETH
@@ -138,7 +139,8 @@ function dh_trades(price) {
     arr_buy_Trades.push({
       Timestamp: new Date().toLocaleString(),
       "ETH Price (USD)": price.toFixed(2),
-      "Average Price": avg.toFixed(2),
+      "Average Price (ETH)": avg.toFixed(2),
+      "Martin gale factor:": dbl_Martingale_factor
     });
 
     // Log all trades in readable format
