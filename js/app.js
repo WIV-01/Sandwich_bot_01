@@ -126,7 +126,7 @@ async function getETHPriceUSD() {
   }
 }
 
-async function trades(trade_ethPriceHistory) {
+async function trades(cachedETHPrice) {
   try {
 
     console.log(`
@@ -135,9 +135,8 @@ async function trades(trade_ethPriceHistory) {
     
     `);
   } catch (err) {
-
-      //Console message
-      console.error("12 - Trade information error:", err);
+    //Console message
+    console.error("12 - Trade information error:", err);
   }
 }
 
