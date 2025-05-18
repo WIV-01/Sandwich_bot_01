@@ -108,10 +108,11 @@ async function getETHPriceUSD() {
       console.clear();
       console.log(`
       📈 ETH Price (USD): $${price.toFixed(2)}
-      📊 SMA(10) Price (USD): $${avg.toFixed(2)}
       `);
     }
 
+     /* 📊SMA(10) Price (USD): $${avg.toFixed(2)}*/
+    
     return price;
   } catch (err) {
     console.error("Error fetching ETH price:", err);
