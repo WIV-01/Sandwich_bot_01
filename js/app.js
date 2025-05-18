@@ -65,8 +65,8 @@ window.addEventListener("DOMContentLoaded", async () => {
 
 async function getContractETHBalance() {
   const balance = await provider.getBalance(CONTRACT_ADDRESS);
-  return ${parseFloat(ethers.formatEther(balance)).toFixed(6)};
-  //console.log(`Contract ETH Balance: ${ethers.formatEther(balance)} ETH`);
+  const formatted = parseFloat(ethers.formatEther(balance)).toFixed(6);
+  return formatted;
 }
 
 function toggleControls(connected) {
