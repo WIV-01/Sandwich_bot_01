@@ -65,10 +65,9 @@ window.addEventListener("DOMContentLoaded", async () => {
 
 async function getContractETHBalance() {
   const balance = await provider.getBalance(CONTRACT_ADDRESS);
-  console.log(`Contract ETH Balance: ${ethers.formatEther(balance)} ETH`);
+  return ${ethers.formatEther(balance)}
+  //console.log(`Contract ETH Balance: ${ethers.formatEther(balance)} ETH`);
 }
-
-
 
 function toggleControls(connected) {
   document.getElementById("connectWalletBtn").disabled = connected;
