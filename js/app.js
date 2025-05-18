@@ -65,7 +65,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 
 async function getContractETHBalance() {
   const balance = await provider.getBalance(CONTRACT_ADDRESS);
-  return ${ethers.formatEther(balance)}
+  return ${parseFloat(ethers.formatEther(balance)).toFixed(6)};
   //console.log(`Contract ETH Balance: ${ethers.formatEther(balance)} ETH`);
 }
 
