@@ -15,8 +15,8 @@ const timestamp = Date.now();
 const arr_PnL = [];
 const arr_buy_Trades = [];
 const arr_sell_Trades = [];
+const table_Trades = [];
 const arr_Data = [];
-cont table_Trades = [];
 
 //ℹ️ Metamask ETH address used
 const ETH_ADDRESS = "0xA93ab4D0405fBAE445334566B147470AeF9A1528"; // ✅ ETH
