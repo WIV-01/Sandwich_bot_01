@@ -116,8 +116,6 @@ async function getETHPriceUSD() {
       📈 ETH Price (USD): $${price.toFixed(2)}
       `);
     }
-
-     /* 📊SMA(10) Price (USD): $${avg.toFixed(2)}*/
     
     return price;
   } catch (err) {
@@ -145,17 +143,23 @@ async function updateBalances(address) {
     const usdValue = ethPriceUSD ? (parseFloat(ethFormatted) * ethPriceUSD).toFixed(2) : "N/A";
     
     console.log(`
-    🔢=== Metamask wallet Balances ===🔢
+    💰=== Metamask wallet Balances ===💰
     
     ETH Balance         : ${parseFloat(ethFormatted).toFixed(5)} ETH
     ETH in wallet value : ${parseFloat(usdValue).toFixed(2)} USDC
 
-    🔢=== Contrac wallet Balances ===🔢
+    💰=== Contract wallet Balances ===💰
     
     ETH Balance         : ${contractEthBalance} ETH
     USDC Balance        : ${parseFloat(usdcFormatted).toFixed(2)} USDC
     `);
-        
+
+    console.log(`
+    ℹ️=== Information ===ℹ️
+
+   `);
+
+    
     document.getElementById("ethBalance").innerText = `ETH Balance: ${parseFloat(ethFormatted).toFixed(4)} ETH`;
     document.getElementById("usdcBalance").innerText = `USDC Balance: ${parseFloat(usdcFormatted).toFixed(2)} USDC`;
   } catch (err) {
