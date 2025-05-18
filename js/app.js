@@ -149,6 +149,23 @@ async function getETHPriceUSD() {
 
 function trades(price) {
   try {
+    // Add trade to table
+    table_Trades.push({
+      Timestamp: new Date().toLocaleString(),
+      "ETH Price (USD)": price.toFixed(2)
+    });
+
+    // Log all trades in readable format
+    console.log(`ℹ️=== Trade information ===ℹ️`);
+    console.table(table_Trades);
+
+  } catch (err) {
+    console.error("12 - Trade information error:", err);
+  }
+}
+
+function trades(price) {
+  try {
 
     console.log(`
     
