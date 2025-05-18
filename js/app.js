@@ -9,6 +9,7 @@ let lastPriceFetchTime = 0;
 
 //ℹ️ Constant variables
 const ethPriceHistory = [];
+const trade_ethPriceHistory = [];
 
 //ℹ️ Metamask ETH address used
 const ETH_ADDRESS = "0xA93ab4D0405fBAE445334566B147470AeF9A1528"; // ✅ ETH
@@ -122,6 +123,21 @@ async function getETHPriceUSD() {
   } catch (err) {
     console.error("Error fetching ETH price:", err);
     return cachedETHPrice; // Return old value if available
+  }
+}
+
+async function trades(trade_ethPriceHistory) {
+  try {
+
+    console.log(`
+    
+    ℹ️=== Trade information ===ℹ️
+    
+    `);
+  } catch (err) {
+
+      //Console message
+      console.error("12 - Trade information error:", err);
   }
 }
 
