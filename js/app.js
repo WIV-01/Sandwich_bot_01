@@ -3,7 +3,7 @@ let signer;
 let contract;
 let balanceInterval = null;
 
-const CONTRACT_ADDRESS = "0x9ddd5962f9441a0400be0ab95777381bbfd4ec59"; // ✅ Your deployed contract
+const CONTRACT_ADDRESS = "0x9ddd5962f9441a0400be0ab95777381bbfd4ec59"; // ✅ Your deployed Mainnet contract
 const USDC_ADDRESS = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"; // ✅ USDC Mainnet
 //const CONTRACT_ABI = window.CONTRACT_ABI; // ✅ Contract ABI
 const usdcAbi = [
@@ -127,7 +127,7 @@ async function updateBalances(address) {
     const usdValue = ethPriceUSD ? (parseFloat(ethFormatted) * ethPriceUSD).toFixed(2) : "N/A";
     
     console.log(`
-    🔢=== Wallet Balances ===🔢
+    🔢=== Metamask wallet Balances ===🔢
     
     ETH Balance         : ${parseFloat(ethFormatted).toFixed(5)} ETH
     ETH in wallet value : ${parseFloat(usdValue).toFixed(2)} USDC
