@@ -147,7 +147,7 @@ async function getETHPriceUSD() {
   }
 }
 
-async function trades(cachedETHPrice) {
+function trades(price) {
   try {
 
     console.log(`
