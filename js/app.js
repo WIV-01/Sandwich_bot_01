@@ -12,11 +12,10 @@ const ethPriceHistory = [];
 const trade_ethPriceHistory = [];
 
 const timestamp = Date.now();
-const arr_PnL [];
-const arr_buy_Trades [];
-const arr_sell_Trades [];
+const arr_PnL = [];
+const arr_buy_Trades = [];
+const arr_sell_Trades = [];
 const arr_Test = [];
-
 
 //ℹ️ Metamask ETH address used
 const ETH_ADDRESS = "0xA93ab4D0405fBAE445334566B147470AeF9A1528"; // ✅ ETH
@@ -80,6 +79,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 async function getContractETHBalance() {
   const balance = await provider.getBalance(CONTRACT_ADDRESS);
   const formatted = parseFloat(ethers.formatEther(balance)).toFixed(6);
+  
   return formatted;
 }
 
