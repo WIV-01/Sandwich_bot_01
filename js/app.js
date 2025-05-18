@@ -127,13 +127,15 @@ async function getETHPriceUSD() {
       `);
       
       // Save latest price with timestamp
-      trade_ethPriceHistory.push([Date.now(), price]);
+      table_Trades.push([Date.now(), price]);
       
       // Display in table with readable headers
-      const arr_Data = trade_ethPriceHistory.map(([timestamp, price]) => ({
+      const arr_Data = table_Trades.map(([timestamp, price]) => ({
         Timestamp: new Date(timestamp).toLocaleString(),
         "ETH Price (USD)": price.toFixed(2)
       }));
+
+      //Show table of trades
       console.table(arr_Data);
       
     }
