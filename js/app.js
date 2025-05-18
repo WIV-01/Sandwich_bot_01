@@ -153,13 +153,16 @@ async function updateBalances(address) {
     ETH Balance         : ${contractEthBalance} ETH
     USDC Balance        : ${parseFloat(usdcFormatted).toFixed(2)} USDC
 
-    ℹ️=== Information ===ℹ️
 
+    ℹ️=== Information ===ℹ️
+    
+    Buy criterias:
+    ------------------------
+    - Buy when price drops >1%
+    - sell all when marketprice >= average price + 2%
+    
     `);
 
-
-
-    
     document.getElementById("ethBalance").innerText = `ETH Balance: ${parseFloat(ethFormatted).toFixed(4)} ETH`;
     document.getElementById("usdcBalance").innerText = `USDC Balance: ${parseFloat(usdcFormatted).toFixed(2)} USDC`;
   } catch (err) {
