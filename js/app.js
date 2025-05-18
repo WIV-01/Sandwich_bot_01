@@ -106,24 +106,13 @@ async function getETHPriceUSD() {
     if (price) {
       cachedETHPrice = price;
       lastPriceFetchTime = now;
-
-      // Add to history
-      ethPriceHistory.push(price);
-
-      // Keep only last 10 prices
-      if (ethPriceHistory.length > 10) {
-        ethPriceHistory.shift(); // Remove oldest
-      }
-
-      // Calculate average
-      const avg = ethPriceHistory.reduce((sum, val) => sum + val, 0) / ethPriceHistory.length;
       
       console.clear();
       console.log(`
       📈 ETH Price (USD): $${price.toFixed(2)}
       `);   
 
-      trades(price);
+      dh_trades(price);
     }
     return price;
   } catch (err) {
@@ -132,12 +121,22 @@ async function getETHPriceUSD() {
   }
 }
 
-function trades(price) {
+function dh_trades(price) {
   try {
+    // Validate price
+    if (typeof price !== 'number' || isNaN(price)) {
+      console.error("15 - Invalid price passed to function trades():", price);
+      return;
+    }
+
+    // Calculate average price from arr_buy_Trades
+    const avg = arr_buy_Trades.reduce((sum, trade) => sum + parseFloat(trade["ETH Price (USD)"]), 0) / arr_buy_Trades.length;
+
     // Add trade to table
     arr_buy_Trades.push({
       Timestamp: new Date().toLocaleString(),
-      "ETH Price (USD)": price.toFixed(2)
+      "ETH Price (USD)": price.toFixed(2),
+      "Average Price": avg.toFixed(2),
     });
 
     // Log all trades in readable format
