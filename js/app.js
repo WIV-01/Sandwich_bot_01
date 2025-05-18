@@ -95,6 +95,7 @@ async function getETHPriceUSD() {
       // Calculate average
       const avg = ethPriceHistory.reduce((sum, val) => sum + val, 0) / ethPriceHistory.length;
       
+      console.clear();
       console.log(`
       📈 ETH Price (USD): $${price.toFixed(2)}
       📊 SMA(10) Price (USD): $${avg.toFixed(2)}
