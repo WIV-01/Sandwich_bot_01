@@ -121,7 +121,9 @@ async function getETHPriceUSD() {
       console.clear();
       console.log(`
       📈 ETH Price (USD): $${price.toFixed(2)}
-      `);      
+      `);   
+
+      trades(price);
     }
     return price;
   } catch (err) {
