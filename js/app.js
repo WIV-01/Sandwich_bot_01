@@ -13,7 +13,6 @@ const timestamp = Date.now();
 const arr_PnL = [];
 const arr_buy_Trades = [];
 const arr_sell_Trades = [];
-const table_Trades = [];
 
 //ℹ️ Metamask ETH address used
 const ETH_ADDRESS = "0xA93ab4D0405fBAE445334566B147470AeF9A1528"; // ✅ ETH
@@ -122,22 +121,8 @@ async function getETHPriceUSD() {
       console.clear();
       console.log(`
       📈 ETH Price (USD): $${price.toFixed(2)}
-      `);
-      
-      // Save latest price with timestamp
-      table_Trades.push([Date.now(), price]);
-      
-      // Display in table with readable headers
-      const arr_Data = table_Trades.map(([timestamp, price]) => ({
-        Timestamp: new Date(timestamp).toLocaleString(),
-        "ETH Price (USD)": price.toFixed(2)
-      }));
-
-      //Show table of trades
-      console.table(arr_Data);
-      
+      `);      
     }
-    
     return price;
   } catch (err) {
     console.error("Error fetching ETH price:", err);
