@@ -4,18 +4,24 @@ let provider;
 let signer;
 let contract;
 let balanceInterval = null;
+let cachedETHPrice = null;
+let lastPriceFetchTime = 0;
 
-//Metamask ETH address used
+//ℹ️ Constant variables
+const ethPriceHistory = [];
+
+//ℹ️ Metamask ETH address used
 const ETH_ADDRESS = "0xA93ab4D0405fBAE445334566B147470AeF9A1528"; // ✅ ETH
 
-//Mainnet
+//ℹ️ Mainnet
 /*const CONTRACT_ADDRESS = "0x4243b11b2c5f8bC7053D6a1f812f36cCf5791C83"; // ✅ Your deployed contract
 const USDC_ADDRESS = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"; // ✅ USDC */
 
-//Testnet
+//ℹ️ Testnet
 const CONTRACT_ADDRESS = "0x4243b11b2c5f8bC7053D6a1f812f36cCf5791C83"; // ✅ Your deployed contract
 const USDC_ADDRESS = "0x95831354ec5f22e185f24675e9b3486e99a8786f"; // ✅ Sepolia test USDC
 
+//ℹ️ ABI
 const usdcAbi = [
   "function approve(address spender, uint256 amount) public returns (bool)",
   "function allowance(address owner, address spender) public view returns (uint256)",
@@ -77,11 +83,6 @@ function toggleControls(connected) {
   document.getElementById("pauseBotBtn").disabled = !connected;
   document.getElementById("resumeBotBtn").disabled = !connected; 
 }
-
-let cachedETHPrice = null;
-let lastPriceFetchTime = 0;
-
-const ethPriceHistory = [];
 
 async function getETHPriceUSD() {
   const now = Date.now();
