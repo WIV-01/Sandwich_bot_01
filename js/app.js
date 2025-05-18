@@ -11,6 +11,13 @@ let lastPriceFetchTime = 0;
 const ethPriceHistory = [];
 const trade_ethPriceHistory = [];
 
+const timestamp = Date.now();
+const arr_PnL [];
+const arr_buy_Trades [];
+const arr_sell_Trades [];
+const arr_Test = [];
+
+
 //ℹ️ Metamask ETH address used
 const ETH_ADDRESS = "0xA93ab4D0405fBAE445334566B147470AeF9A1528"; // ✅ ETH
 
@@ -117,6 +124,10 @@ async function getETHPriceUSD() {
       console.log(`
       📈 ETH Price (USD): $${price.toFixed(2)}
       `);
+
+      arr_Test.push([timestamp, price]);
+      console.table(arr_Test);
+      
     }
     
     return price;
