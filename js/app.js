@@ -10,9 +10,9 @@ const USDC_ADDRESS = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"; // ✅ USDC
 
 //Testnet
 
-
-
 //const CONTRACT_ABI = window.CONTRACT_ABI; // ✅ Contract ABI
+
+
 const usdcAbi = [
   "function approve(address spender, uint256 amount) public returns (bool)",
   "function allowance(address owner, address spender) public view returns (uint256)",
