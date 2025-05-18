@@ -35,6 +35,7 @@ const usdcAbi = [
 ];
 
 window.addEventListener("DOMContentLoaded", async () => {
+ 
   // Set up UI button event listeners
   document.getElementById("connectWalletBtn").addEventListener("click", connectWallet);
   document.getElementById("disconnectWalletBtn").addEventListener("click", disconnectWallet);
@@ -158,20 +159,6 @@ function trades(price) {
 
   } catch (err) {
     console.error("14 - Trade information error:", err);
-  }
-}
-
-function trades(price) {
-  try {
-
-    console.log(`
-    
-    ℹ️=== Trade information ===ℹ️
-    
-    `);
-  } catch (err) {
-    //Console message
-    console.error("12 - Trade information error:", err);
   }
 }
 
