@@ -142,7 +142,8 @@ async function updateBalances(address) {
     
     ETH Balance         : ${parseFloat(ethFormatted).toFixed(5)} ETH
     ETH in wallet value : ${parseFloat(usdValue).toFixed(2)} USDC
-    
+
+    🔢=== Contrac wallet Balances ===🔢
     USDC Balance        : ${parseFloat(usdcFormatted).toFixed(2)} USDC
     `);
         
