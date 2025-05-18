@@ -3,8 +3,15 @@ let signer;
 let contract;
 let balanceInterval = null;
 
-const CONTRACT_ADDRESS = "0x9ddd5962f9441a0400be0ab95777381bbfd4ec59"; // ✅ Your deployed Mainnet contract
-const USDC_ADDRESS = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"; // ✅ USDC Mainnet
+//Mainnet
+const CONTRACT_ADDRESS = "0x9ddd5962f9441a0400be0ab95777381bbfd4ec59"; // ✅ Your deployed contract
+const ETH_ADDRESS = "0xA93ab4D0405fBAE445334566B147470AeF9A1528"; // ✅ ETH
+const USDC_ADDRESS = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"; // ✅ USDC
+
+//Testnet
+
+
+
 //const CONTRACT_ABI = window.CONTRACT_ABI; // ✅ Contract ABI
 const usdcAbi = [
   "function approve(address spender, uint256 amount) public returns (bool)",
