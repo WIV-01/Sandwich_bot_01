@@ -167,6 +167,7 @@ function dh_trades(price) {
       
       if (Number(lastTrade["Price"]) === price) {
         dbl_Price_change = 0; //No price change
+        console.log("dbl_Price_change = 0");
         return; // Exit function early, don't add duplicate price
       } else {
         dbl_Price_change = getPercentageChange(Number(lastTrade["Price"]), price); //Price change
@@ -223,8 +224,6 @@ async function updateBalances(address) {
     // 💰 Fetch and log ETH price
     const ethPriceUSD = await getETHPriceUSD();
     const usdValue = ethPriceUSD ? (parseFloat(ethFormatted) * ethPriceUSD).toFixed(2) : "N/A";
-    
-    
     
     console.clear();
     
