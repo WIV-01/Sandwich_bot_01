@@ -18,7 +18,7 @@ const arr_PnL = [];
 const arr_buy_Trades = [];
 const arr_sell_Trades = [];
 const dbl_Martingale_factor = 2;
-const dbl_Initila_investment = 0.01; // Initial investment in ETH
+const dbl_Initial_investment = 0.01; // Initial investment in ETH
 const dbl_Price_change_for_buy_orders = 0.25; // in percentages (%)
 
 //ℹ️ Metamask ETH address used
@@ -184,7 +184,7 @@ function dh_trades(price) {
         "Change(%)": dbl_Price_change,
         "Average": avg.toFixed(2),
         "MG factor": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length),
-        "Invest": ${Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initila_investment}
+        "Invest": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment
       });
     }
     
