@@ -80,7 +80,13 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
   }
 });
+// ========================================================================================
 
+
+
+// ========================================================================================
+// === Non-async functions ===
+// ========================================================================================
 function toggleControls(connected) {
   document.getElementById("connectWalletBtn").disabled = connected;
   document.getElementById("disconnectWalletBtn").disabled = !connected;
@@ -97,7 +103,13 @@ function formatETH(val) {
   if (val >= 0.000001) return val.toFixed(8);
   return val.toFixed(12); // show more precision for very small amounts
 }
+// ========================================================================================
 
+
+
+// ========================================================================================
+// === Async functions ===
+// ========================================================================================
 async function getContractETHBalance() {
   const balance = await provider.getBalance(CONTRACT_ADDRESS);
   const formatted = parseFloat(ethers.formatEther(balance)).toFixed(6);
@@ -133,6 +145,9 @@ async function getETHPriceUSD() {
     return cachedETHPrice; // Return old value if available
   }
 }
+// ========================================================================================
+
+
 
 /*
 //Show  trades
@@ -216,6 +231,7 @@ async function updateBalances(address) {
 
     console.clear();
     console.group("📊 Trade Summary");
+    console.log(`📈 ETH Price (USD): ${ethPriceUSD}`);
     console.log(`
     🛒 Buy Orders:
 
@@ -228,7 +244,7 @@ async function updateBalances(address) {
 
     💰=== Metamask wallet Balances ===💰
 
-    ETH Balance  : ${formatETH(ethFormatted)} ETH
+    ETH Balance  : ${parseFloat(ethFormatted).toFixed(5)} ETH
     USDC value   : ${parseFloat(usdValue).toFixed(2)} USDC
 
     💰=== Contract wallet Balances ===💰
@@ -318,41 +334,6 @@ function disconnectWallet() {
   // Disable controls
   toggleControls(false);
 }
-
-
-
-// ========================================================================================
-// Log all trade information in readable format
-// ========================================================================================
-
-
-
-// ========================================================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function showTxStatus(message, isError = false) {
   const statusDiv = document.getElementById("txStatus");
