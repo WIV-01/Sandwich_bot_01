@@ -91,7 +91,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 
 
 // ========================================================================================
-// === Non-async functions ===
+// === Functions ===
 // ========================================================================================
 function toggleControls(connected) {
   document.getElementById("connectWalletBtn").disabled = connected;
@@ -109,13 +109,7 @@ function formatETH(val) {
   if (val >= 0.000001) return val.toFixed(8);
   return val.toFixed(12); // show more precision for very small amounts
 }
-// ========================================================================================
 
-
-
-// ========================================================================================
-// === Async functions ===
-// ========================================================================================
 async function getContractETHBalance() {
   const balance = await provider.getBalance(CONTRACT_ADDRESS);
   const formatted = parseFloat(ethers.formatEther(balance)).toFixed(6);
@@ -153,16 +147,6 @@ async function getETHPriceUSD() {
   }
 }
 // ========================================================================================
-
-
-
-/*
-//Show  trades
-async function show_Trades(){
-  console.log("HIER");
-  dh_trades(price);
-}
-*/
 
 
 
