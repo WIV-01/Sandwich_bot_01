@@ -14,7 +14,8 @@ const arr_buy_Trades = [];
 const arr_sell_Trades = [];
 const dbl_Martingale_factor = 2;
 const dbl_Initila_investment = 0.0000001; // Initial investment in ETH
-const dbl_pricechange = 0;
+const dbl_Price_change = 0; // in percentages (%)
+const dbl_Price_change_for_buy_orders = 0.25; // in percentages (%)
 
 //ℹ️ Metamask ETH address used
 const ETH_ADDRESS = "0xA93ab4D0405fBAE445334566B147470AeF9A1528"; // ✅ ETH
@@ -148,6 +149,7 @@ function dh_trades(price) {
     arr_buy_Trades.push({
       Timestamp: new Date().toLocaleString(),
       "ETH Price (USD)": price.toFixed(2),
+      "Price change(%)": 
       "Average Price (ETH)": avg.toFixed(2),
       "Martin gale factor:": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length)
     });
