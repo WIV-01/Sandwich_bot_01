@@ -17,10 +17,10 @@ const MAINNET_CONFIG = {
 
 // === General settings ===
 const COMMON_CONFIG = {
-  INITIAL_INVESTMENT_ETH: 0.0000001,           // ETH to invest initially
+  INITIAL_INVESTMENT_ETH: 0.01,                // ETH to invest initially
   MARTINGALE_FACTOR: 2,                        // How much to multiply after each loss
   PRICE_CHANGE_BUY: 0.25,                      // % drop before buying more ETH
-  BALANCE_REFRESH_INTERVAL_MS: 30_000,         // How often to refresh balances (ms)
+  BALANCE_REFRESH_INTERVAL_MS: 5_000,          // How often to refresh balances (ms)
   ETH_PRICE_CACHE_DURATION_MS: 60_000,         // How often to update ETH price (ms)
 };
 
