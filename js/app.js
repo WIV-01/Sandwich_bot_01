@@ -126,11 +126,13 @@ async function getETHPriceUSD() {
   }
 }
 
+/*
 //Show  trades
 async function show_Trades(){
   console.log("HIER");
   dh_trades(price);
 }
+*/
 
 //Execute trades
 function dh_trades(price) {
@@ -172,13 +174,19 @@ function dh_trades(price) {
     console.error("14 - Trade information error:", err);
   }
 }
+// ========================================================================================
 
+
+
+// ========================================================================================
 // Price change
+// ========================================================================================
 function getPercentageChange(oldPrice, newPrice) {
   if (oldPrice === 0) return 0; // Avoid division by zero
   const dbl_Price_change_temp = ((newPrice - oldPrice) / oldPrice) * 100;
   return dbl_Price_change_temp.toFixed(8); // Limit to 8 decimal places
 }
+// ========================================================================================
 
 
 
@@ -230,7 +238,7 @@ async function updateBalances(address) {
 
 
 
-
+// ========================================================================================
 async function connectWallet() {
   if (!window.ethereum) {
     alert("Please install MetaMask.");
