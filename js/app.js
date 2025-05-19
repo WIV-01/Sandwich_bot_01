@@ -211,18 +211,17 @@ async function updateBalances(address) {
     console.log(`
     💰=== Metamask wallet Balances ===💰
 
-    ETH Balance         : ${parseFloat(ethFormatted).toFixed(5)} ETH
-    ETH in wallet value : ${parseFloat(usdValue).toFixed(2)} USDC
+    ETH Balance  : ${parseFloat(ethFormatted).toFixed(5)} ETH
+    USDC value   : ${parseFloat(usdValue).toFixed(2)} USDC
 
     💰=== Contract wallet Balances ===💰
     
-    ETH Balance         : ${contractEthBalance} ETH
-    USDC Balance        : ${parseFloat(usdcFormatted).toFixed(2)} USDC
+    ETH Balance  : ${contractEthBalance} ETH
+    USDC Balance : ${parseFloat(usdcFormatted).toFixed(2)} USDC
     `);
     console.log(`
-    
     ℹ️=== Buy criterias ===ℹ️
-    
+
     🔹 buy when price drops 1% or more compare to the previous buy signal
     🔹 if buy again while we still have one ore position(pyramiding >=1), buy twice as much (martin gale principle) 
     🔹 sell all when marketprice >= average position price + 2% or more
@@ -324,17 +323,8 @@ console.log("💸 Sell Orders:"); // when implemented
 console.log("💵 PnL Summary:"); // when implemented
 console.log("💰=== Metamask Wallet Balances ===💰");
 console.log(`Balance    : ${formatETH(dbl_ETH_Balance_Metamask)} ETH`);
-console.log(`USDC value : ${parseFloat(dbl_ETH_Balance_Metamask_value).toFixed(2)} USD`);
-console.log("💰=== Contract wallet Balances ===💰")           
-console.log(`
-ℹ️=== Buy criterias ===ℹ️
+console.log(`USDC value : ${parseFloat(dbl_ETH_Balance_Metamask_value).toFixed(2)} USD`);         
 
-🔹 buy when price drops 1% or more compare to the previous buy signal
-🔹 if buy again while we still have one ore position(pyramiding >=1), buy twice as much (martin gale principle) 
-🔹 sell all when marketprice >= average position price + 2% or more
-🔹 TP = 2%
-🔹 SL = 2%
-`);
 console.groupEnd();
 // ========================================================================================
 
