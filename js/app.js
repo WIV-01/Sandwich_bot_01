@@ -116,15 +116,17 @@ async function getETHPriceUSD() {
       console.log(`
       📈 ETH Price (USD): $${price.toFixed(2)}
       `);   
-
-      //Show buy trades
-      dh_trades(price);
     }
     return price;
   } catch (err) {
     console.error("Error fetching ETH price:", err);
     return cachedETHPrice; // Return old value if available
   }
+}
+
+//Show  trades
+async function shot_Trades{
+  dh_trades(price);
 }
 
 //Execute trades
@@ -225,7 +227,6 @@ async function updateBalances(address) {
     - sell all when marketprice >= average position price + 2% or more
     - TP = 2%
     - SL = 2%
-    
     `);
 
     document.getElementById("ethBalance").innerText = `ETH Balance: ${parseFloat(ethFormatted).toFixed(4)} ETH`;
