@@ -153,6 +153,45 @@ async function getETHPriceUSD() {
 // ========================================================================================
 //Execute trades
 // ========================================================================================
+function dh_trades(price) {
+  try {
+    if (typeof price !== 'number' || isNaN(price)) {
+      console.error("15 - Invalid price passed to function dh_trades(price):", price);
+      return "Invalid price";
+    }
+
+    if (arr_buy_Trades.length > 0) {
+      const lastTrade = arr_buy_Trades[arr_buy_Trades.length - 1];
+      if (Number(lastTrade["Price"]) === price) {
+        dbl_Price_change = 0;
+        // Instead of console.table, create a string
+        return formatTradesTable(arr_buy_Trades);
+      } else {
+        dbl_Price_change = getPercentageChange(Number(lastTrade["Price"]), price);
+      }
+    }
+
+    const tempSum = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade["Price"]), 0) + price;
+    const avg = tempSum / (arr_buy_Trades.length + 1);
+
+    arr_buy_Trades.push({
+      "Time": new Date().toLocaleString(),
+      "Price": price.toFixed(2),
+      "Change(%)": dbl_Price_change,
+      "Average": avg.toFixed(2),
+      "MG factor": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length)
+    });
+
+    // Return the string table here too
+    return formatTradesTable(arr_buy_Trades);
+
+  } catch (err) {
+    console.error("14 - Trade information error:", err);
+    return "Error displaying trades";
+  }
+}
+
+// Helper function to format trades as a string table
 function formatTradesTable(trades) {
   if (!trades.length) return "No trades";
 
