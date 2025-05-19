@@ -11,6 +11,7 @@ let lastPriceFetchTime = 0;
 let dbl_Price_change = 0; // in percentages (%)
 let bln_Buy = false; //Place a buy order
 let bln_Sell = false; //Place a sell order
+let dbl_delta_Avg_Entryprice = null;
 
 //ℹ️ Constant variables
 const timestamp = Date.now();
@@ -155,9 +156,6 @@ async function getETHPriceUSD() {
 // ========================================================================================
 function dh_trades(price) {
   try {
-
-    
-    
     // Validate price
     if (typeof price !== 'number' || isNaN(price)) {
       console.error("15 - Invalid price passed to function dh_trades(price):", price);
@@ -181,6 +179,13 @@ function dh_trades(price) {
     // Calculate average price from arr_buy_Trades, or use current price if empty
     const tempSum = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade["Price"]), 0) + price;
     const avg = tempSum / (arr_buy_Trades.length + 1);
+
+    if (firstPrice !== null && !isNaN(avg)) {
+      dbl_delta_Avg_Entryprice = getPercentageChange(firstPrice, avg);
+    } else {
+      dbl_delta_Avg_Entryprice = 0;
+    }
+    
     const dbl_delta_Avg_Entryprice = getPercentageChange(entryPriceDisplay, avg); //Diff. between Entryprice and AVG price
     
     // Add trade to table when price change occurs(current price < previous price)
