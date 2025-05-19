@@ -164,8 +164,9 @@ function dh_trades(price) {
       const lastTrade = arr_buy_Trades[arr_buy_Trades.length - 1];
       if (Number(lastTrade["Price"]) === price) {
         dbl_Price_change = 0;
+        console.table(arr_buy_Trades);
         // Instead of console.table, create a string
-        return formatTradesTable(arr_buy_Trades);
+        //return formatTradesTable(arr_buy_Trades);
       } else {
         dbl_Price_change = getPercentageChange(Number(lastTrade["Price"]), price);
       }
@@ -183,7 +184,8 @@ function dh_trades(price) {
     });
 
     // Return the string table here too
-    return formatTradesTable(arr_buy_Trades);
+    console.table(arr_buy_Trades);
+    //return formatTradesTable(arr_buy_Trades);
 
   } catch (err) {
     console.error("14 - Trade information error:", err);
