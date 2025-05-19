@@ -195,7 +195,7 @@ function dh_trades(price) {
         "Price": price.toFixed(2),
         "Change(%)": dbl_Price_change,
         "Average": avg.toFixed(2),
-        "AVG vs Entry": dbl_delta_Avg_Entryprice.toFixed(2),
+        "AVG vs Entry": dbl_delta_Avg_Entryprice,
         "MG factor": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length),
         "Invest": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment
       });
