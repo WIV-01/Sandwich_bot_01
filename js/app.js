@@ -20,7 +20,7 @@ const arr_buy_Trades = [];
 const arr_sell_Trades = [];
 const dbl_Martingale_factor = 2;
 const dbl_Initial_investment = 0.01; // Initial investment in ETH
-const dbl_Price_change_for_buy_orders = 0.01; // in percentages (%)
+const dbl_delta_Price_buy_orders = 0.01; // in percentages (%)
 
 //ℹ️ Metamask ETH address used
 const ETH_ADDRESS = "0xA93ab4D0405fBAE445334566B147470AeF9A1528"; // ✅ ETH
@@ -187,7 +187,7 @@ function dh_trades(price) {
       dbl_delta_Avg_Entryprice = 0;
     }
 
-    const f = dbl_delta_Avg_Entryprice / dbl_Price_change_for_buy_orders;
+    const f = dbl_delta_Avg_Entryprice / dbl_delta_Price_buy_orders;
     
     // Add trade to table when price change occurs(current price < previous price)
     if (arr_buy_Trades.length === 0 || dbl_Price_change <= -0.01) {
@@ -198,8 +198,9 @@ function dh_trades(price) {
         "Change(%)": dbl_Price_change,
         "Average": avg.toFixed(2),
         "AVG vs Entry": dbl_delta_Avg_Entryprice,
-        "MG factor": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length),
+        "MG": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length),
         "f": Math.abs(Number(f.toFixed(0))),
+        "f2": Math.pow(2, math.ceil(f)),
         "Invest": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment
       });
     }
