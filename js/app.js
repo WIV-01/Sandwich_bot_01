@@ -125,10 +125,10 @@ async function getETHPriceUSD() {
 }
 
 //Show  trades
-/*async function show_Trades(){
+async function show_Trades(){
   console.log("HIER");
   dh_trades(price);
-}*/
+}
 
 //Execute trades
 function dh_trades(price) {
@@ -198,7 +198,7 @@ function getPercentageChange(oldPrice, newPrice) {
 
 //Console overview
 console.group("📊 Trade Summary");
-console.log(`📈 ETH Price (USD): $${cachedETHPrice.toFixed(2)}`);
+//console.log(`📈 ETH Price (USD): $${cachedETHPrice.toFixed(2)}`);
 console.log("🛒 Buy Orders:");
 //console.table(arr_buy_Trades);
 console.log("💸 Sell Orders:"); // when implemented
