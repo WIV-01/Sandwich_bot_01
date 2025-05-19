@@ -163,22 +163,9 @@ function dh_trades(price) {
       "Average": avg.toFixed(2),
       "MG factor": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length)
     }); 
-
-    // Log all trades in readable format
-    console.log(`
-    ℹ️=== Trade information ===ℹ️
-
-    🛒=== Buy orders ===🛒
-    `);
     
     console.table(arr_buy_Trades);
 
-    console.log(`
-    💸=== Sell orders ===💸
-
-
-    💵=== PnL ===💵
-    `);
   } catch (err) {
     console.error("14 - Trade information error:", err);
   }
@@ -246,7 +233,7 @@ async function updateBalances(address) {
 
 
 
-//Console overview
+// Log all trade information in readable format
 console.group("📊 Trade Summary");
 //console.log(`📈 ETH Price (USD): $${cachedETHPrice.toFixed(2)}`);
 console.log("🛒 Buy Orders:");
@@ -254,38 +241,16 @@ console.log("🛒 Buy Orders:");
 console.log("💸 Sell Orders:"); // when implemented
 console.log("💵 PnL Summary:"); // when implemented
 console.log("💰=== Metamask wallet Balances ===💰")
-console.log(" 💰=== Contract wallet Balances ===💰")           
+console.log("💰=== Contract wallet Balances ===💰")           
 console.log("ℹ️=== Buy criterias ===ℹ️")
 console.log(`
-  - buy when price drops 1% or more compare to the previous buy signal
-  - if buy again while we still have one ore position(pyramiding >=1), buy twice as much (martin gale principle) 
-  - sell all when marketprice >= average position price + 2% or more
-  - TP = 2%
-  - SL = 2%
+🔹 buy when price drops 1% or more compare to the previous buy signal
+🔹 if buy again while we still have one ore position(pyramiding >=1), buy twice as much (martin gale principle) 
+🔹 sell all when marketprice >= average position price + 2% or more
+🔹 TP = 2%
+🔹 SL = 2%
 `);
 console.groupEnd();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 async function connectWallet() {
   if (!window.ethereum) {
