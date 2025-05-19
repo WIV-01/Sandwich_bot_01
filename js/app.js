@@ -180,13 +180,12 @@ function dh_trades(price) {
     const tempSum = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade["Price"]), 0) + price;
     const avg = tempSum / (arr_buy_Trades.length + 1);
 
+    //Diff. between Entryprice and AVG price
     if (firstPrice !== null && !isNaN(avg)) {
       dbl_delta_Avg_Entryprice = getPercentageChange(firstPrice, avg);
     } else {
       dbl_delta_Avg_Entryprice = 0;
     }
-    
-    const dbl_delta_Avg_Entryprice = getPercentageChange(entryPriceDisplay, avg); //Diff. between Entryprice and AVG price
     
     // Add trade to table when price change occurs(current price < previous price)
     if (arr_buy_Trades.length === 0 || dbl_Price_change <= -0.01) {
