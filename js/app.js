@@ -149,7 +149,7 @@ function dh_trades(price) {
     arr_buy_Trades.push({
       Timestamp: new Date().toLocaleString(),
       "ETH Price (USD)": price.toFixed(2),
-      "Price change(%)": ,
+      "Price change(%)",
       "Average Price (ETH)": avg.toFixed(2),
       "MG factor:": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length)
     });
