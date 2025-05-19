@@ -200,10 +200,13 @@ async function updateBalances(address) {
     const ethPriceUSD = await getETHPriceUSD();
     const usdValue = ethPriceUSD ? (parseFloat(ethFormatted) * ethPriceUSD).toFixed(2) : "N/A";
 
-    dbl_ETH_Balance_Metamask  = parseFloat(ethFormatted);
+    //💰=== Metamask wallet Balances ===💰
+    dbl_ETH_Balance_Metamask = parseFloat(ethFormatted);
     dbl_ETH_Balance_Metamask_value = parseFloat(usdValue);
+
+    //💰=== Contract wallet Balances ===💰
     
-    console.log(`
+    /*console.log(`
     💰=== Metamask wallet Balances ===💰
 
     ETH Balance         : ${parseFloat(ethFormatted).toFixed(5)} ETH
@@ -213,7 +216,7 @@ async function updateBalances(address) {
     
     ETH Balance         : ${contractEthBalance} ETH
     USDC Balance        : ${parseFloat(usdcFormatted).toFixed(2)} USDC
-    `);
+    `);*/
     
     document.getElementById("ethBalance").innerText = `ETH Balance: ${parseFloat(ethFormatted).toFixed(4)} ETH`;
     document.getElementById("usdcBalance").innerText = `USDC Balance: ${parseFloat(usdcFormatted).toFixed(2)} USDC`;
@@ -225,7 +228,6 @@ async function updateBalances(address) {
       document.getElementById("usdcBalance").innerText = "USDC Balance: Error";
   }
 }
-
 
 
 
