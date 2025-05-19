@@ -231,6 +231,9 @@ async function updateBalances(address) {
     const usdValue = ethPriceUSD ? (parseFloat(ethFormatted) * ethPriceUSD).toFixed(2) : "N/A";
 
     console.clear();
+    console.log(`
+    📈 ETH Price (USD): ${ethPriceUSD}
+    `);
     console.group("📊 Trade Summary");
     console.log(`
     ===================================
