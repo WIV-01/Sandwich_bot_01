@@ -197,7 +197,7 @@ function dh_trades(price) {
     }
 
     //Diff. between Entryprice and Price
-    if (price !== null && !isNaN(firstPrice)) {
+    if (price !== null && firstPrice !== null) {
       dbl_delta_Price_Entryprice = getPercentageChange(price, firstPrice);
     } else {
       dbl_delta_Price_Entryprice = 0;
