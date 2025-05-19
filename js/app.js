@@ -308,9 +308,8 @@ console.log("🛒 Buy Orders:");
 console.log("💸 Sell Orders:"); // when implemented
 console.log("💵 PnL Summary:"); // when implemented
 console.log("💰=== Metamask Wallet Balances ===💰");
-console.log(`ETH Balance         : ${formatETH(dbl_ETH_Balance_Metamask)} ETH`);
-console.log(`ETH in wallet value : ${parseFloat(dbl_ETH_Balance_Metamask_value).toFixed(2)} USD`);
-
+console.log(`Balance    : ${formatETH(dbl_ETH_Balance_Metamask)} ETH`);
+console.log(`USDC value : ${parseFloat(dbl_ETH_Balance_Metamask_value).toFixed(2)} USD`);
 console.log("💰=== Contract wallet Balances ===💰")           
 console.log(`
 ℹ️=== Buy criterias ===ℹ️
