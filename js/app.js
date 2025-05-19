@@ -223,7 +223,9 @@ async function updateBalances(address) {
     // 💰 Fetch and log ETH price
     const ethPriceUSD = await getETHPriceUSD();
     const usdValue = ethPriceUSD ? (parseFloat(ethFormatted) * ethPriceUSD).toFixed(2) : "N/A";
-
+    
+    dh_trades(ethPriceUSD); // ✅ Activate trade logic with current price
+    
     console.clear();
     console.group("📊 Trade Summary");
     console.log(`
