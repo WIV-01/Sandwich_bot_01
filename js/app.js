@@ -254,7 +254,7 @@ async function updateBalances(address) {
 
     💰=== Contract wallet Balances ===💰
     
-    ETH Balance  : ${parseFloat(contractEthBalance).toFixed(2)} ETH
+    ETH Balance  : ${parseFloat(contractEthBalance).toFixed(5)} ETH
     USDC Balance : ${parseFloat(usdcFormatted).toFixed(2)} USDC
     `);
     console.log(`
