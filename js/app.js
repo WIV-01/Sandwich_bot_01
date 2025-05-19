@@ -207,16 +207,8 @@ async function updateBalances(address) {
     
     ETH Balance         : ${contractEthBalance} ETH
     USDC Balance        : ${parseFloat(usdcFormatted).toFixed(2)} USDC
-
-    ℹ️=== Buy criterias ===ℹ️
-
-    - buy when price drops 1% or more compare to the previous buy signal
-    - if buy again while we still have one ore position(pyramiding >=1), buy twice as much (martin gale principle) 
-    - sell all when marketprice >= average position price + 2% or more
-    - TP = 2%
-    - SL = 2%
     `);
-
+    
     document.getElementById("ethBalance").innerText = `ETH Balance: ${parseFloat(ethFormatted).toFixed(4)} ETH`;
     document.getElementById("usdcBalance").innerText = `USDC Balance: ${parseFloat(usdcFormatted).toFixed(2)} USDC`;
   } catch (err) {
@@ -230,12 +222,8 @@ async function updateBalances(address) {
 
 
 
-
-
-
 // Log all trade information in readable format
 console.group("📊 Trade Summary");
-//console.log(`📈 ETH Price (USD): $${cachedETHPrice.toFixed(2)}`);
 console.log("🛒 Buy Orders:");
 //console.table(arr_buy_Trades);
 console.log("💸 Sell Orders:"); // when implemented
@@ -251,6 +239,11 @@ console.log(`
 🔹 SL = 2%
 `);
 console.groupEnd();
+
+
+
+
+
 
 async function connectWallet() {
   if (!window.ethereum) {
