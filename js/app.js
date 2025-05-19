@@ -167,7 +167,8 @@ function dh_trades(price) {
       
       if (Number(lastTrade["Price"]) === price) {
         dbl_Price_change = 0; //No price change
-        console.log("dbl_Price_change = 0");
+        
+        // Show the table with no chnges
         console.table(arr_buy_Trades);
         return; // Exit function early, don't add duplicate price
       } else {
