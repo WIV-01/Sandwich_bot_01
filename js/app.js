@@ -196,7 +196,6 @@ function dh_trades(price) {
     }
     
     const f = Math.abs(dbl_delta_Avg_Entryprice / dbl_delta_Price_buy_orders);
-    f = Number(f.toFixed(0));
       
     // Add trade to table when price change occurs(current price < previous price)
     if (arr_buy_Trades.length === 0 || dbl_Price_change <= -0.01) {
@@ -208,8 +207,8 @@ function dh_trades(price) {
         "Average": avg.toFixed(2),
         "Price vs AVG": dbl_delta_Price_Avg,
         "MG": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length),
-        "f": f,
-        "f2": Math.pow(2, f),
+        "f": Number(f.toFixed(0)),
+        "f2": Math.pow(2, Number(f.toFixed(0));),
         "Invest": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment
       });
     }
