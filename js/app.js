@@ -13,6 +13,7 @@ let bln_Buy = false; //Place a buy order
 let bln_Sell = false; //Place a sell order
 let dbl_delta_Price_Avg = null;
 let dbl_delta_Avg_Entryprice = null;
+let dbl_delta_Price_Entryprice = null;
 
 //ℹ️ Constant variables
 const timestamp = Date.now();
@@ -194,8 +195,15 @@ function dh_trades(price) {
     } else {
       dbl_delta_Price_Avg = 0;
     }
+
+    //Diff. between Entryprice and Price
+    if (price !== null && !isNaN(avg)) {
+      dbl_delta_Price_Entryprice = getPercentageChange(price, firstPrice);
+    } else {
+      dbl_delta_Price_Entryprice = 0;
+    }
     
-    const f = Math.abs(dbl_delta_Avg_Entryprice / dbl_delta_Price_buy_orders);
+    const f = Math.abs(dbl_delta_Price_Entryprice / dbl_delta_Price_buy_orders);
       
     // Add trade to table when price change occurs(current price < previous price)
     if (arr_buy_Trades.length === 0 || dbl_Price_change <= -0.01) {
@@ -206,7 +214,7 @@ function dh_trades(price) {
         "Change(%)": dbl_Price_change,
         "Average": avg.toFixed(2),
         "Price vs AVG": dbl_delta_Price_Avg,
-        "MG": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length),
+        "Price vs Entry price": dbl_delta_Price_Entryprice,
         "f": Number(f.toFixed(0)),
         "f2": Math.pow(2, Number(f.toFixed(0))),
         "Invest": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment
