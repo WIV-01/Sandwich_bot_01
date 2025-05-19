@@ -125,10 +125,10 @@ async function getETHPriceUSD() {
 }
 
 //Show  trades
-async function show_Trades(){
+/*async function show_Trades(){
   console.log("HIER");
   dh_trades(price);
-}
+}*/
 
 //Execute trades
 function dh_trades(price) {
