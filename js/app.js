@@ -143,7 +143,7 @@ function dh_trades(price) {
     }
     
     // Calculate average price from arr_buy_Trades, or use current price if empty
-    const tempSum = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade["ETH Price (USD)"]), 0) + price;
+    const tempSum = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade["Price"]), 0) + price;
     const avg = tempSum / (arr_buy_Trades.length + 1);
     
     // Add trade to table
@@ -177,7 +177,7 @@ function dh_trades(price) {
 function getPercentageChange(oldPrice, newPrice) {
   if (oldPrice === 0) return 0; // Avoid division by zero
   const change = ((newPrice - oldPrice) / oldPrice) * 100;
-  return change.toFixed(1); // Limit to 2 decimal places
+  return change.toFixed(4); // Limit to 2 decimal places
 }
 
 //Update wallet balances
