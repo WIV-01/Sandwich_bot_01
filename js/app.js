@@ -185,8 +185,6 @@ function dh_trades(price) {
         "Average": avg.toFixed(2),
         "MG factor": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length)
       });
-    } else {
-      return;
     }
     
     console.table(arr_buy_Trades);
