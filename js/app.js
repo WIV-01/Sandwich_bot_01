@@ -39,7 +39,13 @@ const usdcAbi = [
   "function balanceOf(address owner) view returns (uint256)",
   "function decimals() view returns (uint8)"
 ];
+// ========================================================================================
 
+
+
+// ========================================================================================
+// === Window function ===
+// ========================================================================================
 window.addEventListener("DOMContentLoaded", async () => {
  
   // Set up UI button event listeners
@@ -249,7 +255,7 @@ async function updateBalances(address) {
 
     💰=== Contract wallet Balances ===💰
     
-    ETH Balance  : ${formatETH(contractEthBalance)} ETH
+    ETH Balance  : ${parseFloat(contractEthBalance).toFixed(2)} ETH
     USDC Balance : ${parseFloat(usdcFormatted).toFixed(2)} USDC
     `);
     console.log(`
