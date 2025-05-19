@@ -14,6 +14,7 @@ const arr_buy_Trades = [];
 const arr_sell_Trades = [];
 const dbl_Martingale_factor = 2;
 const dbl_Initila_investment = 0.0000001; // Initial investment in ETH
+const dbl_pricechange = 0;
 
 //ℹ️ Metamask ETH address used
 const ETH_ADDRESS = "0xA93ab4D0405fBAE445334566B147470AeF9A1528"; // ✅ ETH
@@ -152,9 +153,18 @@ function dh_trades(price) {
     });
 
     // Log all trades in readable format
-    console.log(`ℹ️=== Trade information ===ℹ️`);
+    console.log(`
+    ℹ️=== Trade information ===ℹ️
+
+    🛒=== Buy orders ===🛒
+    `);
+    
     console.table(arr_buy_Trades);
 
+    console.log(`
+    💸=== Sell orders ===💸
+    `);
+    
   } catch (err) {
     console.error("14 - Trade information error:", err);
   }
