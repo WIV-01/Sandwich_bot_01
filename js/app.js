@@ -235,12 +235,11 @@ async function updateBalances(address) {
     console.log(`
     🛒 Open position(s):
     
-     ${dh_trades(ethPriceUSD)} // ✅ Activate trade logic with current price
+     ${dh_trades(ethPriceUSD)}
     `);
     
     console.log(`
     💵 PnL Summary:
-
 
     `);
     console.log(`
