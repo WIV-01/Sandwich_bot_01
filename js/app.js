@@ -228,6 +228,63 @@ async function updateBalances(address) {
   }
 }
 
+async function connectWallet() {
+  if (!window.ethereum) {
+    alert("Please install MetaMask.");
+    return;
+  }
+  try {
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
+      provider = new ethers.BrowserProvider(window.ethereum);
+      signer = await provider.getSigner();
+      contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+
+      const address = await signer.getAddress();
+    
+      document.getElementById("walletAddress").innerText = "Connected: " + address;
+      await updateBalances(address); // 👈 Initial fetch
+
+      if (balanceInterval) {
+        clearInterval(balanceInterval);
+      }
+      
+      // ✅ Refresh Metamask wallet balances every 30 seconds
+      // Save interval ID so you can clear it later if needed
+      balanceInterval = setInterval(async () => {
+        const currentAddress = await signer.getAddress();
+        await updateBalances(currentAddress);
+      }, 30000);
+    
+      // Enable controls
+      toggleControls(true);
+
+  } catch (err) {
+
+    //Console message
+    console.error("3 - Wallet connection error:", err);
+    
+    alert(err?.data?.message || err?.message || "Failed to connect wallet.");
+  }
+}
+
+function disconnectWallet() {
+  if (balanceInterval) {
+    clearInterval(balanceInterval);
+    balanceInterval = null;
+  }
+
+  provider = null;
+  signer = null;
+  contract = null;
+
+  document.getElementById("walletAddress").innerText = "Wallet disconnected";
+  document.getElementById("ethBalance").innerText = "ETH Balance:";
+  document.getElementById("usdcBalance").innerText = "USDC Balance:";
+
+  // Disable controls
+  toggleControls(false);
+}
+
 
 
 // ========================================================================================
@@ -269,65 +326,26 @@ console.groupEnd();
 
 
 
-async function connectWallet() {
-  if (!window.ethereum) {
-    alert("Please install MetaMask.");
-    return;
-  }
-  try {
-      await window.ethereum.request({ method: 'eth_requestAccounts' });
-      provider = new ethers.BrowserProvider(window.ethereum);
-      signer = await provider.getSigner();
-      contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
 
-      const address = await signer.getAddress();
-    
-      document.getElementById("walletAddress").innerText = "Connected: " + address;
-      await updateBalances(address); // 👈 Initial fetch
 
-      if (balanceInterval) {
-        clearInterval(balanceInterval);
-      }
-      
-      // ✅ Refresh Metamask wallet balances every 30 seconds
-      // Save interval ID so you can clear it later if needed
-      balanceInterval = setInterval(async () => {
-        const currentAddress = await signer.getAddress();
-        await updateBalances(currentAddress);
-      }, 30000);
 
-      //Console message
-      //console.log("3 - Metamask wallet balance:", "MM");
-    
-      // Enable controls
-      toggleControls(true);
 
-  } catch (err) {
 
-    //Console message
-    console.error("4 - Wallet connection error:", err);
-    
-    alert(err?.data?.message || err?.message || "Failed to connect wallet.");
-  }
-}
 
-function disconnectWallet() {
-  if (balanceInterval) {
-    clearInterval(balanceInterval);
-    balanceInterval = null;
-  }
 
-  provider = null;
-  signer = null;
-  contract = null;
 
-  document.getElementById("walletAddress").innerText = "Wallet disconnected";
-  document.getElementById("ethBalance").innerText = "ETH Balance:";
-  document.getElementById("usdcBalance").innerText = "USDC Balance:";
 
-  // Disable controls
-  toggleControls(false);
-}
+
+
+
+
+
+
+
+
+
+
+
 
 function showTxStatus(message, isError = false) {
   const statusDiv = document.getElementById("txStatus");
