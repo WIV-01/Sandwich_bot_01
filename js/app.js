@@ -1,5 +1,7 @@
+//ℹ️ Imports
 import { CONTRACT_ABI } from './abi.js'; // ✅ Contract ABI
 
+//ℹ️ Global variables
 let provider;
 let signer;
 let contract;
@@ -9,8 +11,6 @@ let lastPriceFetchTime = 0;
 let dbl_Price_change = 0; // in percentages (%)
 let bln_Buy = false; //Place a buy order
 let bln_Sell = false; //Place a sell order
-let dbl_ETH_Balance_Metamask = 0;
-let dbl_ETH_Balance_Metamask_value = 0;
 
 //ℹ️ Constant variables
 const timestamp = Date.now();
@@ -218,6 +218,16 @@ async function updateBalances(address) {
     
     ETH Balance         : ${contractEthBalance} ETH
     USDC Balance        : ${parseFloat(usdcFormatted).toFixed(2)} USDC
+    `);
+    console.log(`
+    
+    ℹ️=== Buy criterias ===ℹ️
+    
+    🔹 buy when price drops 1% or more compare to the previous buy signal
+    🔹 if buy again while we still have one ore position(pyramiding >=1), buy twice as much (martin gale principle) 
+    🔹 sell all when marketprice >= average position price + 2% or more
+    🔹 TP = 2%
+    🔹 SL = 2%
     `);
     console.groupEnd();
     
