@@ -180,15 +180,14 @@ function getPercentageChange(oldPrice, newPrice) {
   return dbl_Price_change_temp.toFixed(8); // Limit to 8 decimal places
 }
 
+
+
+// ========================================================================================
 //Update wallet balances
+// ========================================================================================
 async function updateBalances(address) {
   try {
-    const ethBalance = await provider.getBalance(address);
-
-    //Console message
-    //console.log("1a - Ethers object is:", ethers);
-    //console.log("1b - Ethers.formatEther is:", ethers.formatEther);
-    
+    const ethBalance = await provider.getBalance(address);   
     const ethFormatted = ethers.formatEther(ethBalance);
     const usdcContract = new ethers.Contract(USDC_ADDRESS, usdcAbi, provider);
     const usdcBalance = await usdcContract.balanceOf(address);
@@ -227,6 +226,10 @@ async function updateBalances(address) {
       document.getElementById("usdcBalance").innerText = "USDC Balance: Error";
   }
 }
+// ========================================================================================
+
+
+
 
 async function connectWallet() {
   if (!window.ethereum) {
