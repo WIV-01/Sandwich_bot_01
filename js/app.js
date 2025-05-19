@@ -191,6 +191,41 @@ function getPercentageChange(oldPrice, newPrice) {
   return dbl_Price_change_temp.toFixed(8); // Limit to 8 decimal places
 }
 
+
+
+
+
+
+
+console.group("📊 Trade Summary");
+console.log("🛒 Buy Orders:");
+//console.table(arr_buy_Trades);
+console.log("💸 Sell Orders:"); // when implemented
+console.log("💵 PnL Summary:"); // when implemented
+console.groupEnd();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Update wallet balances
 async function updateBalances(address) {
   try {
