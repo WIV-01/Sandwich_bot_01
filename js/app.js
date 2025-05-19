@@ -18,7 +18,7 @@ const arr_PnL = [];
 const arr_buy_Trades = [];
 const arr_sell_Trades = [];
 const dbl_Martingale_factor = 2;
-const dbl_Initila_investment = 0.0000001; // Initial investment in ETH
+const dbl_Initila_investment = 0.01; // Initial investment in ETH
 const dbl_Price_change_for_buy_orders = 0.25; // in percentages (%)
 
 //ℹ️ Metamask ETH address used
@@ -176,14 +176,15 @@ function dh_trades(price) {
     const tempSum = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade["Price"]), 0) + price;
     const avg = tempSum / (arr_buy_Trades.length + 1);
     
-    // Add trade to table
+    // Add trade to table when price change occurs(current price < previous price)
     if (arr_buy_Trades.length === 0 || dbl_Price_change !== 0) {
       arr_buy_Trades.push({
         "Time": new Date().toLocaleString(),
         "Price": price.toFixed(2),
         "Change(%)": dbl_Price_change,
         "Average": avg.toFixed(2),
-        "MG factor": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length)
+        "MG factor": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length),
+        "Invest": ${Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initila_investment}
       });
     }
     
@@ -249,9 +250,8 @@ async function updateBalances(address) {
     console.log(`
     🔹 buy when price drops 1% or more compare to the previous buy signal
     🔹 if buy again while we still have one ore position(pyramiding >=1), buy twice as much (martin gale principle) 
-    🔹 sell all when marketprice >= average position price + 2% or more
-    🔹 TP = 2%
-    🔹 SL = 2%
+    🔹 TP = 2% (marketprice >= average position price + 2% or more)
+    🔹 SL = 1%
     `);
     console.groupEnd();
     
