@@ -125,7 +125,7 @@ async function getETHPriceUSD() {
 }
 
 //Show  trades
-async function shot_Trades{
+async function show_Trades(){
   dh_trades(price);
 }
 
