@@ -246,12 +246,11 @@ async function updateBalances(address) {
     📈 ETH Price (USD): ${ethPriceUSD}
     `);
     console.log(`
-    🛒 Buy Orders:
+    🛒 Open position(s):
 
 
-    💸 Sell Orders:
-
-
+    `);
+    console.log(`
     💵 PnL Summary:
 
 
