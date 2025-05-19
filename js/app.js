@@ -137,7 +137,7 @@ function dh_trades(price) {
     // Check if last price is the same as current price
     if (arr_buy_Trades.length > 0) {
       const lastTrade = arr_buy_Trades[arr_buy_Trades.length - 1];
-      if (Number(lastTrade["ETH Price (USD)"]) === price) {
+      if (Number(lastTrade["Price"]) === price) {
         return; // Exit function early, don't add duplicate price
       }
     }
