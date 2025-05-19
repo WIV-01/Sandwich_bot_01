@@ -185,6 +185,8 @@ function dh_trades(price) {
         "Average": avg.toFixed(2),
         "MG factor": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length)
       });
+    } esle {
+      return;
     }
     
     console.table(arr_buy_Trades);
@@ -233,13 +235,14 @@ async function updateBalances(address) {
     console.log("🛒 Open position(s)");
     console.log(dh_trades(ethPriceUSD));
     console.log("💵 PnL Summary");
+    console.log("💰 Wallet Balances");
     console.log(`
-    💰=== Metamask wallet Balances ===💰
+    💰=== Metamask  ===💰
 
     ETH Balance  : ${parseFloat(ethFormatted).toFixed(5)} ETH
     USDC value   : ${parseFloat(usdValue).toFixed(2)} USDC
 
-    💰=== Contract wallet Balances ===💰
+    💰=== Contract ===💰
     
     ETH Balance  : ${parseFloat(contractEthBalance).toFixed(5)} ETH
     USDC Balance : ${parseFloat(usdcFormatted).toFixed(2)} USDC
