@@ -249,7 +249,7 @@ function formatETH(val) {
   return val.toFixed(12); // show more precision for very small amounts
 }
 
-console.log(`ETH Balance         : ${dbl_ETH_Balance_Metamask} ETH`);
+console.log(`ETH Balance         : ${formatETH(dbl_ETH_Balance_Metamask)} ETH`);
 console.log(`ETH in wallet value : ${parseFloat(dbl_ETH_Balance_Metamask_value).toFixed(2)} USD`);
 
 console.log("💰=== Contract wallet Balances ===💰")           
