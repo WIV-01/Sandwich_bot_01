@@ -228,16 +228,16 @@ async function updateBalances(address) {
     const usdValue = ethPriceUSD ? (parseFloat(ethFormatted) * ethPriceUSD).toFixed(2) : "N/A";
     
     console.clear();
-    
     console.group("📊 Trade Summary");
     console.log(`
     📈 ETH Price (USD): ${ethPriceUSD}
     `);
     console.log(`
     🛒 Open position(s):
-
+    
+     ${dh_trades(ethPriceUSD)}; // ✅ Activate trade logic with current price
     `);
-    dh_trades(ethPriceUSD); // ✅ Activate trade logic with current price
+    
     console.log(`
     💵 PnL Summary:
 
