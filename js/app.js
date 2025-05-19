@@ -153,52 +153,16 @@ async function getETHPriceUSD() {
 // ========================================================================================
 //Execute trades
 // ========================================================================================
-function dh_trades(price) {
-  try {
-    if (typeof price !== 'number' || isNaN(price)) {
-      console.error("15 - Invalid price passed to function dh_trades(price):", price);
-      return "Invalid price";
-    }
-
-    if (arr_buy_Trades.length > 0) {
-      const lastTrade = arr_buy_Trades[arr_buy_Trades.length - 1];
-      if (Number(lastTrade["Price"]) === price) {
-        dbl_Price_change = 0;
-        return formatTradesTable(arr_buy_Trades);
-      } else {
-        dbl_Price_change = getPercentageChange(Number(lastTrade["Price"]), price);
-      }
-    }
-
-    const tempSum = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade["Price"]), 0) + price;
-    const avg = tempSum / (arr_buy_Trades.length + 1);
-
-    arr_buy_Trades.push({
-      "Time": new Date().toLocaleString(),
-      "Price": price.toFixed(2),
-      "Change(%)": dbl_Price_change,
-      "Average": avg.toFixed(2),
-      "MG factor": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length)
-    });
-
-    // Return the string table here too
-    return formatTradesTable(arr_buy_Trades);
-
-  } catch (err) {
-    console.error("14 - Trade information error:", err);
-    return "Error displaying trades";
-  }
-}
-
-// Helper function to format trades as a string table
 function formatTradesTable(trades) {
   if (!trades.length) return "No trades";
 
   // Headers
   const headers = Object.keys(trades[0]);
+
+  // Rows as array of string values
   const rows = trades.map(trade => headers.map(h => trade[h].toString()));
 
-  // Compute max width for each column
+  // Calculate max width for each column (based on headers and rows)
   const colWidths = headers.map((header, i) =>
     Math.max(
       header.length,
@@ -206,17 +170,37 @@ function formatTradesTable(trades) {
     )
   );
 
-  // Format a single row
-  const formatRow = row => row.map((cell, i) => cell.padEnd(colWidths[i])).join(" | ");
+  // Function to pad cell content centered
+  const padCenter = (text, width) => {
+    const len = text.length;
+    if (len >= width) return text;
+    const left = Math.floor((width - len) / 2);
+    const right = width - len - left;
+    return ' '.repeat(left) + text + ' '.repeat(right);
+  };
 
-  // Build table string
-  const tableStr = [
-    formatRow(headers),
-    colWidths.map(w => '-'.repeat(w)).join("-|-"),
-    ...rows.map(formatRow)
-  ].join("\n");
+  // Format header row (center aligned)
+  const headerRow = headers.map((h, i) => padCenter(h, colWidths[i])).join(' | ');
 
-  return tableStr;
+  // Separator row (dashes)
+  const separatorRow = colWidths.map(w => '-'.repeat(w)).join('-|-');
+
+  // Format data rows (right aligned for numbers, left for others)
+  const formattedRows = rows.map(row => 
+    row.map((cell, i) => {
+      // Detect if numeric cell (simple check)
+      if (!isNaN(cell) && cell.trim() !== '') {
+        // Right align numbers
+        return cell.padStart(colWidths[i]);
+      } else {
+        // Left align text
+        return cell.padEnd(colWidths[i]);
+      }
+    }).join(' | ')
+  );
+
+  // Join all parts
+  return [headerRow, separatorRow, ...formattedRows].join('\n');
 }
 // ========================================================================================
 
