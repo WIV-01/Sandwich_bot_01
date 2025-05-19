@@ -200,8 +200,8 @@ async function updateBalances(address) {
     const ethPriceUSD = await getETHPriceUSD();
     const usdValue = ethPriceUSD ? (parseFloat(ethFormatted) * ethPriceUSD).toFixed(2) : "N/A";
 
-    dbl_ETH_Balance_Metamask  = parseFloat(ethFormatted).toFixed(5);
-    dbl_ETH_Balance_Metamask_value = parseFloat(usdValue).toFixed(2);
+    dbl_ETH_Balance_Metamask  = parseFloat(ethFormatted);
+    dbl_ETH_Balance_Metamask_value = parseFloat(usdValue);
     
     console.log(`
     💰=== Metamask wallet Balances ===💰
@@ -238,9 +238,19 @@ console.log("🛒 Buy Orders:");
 //console.table(arr_buy_Trades);
 console.log("💸 Sell Orders:"); // when implemented
 console.log("💵 PnL Summary:"); // when implemented
-console.log("💰=== Metamask wallet Balances ===💰")
-console.log(`ETH Balance         : ${dbl_ETH_Balance_Metamask}`);
-console.log(`ETH in wallet value : ${dbl_ETH_Balance_Metamask_value}`);
+console.log("💰=== Metamask Wallet Balances ===💰");
+
+// Handle tiny ETH values smartly
+function formatETH(val) {
+  if (val >= 1) return val.toFixed(4);
+  if (val >= 0.01) return val.toFixed(6);
+  if (val >= 0.000001) return val.toFixed(8);
+  return val.toFixed(12); // show more precision for very small amounts
+}
+
+console.log(`ETH Balance         : ${formatETH(dbl_ETH_Balance_Metamask)} ETH`);
+console.log(`ETH in wallet value : ${parseFloat(dbl_ETH_Balance_Metamask_value).toFixed(2)} USD`);
+
 console.log("💰=== Contract wallet Balances ===💰")           
 console.log(`
 ℹ️=== Buy criterias ===ℹ️
