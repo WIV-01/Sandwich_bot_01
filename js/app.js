@@ -177,7 +177,7 @@ function dh_trades(price) {
     const avg = tempSum / (arr_buy_Trades.length + 1);
     
     // Add trade to table
-    if (arr_buy_Trades.length === 0 || dbl_Price_change > 0) {
+    if (arr_buy_Trades.length === 0 || dbl_Price_change !== 0) {
       arr_buy_Trades.push({
         "Time": new Date().toLocaleString(),
         "Price": price.toFixed(2),
