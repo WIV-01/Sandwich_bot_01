@@ -247,9 +247,8 @@ async function updateBalances(address) {
     ETH Balance  : ${parseFloat(contractEthBalance).toFixed(5)} ETH
     USDC Balance : ${parseFloat(usdcFormatted).toFixed(2)} USDC
     `);
+    console.log("ℹ️=== Buy criterias ===ℹ️");
     console.log(`
-    ℹ️=== Buy criterias ===ℹ️
-
     🔹 buy when price drops 1% or more compare to the previous buy signal
     🔹 if buy again while we still have one ore position(pyramiding >=1), buy twice as much (martin gale principle) 
     🔹 sell all when marketprice >= average position price + 2% or more
