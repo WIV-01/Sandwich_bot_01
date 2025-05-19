@@ -137,13 +137,14 @@ function dh_trades(price) {
     // Check if last price is the same as current price
     if (arr_buy_Trades.length > 0) {
       const lastTrade = arr_buy_Trades[arr_buy_Trades.length - 1];
+      
       if (Number(lastTrade["Price"]) === price) {
+        dbl_Price_change = 0; //No price change
         return; // Exit function early, don't add duplicate price
-      }
+      } else {
+        dbl_Price_change = getPercentageChange(arr_buy_Trades[arr_buy_Trades.length - 1], price);
     }
 
-    dbl_Price_change = 1; //getPercentageChange(arr_buy_Trades[arr_buy_Trades.length - 1], price);
-    
     // Calculate average price from arr_buy_Trades, or use current price if empty
     const tempSum = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade["Price"]), 0) + price;
     const avg = tempSum / (arr_buy_Trades.length + 1);
