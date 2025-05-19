@@ -112,10 +112,10 @@ async function getETHPriceUSD() {
       cachedETHPrice = price;
       lastPriceFetchTime = now;
       
-      //console.clear();
+      /*console.clear();
       console.log(`
       📈 ETH Price (USD): $${price.toFixed(2)}
-      `);   
+      `);*/ 
     }
     return price;
   } catch (err) {
@@ -198,10 +198,7 @@ function getPercentageChange(oldPrice, newPrice) {
 
 //Console overview
 console.group("📊 Trade Summary");
-console.log(`
-📈 ETH Price (USD): $${price.toFixed(2)}
-
-`);
+console.log(`📈 ETH Price (USD): $${price.toFixed(2)}`);
 console.log("🛒 Buy Orders:");
 //console.table(arr_buy_Trades);
 console.log("💸 Sell Orders:"); // when implemented
