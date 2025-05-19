@@ -222,7 +222,11 @@ async function updateBalances(address) {
 
 
 
+
+// ========================================================================================
 // Log all trade information in readable format
+// ========================================================================================
+
 console.group("📊 Trade Summary");
 console.log("🛒 Buy Orders:");
 //console.table(arr_buy_Trades);
@@ -230,8 +234,9 @@ console.log("💸 Sell Orders:"); // when implemented
 console.log("💵 PnL Summary:"); // when implemented
 console.log("💰=== Metamask wallet Balances ===💰")
 console.log("💰=== Contract wallet Balances ===💰")           
-console.log("ℹ️=== Buy criterias ===ℹ️")
 console.log(`
+ℹ️=== Buy criterias ===ℹ️
+
 🔹 buy when price drops 1% or more compare to the previous buy signal
 🔹 if buy again while we still have one ore position(pyramiding >=1), buy twice as much (martin gale principle) 
 🔹 sell all when marketprice >= average position price + 2% or more
@@ -239,7 +244,7 @@ console.log(`
 🔹 SL = 2%
 `);
 console.groupEnd();
-
+// ========================================================================================
 
 
 
