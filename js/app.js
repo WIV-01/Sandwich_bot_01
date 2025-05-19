@@ -114,10 +114,10 @@ async function getETHPriceUSD() {
       cachedETHPrice = price;
       lastPriceFetchTime = now;
       
-      /*console.clear();
+      //*console.clear();
       console.log(`
       📈 ETH Price (USD): $${price.toFixed(2)}
-      `);*/ 
+      `); 
     }
     return price;
   } catch (err) {
