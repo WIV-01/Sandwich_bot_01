@@ -163,7 +163,7 @@ function dh_trades(price) {
 
     // Check if last price is the same as current price
     const firstPrice = arr_buy_Trades.length > 0 ? Number(arr_buy_Trades[0]["Price"]) : null;
-    const entryPriceDisplay = firstPrice !== null ? firstPrice.toFixed(2) : price;
+    const entryPriceDisplay = firstPrice !== null ? firstPrice.toFixed(2) : price.toFixed(2);
     
     if (arr_buy_Trades.length > 0) {
       const lastTrade = arr_buy_Trades[arr_buy_Trades.length - 1];
