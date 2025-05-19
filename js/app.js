@@ -294,13 +294,6 @@ function disconnectWallet() {
 // Log all trade information in readable format
 // ========================================================================================
 
-console.group("📊 Trade Summary");
-console.log("🛒 Buy Orders:");
-//console.table(arr_buy_Trades);
-console.log("💸 Sell Orders:"); // when implemented
-console.log("💵 PnL Summary:"); // when implemented
-console.log("💰=== Metamask Wallet Balances ===💰");
-
 // Handle tiny ETH values smartly
 function formatETH(val) {
   if (val >= 1) return val.toFixed(4);
@@ -309,6 +302,12 @@ function formatETH(val) {
   return val.toFixed(12); // show more precision for very small amounts
 }
 
+console.group("📊 Trade Summary");
+console.log("🛒 Buy Orders:");
+//console.table(arr_buy_Trades);
+console.log("💸 Sell Orders:"); // when implemented
+console.log("💵 PnL Summary:"); // when implemented
+console.log("💰=== Metamask Wallet Balances ===💰");
 console.log(`ETH Balance         : ${formatETH(dbl_ETH_Balance_Metamask)} ETH`);
 console.log(`ETH in wallet value : ${parseFloat(dbl_ETH_Balance_Metamask_value).toFixed(2)} USD`);
 
