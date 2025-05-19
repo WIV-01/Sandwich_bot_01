@@ -167,10 +167,6 @@ function dh_trades(price) {
       
       if (Number(lastTrade["Price"]) === price) {
         dbl_Price_change = 0; //No price change
-        
-        // Show the table with no chnges
-        console.table(arr_buy_Trades);
-        return; // Exit function early, don't add duplicate price
       } else {
         dbl_Price_change = getPercentageChange(Number(lastTrade["Price"]), price); //Price change
       }
@@ -181,13 +177,14 @@ function dh_trades(price) {
     const avg = tempSum / (arr_buy_Trades.length + 1);
     
     // Add trade to table
+    if (dbl_Price_change !=0) {
     arr_buy_Trades.push({
       "Time": new Date().toLocaleString(),
       "Price": price.toFixed(2),
       "Change(%)": dbl_Price_change,
       "Average": avg.toFixed(2),
       "MG factor": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length)
-    }); 
+    })}; 
     
     console.table(arr_buy_Trades);
 
