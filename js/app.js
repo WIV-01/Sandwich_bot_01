@@ -149,10 +149,10 @@ function dh_trades(price) {
     arr_buy_Trades.push({
       Timestamp: new Date().toLocaleString(),
       "ETH Price (USD)": price.toFixed(2),
-      "Change(%)",
+      "Change(%)": dbl_Price_change.toFixed(1),
       "Average Price (ETH)": avg.toFixed(2),
       "MG factor:": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length)
-    });
+    }); 
 
     // Log all trades in readable format
     console.log(`
