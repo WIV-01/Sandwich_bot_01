@@ -142,7 +142,7 @@ function dh_trades(price) {
         dbl_Price_change = 0; //No price change
         return; // Exit function early, don't add duplicate price
       } else {
-        dbl_Price_change = getPercentageChange(arr_buy_Trades[arr_buy_Trades.length - 1], price);
+        dbl_Price_change = getPercentageChange(Number(lastTrade["Price"]), price);
       }
     }
 
