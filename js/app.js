@@ -109,8 +109,8 @@ async function getETHPriceUSD() {
     const price = data?.ethereum?.usd;
 
     if (price) {
-      cachedETHPrice = price;
-      lastPriceFetchTime = now;
+      /*cachedETHPrice = price;
+      lastPriceFetchTime = now;*/
       
       console.clear();
       console.log(`
