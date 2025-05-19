@@ -230,6 +230,7 @@ async function updateBalances(address) {
     console.log(`
     📈 ETH Price (USD): ${ethPriceUSD}
     `);
+    console.log("🛒 Open position(s)");
     console.log(dh_trades(ethPriceUSD));
     console.log(`
     🛒 Open position(s):
