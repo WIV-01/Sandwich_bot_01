@@ -231,14 +231,11 @@ async function updateBalances(address) {
     const usdValue = ethPriceUSD ? (parseFloat(ethFormatted) * ethPriceUSD).toFixed(2) : "N/A";
 
     console.clear();
+    console.group("📊 Trade Summary");
     console.log(`
     📈 ETH Price (USD): ${ethPriceUSD}
     `);
-    console.group("📊 Trade Summary");
     console.log(`
-    ===================================
-    📈 ETH Price (USD): ${ethPriceUSD}
-    ===================================
     🛒 Buy Orders:
 
 
@@ -247,9 +244,9 @@ async function updateBalances(address) {
 
     💵 PnL Summary:
 
-    ===================================
-    Balances
-    ===================================
+
+    `);
+    console.log(`
     💰=== Metamask wallet Balances ===💰
 
     ETH Balance  : ${parseFloat(ethFormatted).toFixed(5)} ETH
