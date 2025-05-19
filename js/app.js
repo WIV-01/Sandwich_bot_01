@@ -168,6 +168,7 @@ function dh_trades(price) {
       if (Number(lastTrade["Price"]) === price) {
         dbl_Price_change = 0; //No price change
         console.log("dbl_Price_change = 0");
+        console.table(arr_buy_Trades);
         return; // Exit function early, don't add duplicate price
       } else {
         dbl_Price_change = getPercentageChange(Number(lastTrade["Price"]), price); //Price change
