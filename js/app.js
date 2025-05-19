@@ -200,7 +200,7 @@ function dh_trades(price) {
         "AVG vs Entry": dbl_delta_Avg_Entryprice,
         "MG": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length),
         "f": Math.abs(Number(f.toFixed(0))),
-        "f2": Math.pow(2, math.ceil(f)),
+        "f2": Math.pow(2, f),
         "Invest": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment
       });
     }
