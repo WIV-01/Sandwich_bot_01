@@ -14,7 +14,7 @@ const arr_buy_Trades = [];
 const arr_sell_Trades = [];
 const dbl_Martingale_factor = 2;
 const dbl_Initila_investment = 0.0000001; // Initial investment in ETH
-const dbl_Price_change = 0; // in percentages (%)
+//const dbl_Price_change = 0; // in percentages (%)
 const dbl_Price_change_for_buy_orders = 0.25; // in percentages (%)
 
 //ℹ️ Metamask ETH address used
@@ -176,8 +176,8 @@ function dh_trades(price) {
 // Price change
 function getPercentageChange(oldPrice, newPrice) {
   if (oldPrice === 0) return 0; // Avoid division by zero
-  const ddbl_Price_change = ((newPrice - oldPrice) / oldPrice) * 100;
-  return ddbl_Price_change.toFixed(4); // Limit to 8 decimal places
+  const dbl_Price_change = ((newPrice - oldPrice) / oldPrice) * 100;
+  return dbl_Price_change.toFixed(8); // Limit to 8 decimal places
 }
 
 //Update wallet balances
