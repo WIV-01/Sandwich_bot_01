@@ -139,11 +139,6 @@ async function getETHPriceUSD() {
     if (price) {
       cachedETHPrice = price;
       lastPriceFetchTime = now;
-      
-      //*console.clear();
-      console.log(`
-      📈 ETH Price (USD): $${price.toFixed(2)}
-      `); 
     }
     return price;
   } catch (err) {
@@ -237,8 +232,10 @@ async function updateBalances(address) {
 
     console.clear();
     console.group("📊 Trade Summary");
-    console.log(`📈 ETH Price (USD): ${ethPriceUSD}`);
     console.log(`
+    ===================================
+    📈 ETH Price (USD): ${ethPriceUSD}
+    ===================================
     🛒 Buy Orders:
 
 
@@ -247,7 +244,9 @@ async function updateBalances(address) {
 
     💵 PnL Summary:
 
-
+    ===================================
+    Balances
+    ===================================
     💰=== Metamask wallet Balances ===💰
 
     ETH Balance  : ${parseFloat(ethFormatted).toFixed(5)} ETH
