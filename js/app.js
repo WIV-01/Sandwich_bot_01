@@ -125,6 +125,7 @@ async function getETHPriceUSD() {
   }
 }
 
+//Execute trades
 function dh_trades(price) {
   try {
     // Validate price
@@ -147,10 +148,10 @@ function dh_trades(price) {
     
     // Add trade to table
     arr_buy_Trades.push({
-      Timestamp: new Date().toLocaleString(),
-      "ETH Price (USD)": price.toFixed(2),
-      "Change(%)": dbl_Price_change.toFixed(1),
-      "Average Price (ETH)": avg.toFixed(2),
+      Time: new Date().toLocaleString(),
+      "Price: price.toFixed(2),
+      "Change(%)": getPercentageChange(price, price),
+      "Average": avg.toFixed(2),
       "MG factor:": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length)
     }); 
 
@@ -172,6 +173,14 @@ function dh_trades(price) {
   }
 }
 
+// Price change
+function getPercentageChange(oldPrice, newPrice) {
+  if (oldPrice === 0) return 0; // Avoid division by zero
+  const change = ((newPrice - oldPrice) / oldPrice) * 100;
+  return change.toFixed(1); // Limit to 2 decimal places
+}
+
+//Update wallet balances
 async function updateBalances(address) {
   try {
     const ethBalance = await provider.getBalance(address);
