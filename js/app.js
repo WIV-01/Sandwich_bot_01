@@ -143,6 +143,7 @@ function dh_trades(price) {
         return; // Exit function early, don't add duplicate price
       } else {
         dbl_Price_change = getPercentageChange(arr_buy_Trades[arr_buy_Trades.length - 1], price);
+      }
     }
 
     // Calculate average price from arr_buy_Trades, or use current price if empty
