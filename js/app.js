@@ -163,6 +163,7 @@ function dh_trades(price) {
 
     // Check if last price is the same as current price
     const firstPrice = arr_buy_Trades.length > 0 ? Number(arr_buy_Trades[0]["Price"]) : null;
+    const entryPriceDisplay = firstPrice !== null ? firstPrice.toFixed(2) : "N/A";
     
     if (arr_buy_Trades.length > 0) {
       const lastTrade = arr_buy_Trades[arr_buy_Trades.length - 1];
@@ -182,7 +183,7 @@ function dh_trades(price) {
     if (arr_buy_Trades.length === 0 || dbl_Price_change <= -0.01 || dbl_Price_change >= 0.01) {
       arr_buy_Trades.push({
         "Time": new Date().toLocaleString(),
-        "Entry Price": firstPrice.toFixed(2),
+        "Entry Price": entryPriceDisplay,
         "Price": price.toFixed(2),
         "Change(%)": dbl_Price_change,
         "Average": avg.toFixed(2),
