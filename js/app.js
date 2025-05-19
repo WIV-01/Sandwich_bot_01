@@ -189,8 +189,8 @@ function dh_trades(price) {
     }
 
     //Diff. between Price and AVG price
-    if (Price !== null && !isNaN(avg)) {
-      dbl_delta_Price_Avg = getPercentageChange(Price, avg);
+    if (price !== null && !isNaN(avg)) {
+      dbl_delta_Price_Avg = getPercentageChange(price, avg);
     } else {
       dbl_delta_Price_Avg = 0;
     }
