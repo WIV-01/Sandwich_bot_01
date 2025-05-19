@@ -155,45 +155,68 @@ async function getETHPriceUSD() {
 // ========================================================================================
 function dh_trades(price) {
   try {
-    // Validate price
     if (typeof price !== 'number' || isNaN(price)) {
       console.error("15 - Invalid price passed to function dh_trades(price):", price);
-      return;
+      return "Invalid price";
     }
 
-    // Check if last price is the same as current price
     if (arr_buy_Trades.length > 0) {
       const lastTrade = arr_buy_Trades[arr_buy_Trades.length - 1];
-      
       if (Number(lastTrade["Price"]) === price) {
-        dbl_Price_change = 0; //No price change
-        
-        // Show the table with no chnges
-        console.table(arr_buy_Trades);
-        return; // Exit function early, don't add duplicate price
+        dbl_Price_change = 0;
+        return formatTradesTable(arr_buy_Trades);
       } else {
-        dbl_Price_change = getPercentageChange(Number(lastTrade["Price"]), price); //Price change
+        dbl_Price_change = getPercentageChange(Number(lastTrade["Price"]), price);
       }
     }
 
-    // Calculate average price from arr_buy_Trades, or use current price if empty
     const tempSum = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade["Price"]), 0) + price;
     const avg = tempSum / (arr_buy_Trades.length + 1);
-    
-    // Add trade to table
+
     arr_buy_Trades.push({
       "Time": new Date().toLocaleString(),
       "Price": price.toFixed(2),
       "Change(%)": dbl_Price_change,
       "Average": avg.toFixed(2),
       "MG factor": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length)
-    }); 
-    
-    console.table(arr_buy_Trades);
+    });
+
+    // Return the string table here too
+    return formatTradesTable(arr_buy_Trades);
 
   } catch (err) {
     console.error("14 - Trade information error:", err);
+    return "Error displaying trades";
   }
+}
+
+// Helper function to format trades as a string table
+function formatTradesTable(trades) {
+  if (!trades.length) return "No trades";
+
+  // Headers
+  const headers = Object.keys(trades[0]);
+  const rows = trades.map(trade => headers.map(h => trade[h].toString()));
+
+  // Compute max width for each column
+  const colWidths = headers.map((header, i) =>
+    Math.max(
+      header.length,
+      ...rows.map(row => row[i].length)
+    )
+  );
+
+  // Format a single row
+  const formatRow = row => row.map((cell, i) => cell.padEnd(colWidths[i])).join(" | ");
+
+  // Build table string
+  const tableStr = [
+    formatRow(headers),
+    colWidths.map(w => '-'.repeat(w)).join("-|-"),
+    ...rows.map(formatRow)
+  ].join("\n");
+
+  return tableStr;
 }
 // ========================================================================================
 
