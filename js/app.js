@@ -148,11 +148,11 @@ function dh_trades(price) {
     
     // Add trade to table
     arr_buy_Trades.push({
-      Time: new Date().toLocaleString(),
-      "Price: price.toFixed(2),
+      "Time": new Date().toLocaleString(),
+      "Price": price.toFixed(2),
       "Change(%)": getPercentageChange(price, price),
       "Average": avg.toFixed(2),
-      "MG factor:": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length)
+      "MG factor": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length)
     }); 
 
     // Log all trades in readable format
