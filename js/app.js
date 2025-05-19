@@ -176,8 +176,8 @@ function dh_trades(price) {
 // Price change
 function getPercentageChange(oldPrice, newPrice) {
   if (oldPrice === 0) return 0; // Avoid division by zero
-  dbl_Price_change = ((newPrice - oldPrice) / oldPrice) * 100;
-  return dbl_Price_change.toFixed(8); // Limit to 8 decimal places
+  const ddbl_Price_change = ((newPrice - oldPrice) / oldPrice) * 100;
+  return ddbl_Price_change.toFixed(4); // Limit to 8 decimal places
 }
 
 //Update wallet balances
