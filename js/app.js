@@ -12,7 +12,6 @@ let bln_Sell = false; //Place a sell order
 let dbl_ETH_Balance_Metamask = 0;
 let dbl_ETH_Balance_Metamask_value = 0;
 
-
 //ℹ️ Constant variables
 const timestamp = Date.now();
 const arr_PnL = [];
@@ -250,7 +249,7 @@ function formatETH(val) {
   return val.toFixed(12); // show more precision for very small amounts
 }
 
-console.log(`ETH Balance         : ${formatETH(dbl_ETH_Balance_Metamask)} ETH`);
+console.log(`ETH Balance         : ${dbl_ETH_Balance_Metamask} ETH`);
 console.log(`ETH in wallet value : ${parseFloat(dbl_ETH_Balance_Metamask_value).toFixed(2)} USD`);
 
 console.log("💰=== Contract wallet Balances ===💰")           
