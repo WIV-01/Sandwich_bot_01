@@ -9,7 +9,7 @@ let lastPriceFetchTime = 0;
 let dbl_Price_change = 0; // in percentages (%)
 let bln_Buy = false; //Place a buy order
 let bln_Sell = false; //Place a sell order
-let dbl_ETH_Balance = 0;
+let dbl_ETH_Balance_Metamask = 0;
 
 //ℹ️ Constant variables
 const timestamp = Date.now();
@@ -198,7 +198,7 @@ async function updateBalances(address) {
     const ethPriceUSD = await getETHPriceUSD();
     const usdValue = ethPriceUSD ? (parseFloat(ethFormatted) * ethPriceUSD).toFixed(2) : "N/A";
 
-    dbl_ETH_Balance = ${parseFloat(ethFormatted).toFixed(5)};
+    dbl_ETH_Balance = parseFloat(ethFormatted).toFixed(5);
     
     console.log(`
     💰=== Metamask wallet Balances ===💰
@@ -236,7 +236,7 @@ console.log("🛒 Buy Orders:");
 console.log("💸 Sell Orders:"); // when implemented
 console.log("💵 PnL Summary:"); // when implemented
 console.log("💰=== Metamask wallet Balances ===💰")
-console.log(`ETH Balance         : $(dbl_ETH_Balance)`);
+console.log(`ETH Balance         : $(dbl_ETH_Balance_Metamask)`);
 console.log("💰=== Contract wallet Balances ===💰")           
 console.log(`
 ℹ️=== Buy criterias ===ℹ️
