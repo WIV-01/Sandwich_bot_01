@@ -6,6 +6,7 @@ let contract;
 let balanceInterval = null;
 let cachedETHPrice = null;
 let lastPriceFetchTime = 0;
+let dbl_Price_change = 0; // in percentages (%)
 
 //ℹ️ Constant variables
 const timestamp = Date.now();
@@ -14,7 +15,6 @@ const arr_buy_Trades = [];
 const arr_sell_Trades = [];
 const dbl_Martingale_factor = 2;
 const dbl_Initila_investment = 0.0000001; // Initial investment in ETH
-const dbl_Price_change = 0; // in percentages (%)
 const dbl_Price_change_for_buy_orders = 0.25; // in percentages (%)
 
 //ℹ️ Metamask ETH address used
@@ -142,7 +142,7 @@ function dh_trades(price) {
       }
     }
 
-    dbl_Price_change = 1; //getPercentageChange(arr_buy_Trades[arr_buy_Trades.length - 1], price)
+    dbl_Price_change = 1; //getPercentageChange(arr_buy_Trades[arr_buy_Trades.length - 1], price);
     
     // Calculate average price from arr_buy_Trades, or use current price if empty
     const tempSum = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade["Price"]), 0) + price;
