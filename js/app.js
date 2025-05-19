@@ -14,7 +14,7 @@ const arr_buy_Trades = [];
 const arr_sell_Trades = [];
 const dbl_Martingale_factor = 2;
 const dbl_Initila_investment = 0.0000001; // Initial investment in ETH
-//const dbl_Price_change = 0; // in percentages (%)
+const dbl_Price_change = 0; // in percentages (%)
 const dbl_Price_change_for_buy_orders = 0.25; // in percentages (%)
 
 //ℹ️ Metamask ETH address used
@@ -130,7 +130,7 @@ function dh_trades(price) {
   try {
     // Validate price
     if (typeof price !== 'number' || isNaN(price)) {
-      console.error("15 - Invalid price passed to function trades():", price);
+      console.error("15 - Invalid price passed to function dh_trades(price):", price);
       return;
     }
 
@@ -141,6 +141,8 @@ function dh_trades(price) {
         return; // Exit function early, don't add duplicate price
       }
     }
+
+    dbl_Price_change = 1; //getPercentageChange(arr_buy_Trades[arr_buy_Trades.length - 1], price)
     
     // Calculate average price from arr_buy_Trades, or use current price if empty
     const tempSum = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade["Price"]), 0) + price;
@@ -150,7 +152,7 @@ function dh_trades(price) {
     arr_buy_Trades.push({
       "Time": new Date().toLocaleString(),
       "Price": price.toFixed(2),
-      "Change(%)": getPercentageChange(price, price),
+      "Change(%)": dbl_Price_change,
       "Average": avg.toFixed(2),
       "MG factor": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length)
     }); 
@@ -176,8 +178,8 @@ function dh_trades(price) {
 // Price change
 function getPercentageChange(oldPrice, newPrice) {
   if (oldPrice === 0) return 0; // Avoid division by zero
-  const dbl_Price_change = ((newPrice - oldPrice) / oldPrice) * 100;
-  return dbl_Price_change.toFixed(8); // Limit to 8 decimal places
+  const dbl_Price_change_temp = ((newPrice - oldPrice) / oldPrice) * 100;
+  return dbl_Price_change_temp.toFixed(8); // Limit to 8 decimal places
 }
 
 //Update wallet balances
