@@ -7,6 +7,8 @@ let balanceInterval = null;
 let cachedETHPrice = null;
 let lastPriceFetchTime = 0;
 let dbl_Price_change = 0; // in percentages (%)
+let bln_Buy = false; //Place a buy order
+let bln_Sell = false; //Place a sell order
 
 //ℹ️ Constant variables
 const timestamp = Date.now();
@@ -142,7 +144,7 @@ function dh_trades(price) {
         dbl_Price_change = 0; //No price change
         return; // Exit function early, don't add duplicate price
       } else {
-        dbl_Price_change = getPercentageChange(Number(lastTrade["Price"]), price);
+        dbl_Price_change = getPercentageChange(Number(lastTrade["Price"]), price); //Price change
       }
     }
 
@@ -170,8 +172,10 @@ function dh_trades(price) {
 
     console.log(`
     💸=== Sell orders ===💸
+
+
+    💵=== PnL ===💵
     `);
-    
   } catch (err) {
     console.error("14 - Trade information error:", err);
   }
