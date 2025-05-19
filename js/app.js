@@ -90,6 +90,14 @@ function toggleControls(connected) {
   document.getElementById("resumeBotBtn").disabled = !connected; 
 }
 
+// Handle tiny ETH values smartly
+function formatETH(val) {
+  if (val >= 1) return val.toFixed(4);
+  if (val >= 0.01) return val.toFixed(6);
+  if (val >= 0.000001) return val.toFixed(8);
+  return val.toFixed(12); // show more precision for very small amounts
+}
+
 async function getContractETHBalance() {
   const balance = await provider.getBalance(CONTRACT_ADDRESS);
   const formatted = parseFloat(ethers.formatEther(balance)).toFixed(6);
@@ -209,14 +217,23 @@ async function updateBalances(address) {
     console.clear();
     console.group("📊 Trade Summary");
     console.log(`
+    🛒 Buy Orders:
+
+
+    💸 Sell Orders:
+
+
+    💵 PnL Summary:
+
+
     💰=== Metamask wallet Balances ===💰
 
-    ETH Balance  : ${parseFloat(ethFormatted).toFixed(5)} ETH
+    ETH Balance  : ${formatETH(ethFormatted)} ETH
     USDC value   : ${parseFloat(usdValue).toFixed(2)} USDC
 
     💰=== Contract wallet Balances ===💰
     
-    ETH Balance  : ${contractEthBalance} ETH
+    ETH Balance  : ${formatETH(contractEthBalance)} ETH
     USDC Balance : ${parseFloat(usdcFormatted).toFixed(2)} USDC
     `);
     console.log(`
@@ -308,24 +325,8 @@ function disconnectWallet() {
 // Log all trade information in readable format
 // ========================================================================================
 
-// Handle tiny ETH values smartly
-function formatETH(val) {
-  if (val >= 1) return val.toFixed(4);
-  if (val >= 0.01) return val.toFixed(6);
-  if (val >= 0.000001) return val.toFixed(8);
-  return val.toFixed(12); // show more precision for very small amounts
-}
 
-console.group("📊 Trade Summary");
-console.log("🛒 Buy Orders:");
-//console.table(arr_buy_Trades);
-console.log("💸 Sell Orders:"); // when implemented
-console.log("💵 PnL Summary:"); // when implemented
-console.log("💰=== Metamask Wallet Balances ===💰");
-console.log(`Balance    : ${formatETH(dbl_ETH_Balance_Metamask)} ETH`);
-console.log(`USDC value : ${parseFloat(dbl_ETH_Balance_Metamask_value).toFixed(2)} USD`);         
 
-console.groupEnd();
 // ========================================================================================
 
 
