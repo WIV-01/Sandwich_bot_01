@@ -314,14 +314,14 @@ async function updateBalances(address) {
     `);
     console.groupEnd();
     
-    document.getElementById("ethBalance").innerText = `ETH Balance: ${parseFloat(ethFormatted).toFixed(4)} ETH`;
-    document.getElementById("usdcBalance").innerText = `USDC Balance: ${parseFloat(usdcFormatted).toFixed(2)} USDC`;
+    document.getElementById("ethBalance").innerText = `ETH: ${parseFloat(ethFormatted).toFixed(4)} ETH`;
+    document.getElementById("usdcBalance").innerText = `USDC: ${parseFloat(usdcFormatted).toFixed(2)} USDC`;
   } catch (err) {
 
       //Console message
       console.error("2 - Balance fetch error:", err);
-      document.getElementById("ethBalance").innerText = "ETH Balance: Error";
-      document.getElementById("usdcBalance").innerText = "USDC Balance: Error";
+      document.getElementById("ethBalance").innerText = "ETH: Metamask Error";
+      document.getElementById("usdcBalance").innerText = "USDC: Metamask Error";
   }
 }
 // ========================================================================================
