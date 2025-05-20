@@ -17,7 +17,7 @@ let dbl_Disitance_betwee_Entryprice_Price = null;
 
 //ℹ️ Constant variables
 const timestamp = Date.now();
-const arr_PnL = [];
+const arr_PnL = []; 
 const arr_buy_Trades = [];
 const arr_sell_Trades = [];
 const dbl_Martingale_factor = 2;
@@ -226,12 +226,16 @@ function dh_trades(price) {
       arr_buy_Trades.push({
         "Time": new Date().toLocaleString(),
         "Entry price": dbl_Entryprice,
-        "Trade Price": price.toFixed(2),
+        $(_colname_Trade_price) : price.toFixed(2),
         "Change(%)": dbl_Price_change,
         "f": Number(f.toFixed(0)),
         "f2": Number(f2.toFixed(0)),
         "Invest (ETH)": Number(dbl_Investment_ETH.toFixed(8)),
         "Invest (USDC)": Number(dbl_Investment_USDC.toFixed(8))
+      });
+
+      arr_PnL.push({
+        "PnL": Number(dbl_Investment_USDC.toFixed(8))
       });
     }
 
@@ -240,8 +244,11 @@ function dh_trades(price) {
         "Price vs AVG": dbl_delta_Price_Avg,
         "Price vs Entry price": dbl_delta_Price_Entryprice,
     */
-    
+
+    console.log("🛒 Open position(s)");
     console.table(arr_buy_Trades);
+    console.log("💵 PnL Summary");
+    console.table(arr_PnL);
 
   } catch (err) {
     console.error("14 - Trade information error:", err);
@@ -284,9 +291,9 @@ async function updateBalances(address) {
     console.log(`
     📈 ETH Price (USD): ${ethPriceUSD}
     `);
-    console.log("🛒 Open position(s)");
+    //console.log("🛒 Open position(s)");
     console.log(dh_trades(ethPriceUSD));
-    console.log("💵 PnL Summary");
+    //console.log("💵 PnL Summary");
     console.log("💰 Wallet Balances");
     console.log(`
     💰=== Metamask  ===💰
