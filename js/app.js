@@ -219,6 +219,11 @@ function dh_trades(price) {
 
     "f2": Math.pow(2, Number(f.toFixed(0))),
     "Invest": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment
+    /*  
+        "Average": avg.toFixed(2),
+        "Price vs AVG": dbl_delta_Price_Avg,
+        "Price vs Entry price": dbl_delta_Price_Entryprice,
+    */
 */
 
     const f = Math.abs(dbl_Price_change / dbl_minimum_Disitance_between_buy_orders);
@@ -239,19 +244,11 @@ function dh_trades(price) {
         [_colname_Investment_USDC]: Number(dbl_Investment_USDC.toFixed(8))
       });
 
-      arr_PnL.push({
-        [_colname_PnL]: -Number(dbl_Investment_USDC.toFixed(8))
-      });     
+      arr_PnL.push({[_colname_PnL]: -Number(dbl_Investment_USDC.toFixed(8))});     
     }
 
     // === PnL
     const dbl_PnL = arr_PnL.reduce((sum, _PnL) => sum + Number(_PnL[_colname_PnL] || 0), 0); 
-    
-    /*  
-        "Average": avg.toFixed(2),
-        "Price vs AVG": dbl_delta_Price_Avg,
-        "Price vs Entry price": dbl_delta_Price_Entryprice,
-    */
 
     console.log("🛒 Open position(s)");
     console.table(arr_buy_Trades);
