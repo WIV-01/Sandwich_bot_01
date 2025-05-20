@@ -179,6 +179,8 @@ function dh_trades(price) {
       }
     }
 
+    console.log(price);
+    console.log(Number(lastTrade["Price"]));
     console.log(arr_buy_Trades.length);
     console.log(dbl_Price_change);
     
