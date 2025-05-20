@@ -179,7 +179,8 @@ function dh_trades(price) {
       }
     }
 
-
+    console.log(arr_buy_Trades.length);
+    console.log(dbl_Price_change);
     
 /*
     // === Calculate average price from arr_buy_Trades, or use current price if empty ===
@@ -216,7 +217,9 @@ function dh_trades(price) {
     const f2 = Math.pow(2, f);
     const dbl_Investment_ETH = (Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2)/price;
     const dbl_Investment_USDC = Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2;
-    console.log(dbl_Price_change);
+    
+    
+    
      // === Add trade to table when price change occurs(current price < previous price)
     if (arr_buy_Trades.length === 0 || dbl_Price_change <= -0.01) {
       arr_buy_Trades.push({
