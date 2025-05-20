@@ -174,10 +174,10 @@ function dh_trades(price) {
     if (arr_buy_Trades.length > 0) {
       const lastTrade = arr_buy_Trades[arr_buy_Trades.length - 1];
       
-      if (Number(lastTrade["Trade Price"]) === price) {
+      if (Number(lastTrade[_colname_Trade_price]) === price) {
         dbl_Price_change = 0; //No price change
       } else {
-        dbl_Price_change = getPercentageChange(Number(lastTrade[_colname_Trade_price]), price); 
+        dbl_Price_change = getPercentageChange(firstPrice_temp, price); 
       }
 
     console.log(price);
@@ -236,8 +236,8 @@ function dh_trades(price) {
         "Change(%)": dbl_Price_change,
         "f": Number(f.toFixed(0)),
         "f2": Number(f2.toFixed(0)),
-        "Invest (ETH)": Number(dbl_Investment_ETH.toFixed(10)),
-        "Invest (USDC)": Number(dbl_Investment_USDC.toFixed(10))
+        "Invest (ETH)": Number(dbl_Investment_ETH.toFixed(8)),
+        "Invest (USDC)": Number(dbl_Investment_USDC.toFixed(8))
       });
     }
 
