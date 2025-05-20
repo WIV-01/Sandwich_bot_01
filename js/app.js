@@ -254,7 +254,9 @@ function dh_trades(price) {
     console.table(arr_buy_Trades);
     console.log("💵 PnL Summary");
     console.table(arr_PnL);
-    console.log("💰 PnL");
+    console.log(`
+    💰 PnL (USD): ${dbl_PnL}
+    `); 
     
   } catch (err) {
     console.error("14 - Trade information error:", err);
