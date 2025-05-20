@@ -167,7 +167,7 @@ function dh_trades(price) {
   const _colname_Investment_ETH = "Investment (ETH)";
   const _colname_Investment_USDC = "Investment (USDC)"; 
   const _colname_PnL = "PnL";
-  const bln_Buy = false; //Place a buy order
+  let bln_Buy = false; //Place a buy order
   
   try {
     // === Validate price ===
