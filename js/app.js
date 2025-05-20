@@ -105,7 +105,7 @@ function toggleControls(connected) {
   document.getElementById("resumeBotBtn").disabled = !connected; 
 }
 
-// Handle tiny ETH values smartly
+// === Handle tiny ETH values smartly
 function formatETH(val) {
   if (val >= 1) return val.toFixed(4);
   if (val >= 0.01) return val.toFixed(6);
@@ -113,10 +113,10 @@ function formatETH(val) {
   return val.toFixed(12); // show more precision for very small amounts
 }
 
+// === Get contract ETH balance
 async function getContractETHBalance() {
   const balance = await provider.getBalance(CONTRACT_ADDRESS);
   const formatted = parseFloat(ethers.formatEther(balance)).toFixed(6);
-  
   return formatted;
 }
 // ========================================================================================
@@ -225,7 +225,7 @@ function dh_trades(price) {
     if (arr_buy_Trades.length === 0 || dbl_Price_change <= -0.01) {
       arr_buy_Trades.push({
         "Time": new Date().toLocaleString(),
-        "Entry price": firstPrice,
+        "Entry price": dbl_Entryprice,
         "Trade Price": price.toFixed(2),
         "Change(%)": dbl_Price_change,
         "f": Number(f.toFixed(0)),
