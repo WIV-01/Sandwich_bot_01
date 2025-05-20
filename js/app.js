@@ -188,8 +188,6 @@ function dh_trades(price) {
       }     
     }
 
-
-    
 /*
     // === Calculate average price from arr_buy_Trades, or use current price if empty ===
     const tempSum = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade["Price"]), 0) + price;
@@ -220,7 +218,6 @@ function dh_trades(price) {
     "Invest": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment
 */
 
-    
     const f = Math.abs(dbl_Price_change / dbl_minimum_Disitance_between_buy_orders);
     const f2 = Math.pow(2, f);
     const dbl_Investment_ETH = (Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2)/price;
@@ -241,12 +238,12 @@ function dh_trades(price) {
 
       arr_PnL.push({
         "PnL": -Number(dbl_Investment_USDC.toFixed(8))
-      });
-
-      // === PnL
-      const dbl_PnL = arr_PnL.reduce((sum, trade) => sum + Number(trade[_colname_Investment_USDC]), 0) + price;      
+      });     
     }
 
+    // === PnL
+    const dbl_PnL = arr_PnL.reduce((sum, trade) => sum + Number(trade[_colname_Investment_USDC]), 0) + price; 
+    
     /*  
         "Average": avg.toFixed(2),
         "Price vs AVG": dbl_delta_Price_Avg,
