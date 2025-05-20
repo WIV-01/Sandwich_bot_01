@@ -167,8 +167,8 @@ function dh_trades(price) {
     }
 
     // === Check if last price is the same as current price ===
-    const firstPrice_temp = arr_buy_Trades.length > 0 ? Number(arr_buy_Trades[0][_colname_Trade_price]) : null;
-    const firstPrice = firstPrice_temp !== null ? firstPrice_temp.toFixed(2) : price.toFixed(2);
+    const dbl_Entryprice_temp = arr_buy_Trades.length > 0 ? Number(arr_buy_Trades[0][_colname_Trade_price]) : null;
+    const dbl_Entryprice = dbl_Entryprice_temp !== null ? dbl_Entryprice_temp.toFixed(2) : price.toFixed(2);
 
     // === Price change: Entry price vs current price (%) ===
     if (arr_buy_Trades.length > 0) {
@@ -177,14 +177,8 @@ function dh_trades(price) {
       if (Number(lastTrade[_colname_Trade_price]) === price) {
         dbl_Price_change = 0; //No price change
       } else {
-        dbl_Price_change = getPercentageChange(firstPrice_temp, price); 
-      }
-
-    console.log(price);
-    console.log(Number(lastTrade[_colname_Trade_price]));
-    console.log(arr_buy_Trades.length);
-    console.log(dbl_Price_change);
-      
+        dbl_Price_change = getPercentageChange(dbl_Entryprice_temp, price); 
+      }     
     }
 
 
