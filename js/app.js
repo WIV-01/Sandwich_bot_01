@@ -13,6 +13,7 @@ let bln_Sell = false; //Place a sell order
 let dbl_delta_Price_Avg = null;
 let dbl_delta_Avg_Entryprice = null;
 let dbl_Disitance_betwee_Entryprice_Price = null;
+let bln_Buy = false; //Place a buy order
 
 //ℹ️ Constant variables
 const timestamp = Date.now();  
@@ -167,7 +168,6 @@ function dh_trades(price) {
   const _colname_Investment_ETH = "Investment (ETH)";
   const _colname_Investment_USDC = "Investment (USDC)"; 
   const _colname_PnL = "PnL";
-  let bln_Buy = false; //Place a buy order
   
   try {
     // === Validate price ===
@@ -180,60 +180,33 @@ function dh_trades(price) {
     const dbl_Entryprice_temp = arr_buy_Trades.length > 0 ? Number(arr_buy_Trades[0][_colname_Trade_price]) : null;
     const dbl_Entryprice = dbl_Entryprice_temp !== null ? dbl_Entryprice_temp.toFixed(2) : price.toFixed(2);
 
-    //=== Place a buy order ===
+    // === Price change: Entry price vs current price (%) ===
     if (arr_buy_Trades.length > 0) {
       const lastTrade = arr_buy_Trades[arr_buy_Trades.length - 1];
-
-      // === Price change: Entry price vs current price (%) ===
+      
       if (Number(lastTrade[_colname_Trade_price]) === price) {
         dbl_Price_change = 0; //No price change
-        bln_Buy = false
       } else {
-        dbl_Price_change = getPercentageChange(dbl_Entryprice_temp, price); 
+        dbl_Price_change = getPercentageChange(dbl_Entryprice_temp, price); //Price changed
       }     
 
       if (price < Number(lastTrade[_colname_Trade_price])) {
         bln_Buy = true;
       }
       
-    } else {
-        bln_Buy = true;
     }
 
-/*
-    // === Calculate average price from arr_buy_Trades, or use current price if empty ===
-    const tempSum = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade["Price"]), 0) + price;
-    const avg = tempSum / (arr_buy_Trades.length + 1);
-
-    // === Diff. between Entryprice and AVG price ===
-    if (firstPrice !== null && !isNaN(avg)) {
-      dbl_delta_Avg_Entryprice = getPercentageChange(firstPrice_temp, avg);
-    } else {
-      dbl_delta_Avg_Entryprice = 0;
+    //=== Place a buy order ===
+    if (
+      arr_buy_Trades.length === 0 ||
+      (
+        arr_buy_Trades.length > 0 &&
+        price <= Number(lastTrade[_colname_Trade_price]) &&
+        dbl_Price_change <= -0.01
+      )
+    ) {
+      bln_Buy = true;
     }
-
-    //Diff. between Price and AVG price
-    if (price !== null && !isNaN(avg)) {
-      dbl_delta_Price_Avg = getPercentageChange(price, avg);
-    } else {
-      dbl_delta_Price_Avg = 0;
-    }
-
-    //Diff. between Entryprice and Price
-    if (price !== null && firstPrice_temp !== null) {
-      dbl_Disitance_betwee_Entryprice_Price = getPercentageChange(price, firstPrice_temp);
-    } else {
-      dbl_Disitance_betwee_Entryprice_Price = 0;
-    }
-
-    "f2": Math.pow(2, Number(f.toFixed(0))),
-    "Invest": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment
-    
-        "Average": avg.toFixed(2),
-        "Price vs AVG": dbl_delta_Price_Avg,
-        "Price vs Entry price": dbl_delta_Price_Entryprice,
-    
-*/
 
     const f = Math.abs(Number(dbl_Price_change / dbl_minimum_Disitance_between_buy_orders).toFixed(0));
     const f2 = Math.pow(2, f);
@@ -241,7 +214,7 @@ function dh_trades(price) {
     const dbl_Investment_USDC = Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2;
     
      // === Add trade to table when price change occurs(current price < previous price)
-    if (arr_buy_Trades.length === 0 || dbl_Price_change <= -0.01 && bln_Buy === true) {
+    if (bln_Buy === true) {
       arr_buy_Trades.push({
         [_colname_Time]: new Date().toLocaleString(),
         [_colname_Entry_price]: dbl_Entryprice,
@@ -588,3 +561,39 @@ window.addEventListener("error", (e) => {
 });
 // ========================================================================================
 
+
+
+/*
+    // === Calculate average price from arr_buy_Trades, or use current price if empty ===
+    const tempSum = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade["Price"]), 0) + price;
+    const avg = tempSum / (arr_buy_Trades.length + 1);
+
+    // === Diff. between Entryprice and AVG price ===
+    if (firstPrice !== null && !isNaN(avg)) {
+      dbl_delta_Avg_Entryprice = getPercentageChange(firstPrice_temp, avg);
+    } else {
+      dbl_delta_Avg_Entryprice = 0;
+    }
+
+    //Diff. between Price and AVG price
+    if (price !== null && !isNaN(avg)) {
+      dbl_delta_Price_Avg = getPercentageChange(price, avg);
+    } else {
+      dbl_delta_Price_Avg = 0;
+    }
+
+    //Diff. between Entryprice and Price
+    if (price !== null && firstPrice_temp !== null) {
+      dbl_Disitance_betwee_Entryprice_Price = getPercentageChange(price, firstPrice_temp);
+    } else {
+      dbl_Disitance_betwee_Entryprice_Price = 0;
+    }
+
+    "f2": Math.pow(2, Number(f.toFixed(0))),
+    "Invest": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment
+    
+        "Average": avg.toFixed(2),
+        "Price vs AVG": dbl_delta_Price_Avg,
+        "Price vs Entry price": dbl_delta_Price_Entryprice,
+    
+*/
