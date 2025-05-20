@@ -159,6 +159,9 @@ async function getETHPriceUSD() {
 // === Execute trades ===
 // ========================================================================================
 function dh_trades(price) {
+  const _colname_Time = "Time";
+  const _colname_Entry_price = "Entry price";
+  const _colname_Change_price = "Change(%)";
   const _colname_Trade_price = "Trade Price";
   const _colname_Investment_ETH = "Investment (ETH)";
   const _colname_Investment_USDC = "Investment (USDC)"; 
@@ -226,10 +229,10 @@ function dh_trades(price) {
      // === Add trade to table when price change occurs(current price < previous price)
     if (arr_buy_Trades.length === 0 || dbl_Price_change <= -0.01) {
       arr_buy_Trades.push({
-        "Time": new Date().toLocaleString(),
-        "Entry price": dbl_Entryprice,
+        [_colname_Time]: new Date().toLocaleString(),
+        [_colname_Entry_price]: dbl_Entryprice,
         [_colname_Trade_price]: price.toFixed(2),
-        "Change(%)": dbl_Price_change,
+        [_colname_Change_price]: dbl_Price_change,
         "f": Number(f.toFixed(0)),
         "f2": Number(f2.toFixed(0)),
         [_colname_Investment_ETH]: Number(dbl_Investment_ETH.toFixed(8)),
@@ -299,9 +302,7 @@ async function updateBalances(address) {
     console.log(`
     📈 ETH Price (USD): ${ethPriceUSD}
     `);
-    //console.log("🛒 Open position(s)");
     console.log(dh_trades(ethPriceUSD));
-    //console.log("💵 PnL Summary");
     console.log("💰 Wallet Balances");
     console.log(`
     💰=== Metamask  ===💰
