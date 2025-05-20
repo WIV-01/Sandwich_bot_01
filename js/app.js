@@ -163,6 +163,8 @@ function dh_trades(price) {
   const _colname_Entry_price = "Entry price";
   const _colname_Change_price = "Change(%)";
   const _colname_Trade_price = "Trade Price";
+  const _colname_f = "f";
+  const _colname_f2 = "f2";
   const _colname_Investment_ETH = "Investment (ETH)";
   const _colname_Investment_USDC = "Investment (USDC)"; 
   const _colname_PnL = "PnL";
@@ -231,8 +233,8 @@ function dh_trades(price) {
         [_colname_Entry_price]: dbl_Entryprice,
         [_colname_Trade_price]: price.toFixed(2),
         [_colname_Change_price]: dbl_Price_change,
-        "f": Number(f.toFixed(0)),
-        "f2": Number(f2.toFixed(0)),
+        [_colname_f]: Number(f.toFixed(0)),
+        [_colname_f2]: Number(f2.toFixed(0)),
         [_colname_Investment_ETH]: Number(dbl_Investment_ETH.toFixed(8)),
         [_colname_Investment_USDC]: Number(dbl_Investment_USDC.toFixed(8))
       });
@@ -243,7 +245,7 @@ function dh_trades(price) {
     }
 
     // === PnL
-    const dbl_PnL = arr_PnL.reduce((sum, _col_PnL) => sum + Number(_col_PnL[_colname_PnL] || 0), 0); 
+    const dbl_PnL = arr_PnL.reduce((sum, _colname_PnL) => sum + Number(_col_PnL[_colname_PnL] || 0), 0); 
     
     /*  
         "Average": avg.toFixed(2),
