@@ -18,7 +18,7 @@ let dbl_Disitance_betwee_Entryprice_Price = null;
 //ℹ️ Constant variables
 const timestamp = Date.now();  
 const dbl_Martingale_factor = 2;
-const dbl_Initial_investment = 0.01; // Initial investment in $$$
+const dbl_Initial_investment = 0.01; // Initial investment in $
 const dbl_minimum_Disitance_between_buy_orders = 0.01; // in percentages (%)
 
 //ℹ️ Arrays 
@@ -240,12 +240,12 @@ function dh_trades(price) {
       });
 
       arr_PnL.push({
-        _colname_PnL: -Number(dbl_Investment_USDC.toFixed(8))
+        [_colname_PnL]: -Number(dbl_Investment_USDC.toFixed(8))
       });     
     }
 
     // === PnL
-    const dbl_PnL = arr_PnL.reduce((sum, _colname_PnL) => sum + Number(_col_PnL[_colname_PnL] || 0), 0); 
+    const dbl_PnL = arr_PnL.reduce((sum, _PnL) => sum + Number(_PnL[_colname_PnL] || 0), 0); 
     
     /*  
         "Average": avg.toFixed(2),
