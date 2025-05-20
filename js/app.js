@@ -223,7 +223,7 @@ function dh_trades(price) {
         "Change(%)": dbl_Price_change,
         "f": Number(f.toFixed(0)),
         "f2": Number(f2.toFixed(0)),
-        "Invest": Number(dbl_Investment.toFixed(5)) 
+        "Invest": Number(dbl_Investment.toFixed(18)) 
       });
     }
 
