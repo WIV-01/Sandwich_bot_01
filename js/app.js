@@ -226,7 +226,7 @@ function dh_trades(price) {
       arr_buy_Trades.push({
         "Time": new Date().toLocaleString(),
         "Entry price": dbl_Entryprice,
-        $$(_colname_Trade_price) : price.toFixed(2),
+        [_colname_Trade_price]: price.toFixed(2),
         "Change(%)": dbl_Price_change,
         "f": Number(f.toFixed(0)),
         "f2": Number(f2.toFixed(0)),
