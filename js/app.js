@@ -175,7 +175,7 @@ function dh_trades(price) {
       if (Number(lastTrade["Price"]) === price) {
         dbl_Price_change = 0; //No price change
       } else {
-        dbl_Price_change = getPercentageChange(Number(lastTrade["Price"]), firstPrice_temp); 
+        dbl_Price_change = getPercentageChange(Number(lastTrade["Price"]), price); 
       }
     }
 
@@ -226,8 +226,8 @@ function dh_trades(price) {
         "Change(%)": dbl_Price_change,
         "f": Number(f.toFixed(0)),
         "f2": Number(f2.toFixed(0)),
-        "Invest (ETH)": Number(dbl_Investment_ETH.toFixed(18)),
-        "Invest (USDC)": Number(dbl_Investment_USDC.toFixed(18))
+        "Invest (ETH)": Number(dbl_Investment_ETH.toFixed(10)),
+        "Invest (USDC)": Number(dbl_Investment_USDC.toFixed(10))
       });
     }
 
