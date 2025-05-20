@@ -252,8 +252,10 @@ function dh_trades(price) {
 
     console.log("🛒 Open position(s)");
     console.table(arr_buy_Trades);
+    console.log("");
     console.log("💵 PnL Summary");
     console.table(arr_PnL);
+    console.log("");
     console.log(`💰 PnL (USD): ${dbl_PnL}`); 
     
   } catch (err) {
