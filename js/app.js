@@ -16,13 +16,15 @@ let dbl_delta_Avg_Entryprice = null;
 let dbl_Disitance_betwee_Entryprice_Price = null;
 
 //ℹ️ Constant variables
-const timestamp = Date.now();
-const arr_PnL = []; 
-const arr_buy_Trades = [];
-const arr_sell_Trades = [];
+const timestamp = Date.now();  
 const dbl_Martingale_factor = 2;
 const dbl_Initial_investment = 0.01; // Initial investment in $$$
 const dbl_minimum_Disitance_between_buy_orders = 0.01; // in percentages (%)
+
+//ℹ️ Arrays 
+const arr_PnL = []; 
+const arr_buy_Trades = [];
+const arr_sell_Trades = [];
 
 //ℹ️ Metamask ETH address used
 const ETH_ADDRESS = "0xA93ab4D0405fBAE445334566B147470AeF9A1528"; // ✅ ETH
@@ -219,14 +221,12 @@ function dh_trades(price) {
     const dbl_Investment_ETH = (Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2)/price;
     const dbl_Investment_USDC = Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2;
     
-    
-    
      // === Add trade to table when price change occurs(current price < previous price)
     if (arr_buy_Trades.length === 0 || dbl_Price_change <= -0.01) {
       arr_buy_Trades.push({
         "Time": new Date().toLocaleString(),
         "Entry price": dbl_Entryprice,
-        $(_colname_Trade_price) : price.toFixed(2),
+        $$(_colname_Trade_price) : price.toFixed(2),
         "Change(%)": dbl_Price_change,
         "f": Number(f.toFixed(0)),
         "f2": Number(f2.toFixed(0)),
