@@ -32,15 +32,29 @@
   <p id="walletAddress">Not connected</p>
   
   <hr>
-  <h3>MetaMask wallet balances</h3>
+  
+  <h3>💰=== MetaMask wallet balances ===💰</h3>
   <p id="ethBalance">ETH: -</p>
   <p id="ethBalance">USDC: -</p>
   
-  <h3>Contract wallet balances</h3>
+  <h3>💰=== Contract wallet balances ===💰</h3>
   <p id="ethBalance">ETH: -</p>
   <p id="usdcBalance">USDC: -</p>
+  
   <hr>
 
+  <div id="tradingRules">
+    <h3>ℹ️=== Trading Strategy Rules ===ℹ️</h3>
+    <ul>
+      <li>🔹 Buy when price drops 1% or more compared to the previous buy signal</li>
+      <li>🔹 If buying again while already holding a position (pyramiding ≥ 1), buy twice as much (Martingale principle)</li>
+      <li>🔹 Take Profit (TP) at 2% (market price ≥ average position price + 2%)</li>
+      <li>🔹 Stop Loss (SL) at 1% (market price ≤ average position price - 1%)</li>
+    </ul>
+  </div>
+
+  <hr>
+  
   <h3>Swap USDC for ETH</h3>
   <table>
     <thead>
