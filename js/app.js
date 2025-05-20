@@ -300,18 +300,6 @@ async function updateBalances(address) {
     📈 ETH Price (USD): ${ethPriceUSD}
     `);
     console.log(dh_trades(ethPriceUSD));
-    console.log("💰 Wallet Balances");
-    console.log(`
-    💰=== Metamask  ===💰
-
-    ETH Balance  : ${parseFloat(ethFormatted).toFixed(5)} ETH
-    USDC value   : ${parseFloat(usdValue).toFixed(2)} USDC
-
-    💰=== Contract ===💰
-    
-    ETH Balance  : ${parseFloat(contractEthBalance).toFixed(5)} ETH
-    USDC Balance : ${parseFloat(usdcFormatted).toFixed(2)} USDC
-    `);
     console.groupEnd();
     
     document.getElementById("ethBalance").innerText = `ETH: ${parseFloat(ethFormatted).toFixed(4)} ETH`;
