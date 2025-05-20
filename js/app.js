@@ -160,6 +160,8 @@ async function getETHPriceUSD() {
 // ========================================================================================
 function dh_trades(price) {
   const _colname_Trade_price = "Trade Price";
+  const _colname_Investment_ETH = "Investment (ETH)";
+  const _colname_Investment_USDC = "Investment (USDC)"; 
   
   try {
     // === Validate price ===
@@ -230,13 +232,16 @@ function dh_trades(price) {
         "Change(%)": dbl_Price_change,
         "f": Number(f.toFixed(0)),
         "f2": Number(f2.toFixed(0)),
-        "Invest (ETH)": Number(dbl_Investment_ETH.toFixed(8)),
-        "Invest (USDC)": Number(dbl_Investment_USDC.toFixed(8))
+        [_colname_Investment_ETH]: Number(dbl_Investment_ETH.toFixed(8)),
+        [_colname_Investment_USDC]: Number(dbl_Investment_USDC.toFixed(8))
       });
 
       arr_PnL.push({
-        "PnL": Number(dbl_Investment_USDC.toFixed(8))
+        "PnL": -Number(dbl_Investment_USDC.toFixed(8))
       });
+
+      // === PnL
+      const dbl_PnL = arr_PnL.reduce((sum, trade) => sum + Number(trade[_colname_Investment_USDC]), 0) + price;      
     }
 
     /*  
@@ -249,7 +254,8 @@ function dh_trades(price) {
     console.table(arr_buy_Trades);
     console.log("💵 PnL Summary");
     console.table(arr_PnL);
-
+    console.log("💰 PnL");
+    
   } catch (err) {
     console.error("14 - Trade information error:", err);
   }
