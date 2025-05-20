@@ -165,6 +165,7 @@ function dh_trades(price) {
   const _colname_Trade_price = "Trade Price";
   const _colname_Investment_ETH = "Investment (ETH)";
   const _colname_Investment_USDC = "Investment (USDC)"; 
+  const _colname_PnL = "PnL";
   
   try {
     // === Validate price ===
@@ -237,12 +238,12 @@ function dh_trades(price) {
       });
 
       arr_PnL.push({
-        "PnL": -Number(dbl_Investment_USDC.toFixed(8))
+        _colname_PnL: -Number(dbl_Investment_USDC.toFixed(8))
       });     
     }
 
     // === PnL
-    const dbl_PnL = arr_PnL.reduce((sum, trade) => sum + Number(trade[_colname_Investment_USDC]), 0); 
+    const dbl_PnL = arr_PnL.reduce((sum, _col_PnL) => sum + Number(_col_PnL[_colname_PnL] || 0), 0); 
     
     /*  
         "Average": avg.toFixed(2),
