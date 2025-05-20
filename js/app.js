@@ -226,7 +226,7 @@ function dh_trades(price) {
     
 */
 
-    const f = Math.abs(dbl_Price_change / dbl_minimum_Disitance_between_buy_orders);
+    const f = Math.abs(Number(dbl_Price_change / dbl_minimum_Disitance_between_buy_orders).toFixed(0));
     const f2 = Math.pow(2, f);
     const dbl_Investment_ETH = (Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2)/price;
     const dbl_Investment_USDC = Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2;
@@ -238,7 +238,7 @@ function dh_trades(price) {
         [_colname_Entry_price]: dbl_Entryprice,
         [_colname_Trade_price]: price.toFixed(2),
         [_colname_Change_price]: dbl_Price_change,
-        [_colname_f]: Number(f.toFixed(0)),
+        [_colname_f]: f,
         [_colname_f2]: Number(f2.toFixed(0)),
         [_colname_Investment_ETH]: Number(dbl_Investment_ETH.toFixed(8)),
         [_colname_Investment_USDC]: Number(dbl_Investment_USDC.toFixed(8))
