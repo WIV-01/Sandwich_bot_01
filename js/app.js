@@ -9,7 +9,6 @@ let balanceInterval = null;
 let cachedETHPrice = null;
 let lastPriceFetchTime = 0;
 let dbl_Price_change = 0; // in percentages (%)
-let bln_Buy = false; //Place a buy order
 let bln_Sell = false; //Place a sell order
 let dbl_delta_Price_Avg = null;
 let dbl_delta_Avg_Entryprice = null;
@@ -168,6 +167,7 @@ function dh_trades(price) {
   const _colname_Investment_ETH = "Investment (ETH)";
   const _colname_Investment_USDC = "Investment (USDC)"; 
   const _colname_PnL = "PnL";
+  const bln_Buy = false; //Place a buy order
   
   try {
     // === Validate price ===
@@ -180,15 +180,24 @@ function dh_trades(price) {
     const dbl_Entryprice_temp = arr_buy_Trades.length > 0 ? Number(arr_buy_Trades[0][_colname_Trade_price]) : null;
     const dbl_Entryprice = dbl_Entryprice_temp !== null ? dbl_Entryprice_temp.toFixed(2) : price.toFixed(2);
 
-    // === Price change: Entry price vs current price (%) ===
+    //=== Place a buy order ===
     if (arr_buy_Trades.length > 0) {
       const lastTrade = arr_buy_Trades[arr_buy_Trades.length - 1];
-      
+
+      // === Price change: Entry price vs current price (%) ===
       if (Number(lastTrade[_colname_Trade_price]) === price) {
         dbl_Price_change = 0; //No price change
+        bln_Buy = false
       } else {
         dbl_Price_change = getPercentageChange(dbl_Entryprice_temp, price); 
       }     
+
+      if (price < Number(lastTrade[_colname_Trade_price])) {
+        bln_Buy = true;
+      }
+      
+    } else {
+        bln_Buy = true;
     }
 
 /*
@@ -232,7 +241,7 @@ function dh_trades(price) {
     const dbl_Investment_USDC = Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2;
     
      // === Add trade to table when price change occurs(current price < previous price)
-    if (arr_buy_Trades.length === 0 || dbl_Price_change <= -0.01) {
+    if (arr_buy_Trades.length === 0 || dbl_Price_change <= -0.01 && bln_Buy === true) {
       arr_buy_Trades.push({
         [_colname_Time]: new Date().toLocaleString(),
         [_colname_Entry_price]: dbl_Entryprice,
