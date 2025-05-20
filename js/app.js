@@ -242,7 +242,7 @@ function dh_trades(price) {
     }
 
     // === PnL
-    const dbl_PnL = arr_PnL.reduce((sum, trade) => sum + Number(trade[_colname_Investment_USDC]), 0) + price; 
+    const dbl_PnL = arr_PnL.reduce((sum, trade) => sum + Number(trade[_colname_Investment_USDC]), 0); 
     
     /*  
         "Average": avg.toFixed(2),
@@ -254,9 +254,7 @@ function dh_trades(price) {
     console.table(arr_buy_Trades);
     console.log("💵 PnL Summary");
     console.table(arr_PnL);
-    console.log(`
-    💰 PnL (USD): ${dbl_PnL}
-    `); 
+    console.log(`💰 PnL (USD): ${dbl_PnL}`); 
     
   } catch (err) {
     console.error("14 - Trade information error:", err);
