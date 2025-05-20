@@ -172,10 +172,10 @@ function dh_trades(price) {
     if (arr_buy_Trades.length > 0) {
       const lastTrade = arr_buy_Trades[arr_buy_Trades.length - 1];
       
-      if (Number(lastTrade["Price"]) === price) {
+      if (Number(lastTrade["Trade Price"]) === price) {
         dbl_Price_change = 0; //No price change
       } else {
-        dbl_Price_change = getPercentageChange(Number(lastTrade["Price"]), price); 
+        dbl_Price_change = getPercentageChange(Number(lastTrade["Trade Price"]), price); 
       }
 
     console.log(price);
