@@ -206,6 +206,8 @@ function dh_trades(price) {
       )
     ) {
       bln_Buy = true;
+    } else {
+      bln_Buy = false;
     }
 
     const f = Math.abs(Number(dbl_Price_change / dbl_minimum_Disitance_between_buy_orders).toFixed(0));
