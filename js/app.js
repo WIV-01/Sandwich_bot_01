@@ -171,8 +171,7 @@ function dh_trades(price) {
   const _colname_Action = "Action";
   const dbl_Entryprice_temp = 0;
   const dbl_Entryprice = 0;
-    
-  String str_Action = "-";
+  const str_Action = "-";
   
   try {
     // === Validate price ===
