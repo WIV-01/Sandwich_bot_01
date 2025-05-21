@@ -185,6 +185,9 @@ function dh_trades(price) {
 
     switch (arr_buy_Trades.length) {
       case 0:
+          // === Action ===
+          str_Action = "Initiate";
+        
           // === Entry price ===
           dbl_Entryprice_temp = null;
           dbl_Entryprice = price.toFixed(2);
@@ -194,6 +197,9 @@ function dh_trades(price) {
           break;
         
       default:
+          // === Action ===
+          str_Action = "Buy";
+        
           // === Entry price ===
           dbl_Entryprice_temp = Number(arr_buy_Trades[0][_colname_Trade_price]);
           dbl_Entryprice = dbl_Entryprice_temp.toFixed(2);
@@ -211,12 +217,6 @@ function dh_trades(price) {
       }
 
     //=== Place a buy order ===
-    if (arr_buy_Trades.length === 0) {
-      str_Action = "Initiate";
-      } else {
-        str_Action = "Buy";
-      }
-    
     if (
       arr_buy_Trades.length === 0 ||
       (
@@ -224,7 +224,6 @@ function dh_trades(price) {
         dbl_Price_change <= -0.01
       )
     ) {
-      
       bln_Buy = true;
     } else {
       bln_Buy = false;
