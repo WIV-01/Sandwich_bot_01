@@ -11,12 +11,10 @@ let lastPriceFetchTime = 0;
 let dbl_delta_Price_Avg = null;
 let dbl_delta_Avg_Entryprice = null;
 
-
 //ℹ️ Constant variables
 const timestamp = Date.now();  
 const dbl_Martingale_factor = 2;
 const dbl_Initial_investment = 0.01; // Initial investment in $
-
 
 //ℹ️ Arrays 
 const arr_PnL = []; 
@@ -235,7 +233,7 @@ function dh_trades(price) {
       (
         arr_buy_Trades.length > 0 &&
         dbl_Price_change_between_Entryprice_and_Currentprice <= -0 &&
-        dbl_Price_change_between_Tradeprice_and_Currentprice <= - dbl_minimum_Disitance_between_buy_orders
+        dbl_Price_change_between_Tradeprice_and_Currentprice <= -dbl_minimum_Disitance_between_buy_orders
       )
     ) {
       bln_Buy = true;
