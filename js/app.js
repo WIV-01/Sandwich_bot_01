@@ -186,12 +186,16 @@ function dh_trades(price) {
           str_Action = "Initiate";
           dbl_Entryprice_temp = null;
           dbl_Entryprice = price.toFixed(2);
-            
+          dbl_Price_change = 0; //No price change
+        
           break;
+        
       default:
           str_Action = "Buy";
           dbl_Entryprice_temp = Number(arr_buy_Trades[0][_colname_Trade_price]);
           dbl_Entryprice = dbl_Entryprice_temp.toFixed(2);
+          //dbl_Price_change = 0; //No price change
+        
           break;
 
     
