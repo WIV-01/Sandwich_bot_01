@@ -233,7 +233,7 @@ function dh_trades(price) {
       arr_buy_Trades.length === 0 ||
       (
         arr_buy_Trades.length > 0 &&
-        //price <= Number(lastTrade[_colname_Trade_price]) &&
+        str_Action != "Initiate" &&
         dbl_Price_change <= -0.01
       )
     ) {
