@@ -171,7 +171,6 @@ function dh_trades(price) {
   const _colname_Action = "Action";
   const dbl_minimum_Disitance_between_buy_orders = 0.01; // in percentages (%)
   
-  let dbl_Price_change = 0; // in percentages (%)
   let dbl_Price_change_between_Entryprice_and_Currentprice = 0; // in percentages (%)
   let dbl_Price_change_between_Tradeprice_and_Currentprice = 0; // in percentages (%)
   let bln_Buy = false; //Place a buy order
@@ -229,7 +228,7 @@ function dh_trades(price) {
       arr_buy_Trades.length === 0 ||
       (
         arr_buy_Trades.length > 0 &&
-        dbl_Price_change <= -0.01
+        dbl_Price_change_between_Entryprice_and_Currentprice <= -0.01
       )
     ) {
       bln_Buy = true;
