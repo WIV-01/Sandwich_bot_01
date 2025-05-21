@@ -186,14 +186,13 @@ function dh_trades(price) {
       
       if (Number(lastTrade[_colname_Trade_price]) === price) {
         dbl_Price_change = 0; //No price change
-      } else {
-        dbl_Price_change = getPercentageChange(dbl_Entryprice_temp, price); //Price changed
-      }     
+        } else {
+          dbl_Price_change = getPercentageChange(dbl_Entryprice_temp, price); //Price changed
+        }     
 
       if (price < Number(lastTrade[_colname_Trade_price])) {
         bln_Buy = true;
-      }
-      
+        }
     }
 
     //=== Place a buy order ===
@@ -215,7 +214,7 @@ function dh_trades(price) {
     const dbl_Investment_ETH = (Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2)/price;
     const dbl_Investment_USDC = Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2;
     
-     // === Add trade to table when price change occurs(current price < previous price)
+     // === Add trade to table when Buy == true
     if (bln_Buy === true) {
       arr_buy_Trades.push({
         [_colname_Time]: new Date().toLocaleString(),
