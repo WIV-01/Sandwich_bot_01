@@ -159,6 +159,7 @@ async function getETHPriceUSD() {
 // === Execute trades ===
 // ========================================================================================
 function dh_trades(price) {
+  // === Colnames ===
   const _colname_Time = "Time";
   const _colname_Entry_price = "Entry price";
   const _colname_Change_price = "Change(%)";
@@ -185,7 +186,8 @@ function dh_trades(price) {
     switch (arr_buy_Trades.length) {
       case 0:
           str_Action = "Initiate";
-        
+
+          // === Entry price ===
           dbl_Entryprice_temp = null;
           dbl_Entryprice = price.toFixed(2);
           dbl_Price_change = 0; //No price change
@@ -194,15 +196,17 @@ function dh_trades(price) {
           break;
         
       default:
+          // === Entry price ===
           dbl_Entryprice_temp = Number(arr_buy_Trades[0][_colname_Trade_price]);
           dbl_Entryprice = dbl_Entryprice_temp.toFixed(2);
 
+          // === Price change: Entry price vs current price (%) ===
           const lastTrade = arr_buy_Trades[arr_buy_Trades.length - 1];
           
           if (Number(lastTrade[_colname_Trade_price]) === price) {
             dbl_Price_change = 0; //No price change
             } else {
-              dbl_Price_change = getPercentageChange(dbl_Entryprice_temp, price); //Price changed
+              dbl_Price_change = getPercentageChange(dbl_Entryprice_temp, price); // === Price changed
             } 
 
           break;
