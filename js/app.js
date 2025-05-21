@@ -194,7 +194,6 @@ function dh_trades(price) {
           break;
         
       default:
-          str_Action = "Buy";
           dbl_Entryprice_temp = Number(arr_buy_Trades[0][_colname_Trade_price]);
           dbl_Entryprice = dbl_Entryprice_temp.toFixed(2);
 
@@ -237,6 +236,7 @@ function dh_trades(price) {
         dbl_Price_change <= -0.01
       )
     ) {
+      str_Action = "Buy";
       bln_Buy = true;
     } else {
       bln_Buy = false;
