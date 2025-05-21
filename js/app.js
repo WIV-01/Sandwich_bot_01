@@ -178,7 +178,7 @@ function dh_trades(price) {
     if (typeof price !== 'number' || isNaN(price)) {
       console.error("15 - Invalid price passed to function dh_trades(price):", price);
       return;
-    }
+      }
 
     switch (arr_buy_Trades.length) {
       case 0:
@@ -202,9 +202,10 @@ function dh_trades(price) {
             } else {
               dbl_Price_change = getPercentageChange(dbl_Entryprice_temp, price); //Price changed
             } 
-        
+
           break;
-    }
+      }
+
     
     // === Entry price ===
     //const dbl_Entryprice_temp = arr_buy_Trades.length > 0 ? Number(arr_buy_Trades[0][_colname_Trade_price]) : null;
@@ -223,8 +224,6 @@ function dh_trades(price) {
       if (price < Number(lastTrade[_colname_Trade_price])) {
         bln_Buy = true;
         }*/
-        
-      }
 
     //=== Place a buy order ===
     if (
@@ -248,19 +247,19 @@ function dh_trades(price) {
      // === Add trade to table when Buy == true
     if (bln_Buy === true) {
       arr_buy_Trades.push({
-        [_colname_Time]: new Date().toLocaleString(),
-        [_colname_Entry_price]: dbl_Entryprice,
-        [_colname_Trade_price]: price.toFixed(2),
-        [_colname_Change_price]: dbl_Price_change,
-        [_colname_f]: f,
-        [_colname_f2]: Number(f2.toFixed(0)),
-        [_colname_Investment_ETH]: Number(dbl_Investment_ETH.toFixed(8)),
-        [_colname_Investment_USDC]: Number(dbl_Investment_USDC.toFixed(8)),
-        [_colname_Action]: str_Action
+      [_colname_Time]: new Date().toLocaleString(),
+      [_colname_Entry_price]: dbl_Entryprice,
+      [_colname_Trade_price]: price.toFixed(2),
+      [_colname_Change_price]: dbl_Price_change,
+      [_colname_f]: f,
+      [_colname_f2]: Number(f2.toFixed(0)),
+      [_colname_Investment_ETH]: Number(dbl_Investment_ETH.toFixed(8)),
+      [_colname_Investment_USDC]: Number(dbl_Investment_USDC.toFixed(8)),
+      [_colname_Action]: str_Action
       });
 
       arr_PnL.push({[_colname_PnL]: -Number(dbl_Investment_USDC.toFixed(8))});     
-    }
+      }
 
     // === PnL
     const dbl_PnL = arr_PnL.reduce((sum, _PnL) => sum + Number(_PnL[_colname_PnL] || 0), 0); 
