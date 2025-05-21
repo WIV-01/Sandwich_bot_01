@@ -210,25 +210,6 @@ function dh_trades(price) {
           break;
       }
 
-    
-    // === Entry price ===
-    //const dbl_Entryprice_temp = arr_buy_Trades.length > 0 ? Number(arr_buy_Trades[0][_colname_Trade_price]) : null;
-    //const dbl_Entryprice = dbl_Entryprice_temp !== null ? dbl_Entryprice_temp.toFixed(2) : price.toFixed(2);
-
-    // === Price change: Entry price vs current price (%) ===
-    /*if (arr_buy_Trades.length > 0) {
-      const lastTrade = arr_buy_Trades[arr_buy_Trades.length - 1];
-      
-      if (Number(lastTrade[_colname_Trade_price]) === price) {
-        dbl_Price_change = 0; //No price change
-        } else {
-          dbl_Price_change = getPercentageChange(dbl_Entryprice_temp, price); //Price changed
-        }     
-
-      if (price < Number(lastTrade[_colname_Trade_price])) {
-        bln_Buy = true;
-        }*/
-
     //=== Place a buy order ===
     if (arr_buy_Trades.length === 0) {
       str_Action = "Initiate";
@@ -240,7 +221,6 @@ function dh_trades(price) {
       arr_buy_Trades.length === 0 ||
       (
         arr_buy_Trades.length > 0 &&
-        str_Action != "Initiate" &&
         dbl_Price_change <= -0.01
       )
     ) {
