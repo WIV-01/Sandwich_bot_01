@@ -13,7 +13,7 @@ let bln_Sell = false; //Place a sell order
 let dbl_delta_Price_Avg = null;
 let dbl_delta_Avg_Entryprice = null;
 let dbl_Disitance_betwee_Entryprice_Price = null;
-let bln_Buy = false; //Place a buy order
+
 
 //ℹ️ Constant variables
 const timestamp = Date.now();  
@@ -169,9 +169,10 @@ function dh_trades(price) {
   const _colname_Investment_USDC = "Investment (USDC)"; 
   const _colname_PnL = "PnL";
   const _colname_Action = "Action";
-  const dbl_Entryprice_temp = 0;
-  const dbl_Entryprice = 0;
-  
+
+  let bln_Buy = false; //Place a buy order
+  let dbl_Entryprice_temp = 0;
+  let dbl_Entryprice = 0;
   let str_Action = "-";
   
   try {
@@ -184,6 +185,7 @@ function dh_trades(price) {
     switch (arr_buy_Trades.length) {
       case 0:
           str_Action = "Initiate";
+        
           dbl_Entryprice_temp = null;
           dbl_Entryprice = price.toFixed(2);
           dbl_Price_change = 0; //No price change
