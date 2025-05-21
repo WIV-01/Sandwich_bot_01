@@ -168,7 +168,11 @@ function dh_trades(price) {
   const _colname_Investment_ETH = "Investment (ETH)";
   const _colname_Investment_USDC = "Investment (USDC)"; 
   const _colname_PnL = "PnL";
-  const str_Action = "-"
+  const _colname_Action = "Action";
+  const dbl_Entryprice_temp = 0
+  const dbl_Entryprice = 0
+    
+  String str_Action = "-"
   
   try {
     // === Validate price ===
@@ -177,15 +181,23 @@ function dh_trades(price) {
       return;
     }
 
-
-
-
-
+    switch (arr_buy_Trades.length) {
+      case 0:
+          str_Action = "Initiate";
+          dbl_Entryprice_temp = null;
+          dbl_Entryprice = price.toFixed(2);
+            
+          break;
+      default:
+          str_Action = "Buy";
+          dbl_Entryprice_temp = Number(arr_buy_Trades[0][_colname_Trade_price]);
+          dbl_Entryprice = dbl_Entryprice_temp.toFixed(2);
+          break;
 
     
     // === Entry price ===
-    const dbl_Entryprice_temp = arr_buy_Trades.length > 0 ? Number(arr_buy_Trades[0][_colname_Trade_price]) : null;
-    const dbl_Entryprice = dbl_Entryprice_temp !== null ? dbl_Entryprice_temp.toFixed(2) : price.toFixed(2);
+    //const dbl_Entryprice_temp = arr_buy_Trades.length > 0 ? Number(arr_buy_Trades[0][_colname_Trade_price]) : null;
+    //const dbl_Entryprice = dbl_Entryprice_temp !== null ? dbl_Entryprice_temp.toFixed(2) : price.toFixed(2);
 
     // === Price change: Entry price vs current price (%) ===
     if (arr_buy_Trades.length > 0) {
@@ -231,7 +243,8 @@ function dh_trades(price) {
         [_colname_f]: f,
         [_colname_f2]: Number(f2.toFixed(0)),
         [_colname_Investment_ETH]: Number(dbl_Investment_ETH.toFixed(8)),
-        [_colname_Investment_USDC]: Number(dbl_Investment_USDC.toFixed(8))
+        [_colname_Investment_USDC]: Number(dbl_Investment_USDC.toFixed(8)),
+        [_colname_Action]: str_Action
       });
 
       arr_PnL.push({[_colname_PnL]: -Number(dbl_Investment_USDC.toFixed(8))});     
