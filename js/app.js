@@ -161,8 +161,9 @@ function dh_trades(price) {
   // === Colnames ===
   const _colname_Time = "Time";
   const _colname_Entry_price = "Entry price";
-  const _colname_Change_price = "Change(%)";
+  const _colname_Change_price = "Change(%) Entry";
   const _colname_Trade_price = "Trade Price";
+  const _colname_Change_Trade_price = "Change(%) Trade";
   const _colname_f = "f";
   const _colname_f2 = "f2";
   const _colname_Investment_ETH = "Investment (ETH)";
@@ -194,6 +195,7 @@ function dh_trades(price) {
           dbl_Entryprice_temp = null;
           dbl_Entryprice = price.toFixed(2);
           dbl_Price_change_between_Entryprice_and_Currentprice = 0; //No price change
+          dbl_Price_change_between_Tradeprice_and_Currentprice = 0; //No price change
           bln_Buy = true; //=== Place a buy order
         
           break;
@@ -206,29 +208,35 @@ function dh_trades(price) {
           dbl_Entryprice_temp = Number(arr_buy_Trades[0][_colname_Trade_price]);
           dbl_Entryprice = dbl_Entryprice_temp.toFixed(2);
 
-          // === Price change: Entry price vs Current price (%) ===
+          // === Last Trade price ===
           const lastTrade = arr_buy_Trades[arr_buy_Trades.length - 1];
-          
-          if (Number(lastTrade[_colname_Trade_price]) === price) {
+          const dbl_Previous_Entry_price = Number(lastTrade[_colname_Entry_price];
+          const dbl_Previous_Trade_price = Number(lastTrade[_colname_Trade_price];
+        
+          // === Price change: Entry price vs Current price (%) ===
+          if (dbl_Previous_Entry_price === price) {
             dbl_Price_change_between_Entryprice_and_Currentprice = 0; //No price change
             } else {
-              dbl_Price_change_between_Entryprice_and_Currentprice = getPercentageChange(dbl_Entryprice_temp, price); // === Price changed
+              dbl_Price_change_between_Entryprice_and_Currentprice = getPercentageChange(dbl_Previous_Entry_price, price); // === Price changed
             } 
 
           // === Price change: Trade price vs Current price (%) ===
-
+          if (dbl_Previous_Trade_price === price) {
+            dbl_Price_change_between_Tradeprice_and_Currentprice = 0; //No price change
+            } else {
+              dbl_Price_change_between_Tradeprice_and_Currentprice = getPercentageChange(dbl_Previous_Trade_price, price); // === Price changed
+            }
         
           break;
       }
 
-
-    
     //=== Place a buy order ===
     if (
       arr_buy_Trades.length === 0 ||
       (
         arr_buy_Trades.length > 0 &&
-        dbl_Price_change_between_Entryprice_and_Currentprice <= -0.01
+        dbl_Price_change_between_Entryprice_and_Currentprice <= -0 &&
+        dbl_Price_change_between_Tradeprice_and_Currentprice <= - dbl_minimum_Disitance_between_buy_orders
       )
     ) {
       bln_Buy = true;
@@ -248,6 +256,7 @@ function dh_trades(price) {
       [_colname_Entry_price]: dbl_Entryprice,
       [_colname_Trade_price]: price.toFixed(2),
       [_colname_Change_price]: dbl_Price_change_between_Entryprice_and_Currentprice,
+      [_colname_Change_Trade_price]: dbl_Price_change_between_Tradeprice_and_Currentprice,
       [_colname_f]: f,
       [_colname_f2]: Number(f2.toFixed(0)),
       [_colname_Investment_ETH]: Number(dbl_Investment_ETH.toFixed(8)),
