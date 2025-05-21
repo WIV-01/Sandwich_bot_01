@@ -168,6 +168,7 @@ function dh_trades(price) {
   const _colname_Investment_ETH = "Investment (ETH)";
   const _colname_Investment_USDC = "Investment (USDC)"; 
   const _colname_PnL = "PnL";
+  const str_Action = "-"
   
   try {
     // === Validate price ===
@@ -176,7 +177,13 @@ function dh_trades(price) {
       return;
     }
 
-    // === Check if last price is the same as current price ===
+
+
+
+
+
+    
+    // === Entry price ===
     const dbl_Entryprice_temp = arr_buy_Trades.length > 0 ? Number(arr_buy_Trades[0][_colname_Trade_price]) : null;
     const dbl_Entryprice = dbl_Entryprice_temp !== null ? dbl_Entryprice_temp.toFixed(2) : price.toFixed(2);
 
@@ -193,7 +200,7 @@ function dh_trades(price) {
       if (price < Number(lastTrade[_colname_Trade_price])) {
         bln_Buy = true;
         }
-    }
+      }
 
     //=== Place a buy order ===
     if (
