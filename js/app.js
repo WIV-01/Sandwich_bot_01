@@ -8,18 +8,17 @@ let contract;
 let balanceInterval = null;
 let cachedETHPrice = null;
 let lastPriceFetchTime = 0;
-let dbl_Price_change = 0; // in percentages (%)
+
 let bln_Sell = false; //Place a sell order
 let dbl_delta_Price_Avg = null;
 let dbl_delta_Avg_Entryprice = null;
-let dbl_Disitance_betwee_Entryprice_Price = null;
 
 
 //ℹ️ Constant variables
 const timestamp = Date.now();  
 const dbl_Martingale_factor = 2;
 const dbl_Initial_investment = 0.01; // Initial investment in $
-const dbl_minimum_Disitance_between_buy_orders = 0.01; // in percentages (%)
+
 
 //ℹ️ Arrays 
 const arr_PnL = []; 
@@ -170,7 +169,11 @@ function dh_trades(price) {
   const _colname_Investment_USDC = "Investment (USDC)"; 
   const _colname_PnL = "PnL";
   const _colname_Action = "Action";
-
+  const dbl_minimum_Disitance_between_buy_orders = 0.01; // in percentages (%)
+  
+  let dbl_Price_change = 0; // in percentages (%)
+  let dbl_Price_change_between_Entryprice_and_Currentprice = 0; // in percentages (%)
+  let dbl_Price_change_between_Tradeprice_and_Currentprice = 0; // in percentages (%)
   let bln_Buy = false; //Place a buy order
   let dbl_Entryprice_temp = 0;
   let dbl_Entryprice = 0;
@@ -191,7 +194,7 @@ function dh_trades(price) {
           // === Entry price ===
           dbl_Entryprice_temp = null;
           dbl_Entryprice = price.toFixed(2);
-          dbl_Price_change = 0; //No price change
+          dbl_Price_change_between_Entryprice_and_Currentprice = 0; //No price change
           bln_Buy = true; //=== Place a buy order
         
           break;
@@ -204,18 +207,23 @@ function dh_trades(price) {
           dbl_Entryprice_temp = Number(arr_buy_Trades[0][_colname_Trade_price]);
           dbl_Entryprice = dbl_Entryprice_temp.toFixed(2);
 
-          // === Price change: Entry price vs current price (%) ===
+          // === Price change: Entry price vs Current price (%) ===
           const lastTrade = arr_buy_Trades[arr_buy_Trades.length - 1];
           
           if (Number(lastTrade[_colname_Trade_price]) === price) {
-            dbl_Price_change = 0; //No price change
+            dbl_Price_change_between_Entryprice_and_Currentprice = 0; //No price change
             } else {
-              dbl_Price_change = getPercentageChange(dbl_Entryprice_temp, price); // === Price changed
+              dbl_Price_change_between_Entryprice_and_Currentprice = getPercentageChange(dbl_Entryprice_temp, price); // === Price changed
             } 
 
+          // === Price change: Trade price vs Current price (%) ===
+
+        
           break;
       }
 
+
+    
     //=== Place a buy order ===
     if (
       arr_buy_Trades.length === 0 ||
@@ -229,7 +237,7 @@ function dh_trades(price) {
       bln_Buy = false;
     }
 
-    const f = Math.abs(Number(dbl_Price_change / dbl_minimum_Disitance_between_buy_orders).toFixed(0));
+    const f = Math.abs(Number(dbl_Price_change_between_Entryprice_and_Currentprice / dbl_minimum_Disitance_between_buy_orders).toFixed(0));
     const f2 = Math.pow(2, f);
     const dbl_Investment_ETH = (Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2)/price;
     const dbl_Investment_USDC = Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2;
@@ -240,7 +248,7 @@ function dh_trades(price) {
       [_colname_Time]: new Date().toLocaleString(),
       [_colname_Entry_price]: dbl_Entryprice,
       [_colname_Trade_price]: price.toFixed(2),
-      [_colname_Change_price]: dbl_Price_change,
+      [_colname_Change_price]: dbl_Price_change_between_Entryprice_and_Currentprice,
       [_colname_f]: f,
       [_colname_f2]: Number(f2.toFixed(0)),
       [_colname_Investment_ETH]: Number(dbl_Investment_ETH.toFixed(8)),
