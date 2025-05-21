@@ -8,8 +8,6 @@ let contract;
 let balanceInterval = null;
 let cachedETHPrice = null;
 let lastPriceFetchTime = 0;
-
-let bln_Sell = false; //Place a sell order
 let dbl_delta_Price_Avg = null;
 let dbl_delta_Avg_Entryprice = null;
 
@@ -175,6 +173,7 @@ function dh_trades(price) {
   let dbl_Price_change_between_Entryprice_and_Currentprice = 0; // in percentages (%)
   let dbl_Price_change_between_Tradeprice_and_Currentprice = 0; // in percentages (%)
   let bln_Buy = false; //Place a buy order
+  let bln_Sell = false; //Place a sell order
   let dbl_Entryprice_temp = 0;
   let dbl_Entryprice = 0;
   let str_Action = "-";
@@ -205,13 +204,13 @@ function dh_trades(price) {
           str_Action = "Buy";
         
           // === Entry price ===
-          dbl_Entryprice_temp = Number(arr_buy_Trades[0][_colname_Trade_price]);
+          dbl_Entryprice_temp = Number(arr_buy_Trades[0][_colname_Entry_price]);
           dbl_Entryprice = dbl_Entryprice_temp.toFixed(2);
 
           // === Last Trade price ===
           const lastTrade = arr_buy_Trades[arr_buy_Trades.length - 1];
-          const dbl_Previous_Entry_price = Number(lastTrade[_colname_Entry_price];
-          const dbl_Previous_Trade_price = Number(lastTrade[_colname_Trade_price];
+          const dbl_Previous_Entry_price = Number(lastTrade[_colname_Entry_price]);
+          const dbl_Previous_Trade_price = Number(lastTrade[_colname_Trade_price]);
         
           // === Price change: Entry price vs Current price (%) ===
           if (dbl_Previous_Entry_price === price) {
