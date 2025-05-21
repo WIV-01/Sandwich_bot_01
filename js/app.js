@@ -172,7 +172,7 @@ function dh_trades(price) {
   const dbl_Entryprice_temp = 0;
   const dbl_Entryprice = 0;
     
-  String str_Action = "-"
+  String str_Action = "-";
   
   try {
     // === Validate price ===
@@ -187,7 +187,7 @@ function dh_trades(price) {
           dbl_Entryprice_temp = null;
           dbl_Entryprice = price.toFixed(2);
           dbl_Price_change = 0; //No price change
-        
+          bln_Buy = true; //=== Place a buy order
           break;
         
       default:
