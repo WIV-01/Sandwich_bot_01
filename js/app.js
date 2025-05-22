@@ -231,7 +231,7 @@ function dh_trades(price) {
     // === Calculate average price from arr_buy_Trades, or use current price if empty ===
     const _Sum_ETH_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_ETH]));
     const _Sum_USDC_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_USDC]));
-    const _AVG = _Sum_ETH_invested !== 0 ? (_Sum_USDC_invested / _Sum_ETH_invested).toFixed(2) : 0;
+    const _AVG = _Sum_ETH_invested !== 0 ? (_Sum_USDC_invested / _Sum_ETH_invested) : 0;
 
     //=== Place a buy order ===
     if (
@@ -262,7 +262,7 @@ function dh_trades(price) {
       [_colname_Change_Trade_price]: dbl_Price_change_between_Tradeprice_and_Currentprice,
       [_colname_f]: f,
       [_colname_f2]: Number(f2.toFixed(0)),
-      [_colname_AVG]: _AVG,
+      [_colname_AVG]: _AVG.toFixed(2),
       [_colname_Investment_ETH]: Number(dbl_Investment_ETH.toFixed(8)),
       [_colname_Investment_USDC]: Number(dbl_Investment_USDC.toFixed(8)),
       [_colname_Action]: str_Action
