@@ -262,7 +262,7 @@ function dh_trades(price) {
       [_colname_Change_Trade_price]: dbl_Price_change_between_Tradeprice_and_Currentprice,
       [_colname_f]: f,
       [_colname_f2]: Number(f2.toFixed(0)),
-      [_colname_AVG]: Number(_AVG.toFixed(0)),
+      [_colname_AVG]: _AVG,
       [_colname_Investment_ETH]: Number(dbl_Investment_ETH.toFixed(8)),
       [_colname_Investment_USDC]: Number(dbl_Investment_USDC.toFixed(8)),
       [_colname_Action]: str_Action
