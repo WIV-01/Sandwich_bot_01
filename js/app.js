@@ -233,7 +233,7 @@ function dh_trades(price) {
     const _Sum_USDC_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_USDC]), 0);
     const _AVG = _Sum_ETH_invested !== 0 ? (_Sum_USDC_invested / _Sum_ETH_invested) : 0;
 
-    if (arr_buy_Trades.length === 0) {_AVG = price.toFixed(2);}
+    if (arr_buy_Trades.length === 0) {_AVG = price;}
                                     
     //=== Place a buy order ===
     if (
