@@ -167,7 +167,7 @@ function dh_trades(price) {
   const _colname_AVG = "AVG";
   const _colname_PnL = "PnL";
   const _colname_Action = "Action";
-  const dbl_minimum_Disitance_between_buy_orders = 0.05; // in percentages (%)
+  const dbl_minimum_Disitance_between_buy_orders = 0.01; // in percentages (%)
   
   let dbl_Price_change_between_Entryprice_and_Currentprice = 0; // in percentages (%)
   let dbl_Price_change_between_Tradeprice_and_Currentprice = 0; // in percentages (%)
