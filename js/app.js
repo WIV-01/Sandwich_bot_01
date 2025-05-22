@@ -231,7 +231,6 @@ function dh_trades(price) {
     // === Calculate average price from arr_buy_Trades, or use current price if empty ===
     const _Sum_ETH_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_ETH]), 0);
     const _Sum_USDC_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_USDC]), 0);
-    const _AVG = (_Sum_USDC_invested / _Sum_ETH_invested);
     const _AVG = _Sum_ETH_invested !== 0 ? (_Sum_USDC_invested / _Sum_ETH_invested) : 0;
 
     //=== Place a buy order ===
