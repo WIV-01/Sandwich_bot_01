@@ -176,7 +176,8 @@ function dh_trades(price) {
   let dbl_Entryprice_temp = 0;
   let dbl_Entryprice = 0;
   let str_Action = "-";
-
+  let _AVG = 0;
+  
   try {
     // === Validate price ===
     if (typeof price !== 'number' || isNaN(price)) {
@@ -231,7 +232,8 @@ function dh_trades(price) {
     // === Calculate average price from arr_buy_Trades, or use current price if empty ===
     const _Sum_ETH_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_ETH]), 0);
     const _Sum_USDC_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_USDC]), 0);
-    const _AVG = _Sum_ETH_invested !== 0 ? (_Sum_USDC_invested / _Sum_ETH_invested) : 0;
+    
+    _AVG = _Sum_ETH_invested !== 0 ? (_Sum_USDC_invested / _Sum_ETH_invested) : 0;
 
     if (arr_buy_Trades.length === 0) {_AVG = price;}
                                     
