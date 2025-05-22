@@ -164,6 +164,7 @@ function dh_trades(price) {
   const _colname_f2 = "f2";
   const _colname_Investment_ETH = "Investment (ETH)";
   const _colname_Investment_USDC = "Investment (USDC)"; 
+  const _colname_AVG = "AVG";
   const _colname_PnL = "PnL";
   const _colname_Action = "Action";
   const dbl_minimum_Disitance_between_buy_orders = 0.05; // in percentages (%)
@@ -175,7 +176,7 @@ function dh_trades(price) {
   let dbl_Entryprice_temp = 0;
   let dbl_Entryprice = 0;
   let str_Action = "-";
-  
+
   try {
     // === Validate price ===
     if (typeof price !== 'number' || isNaN(price)) {
@@ -227,6 +228,14 @@ function dh_trades(price) {
           break;
       }
 
+    // === Calculate average price from arr_buy_Trades, or use current price if empty ===
+    const _Sum_ETH_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_ETH]), 0);
+    const _Sum_USDC_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_USDC]), 0);
+    const _AVG = (_Sum_USDC_invested / _Sum_ETH_invested);
+    const _AVG = _Sum_ETH_invested !== 0 
+      ? (_Sum_USDC_invested / _Sum_ETH_invested) 
+      : 0;
+
     //=== Place a buy order ===
     if (
       arr_buy_Trades.length === 0 ||
@@ -256,11 +265,13 @@ function dh_trades(price) {
       [_colname_Change_Trade_price]: dbl_Price_change_between_Tradeprice_and_Currentprice,
       [_colname_f]: f,
       [_colname_f2]: Number(f2.toFixed(0)),
+      [_colname_AVG]: Number(_AVG.toFixed(0)),
       [_colname_Investment_ETH]: Number(dbl_Investment_ETH.toFixed(8)),
       [_colname_Investment_USDC]: Number(dbl_Investment_USDC.toFixed(8)),
       [_colname_Action]: str_Action
       });
 
+      // === Add trade to table of PnL 
       arr_PnL.push({[_colname_PnL]: -Number(dbl_Investment_USDC.toFixed(8))});     
       }
 
@@ -599,9 +610,7 @@ window.addEventListener("error", (e) => {
 
 
 /*
-    // === Calculate average price from arr_buy_Trades, or use current price if empty ===
-    const tempSum = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade["Price"]), 0) + price;
-    const avg = tempSum / (arr_buy_Trades.length + 1);
+
 
     // === Diff. between Entryprice and AVG price ===
     if (firstPrice !== null && !isNaN(avg)) {
