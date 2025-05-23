@@ -195,8 +195,7 @@ function dh_trades(price) {
           dbl_Entryprice = price.toFixed(2);
           dbl_Price_change_between_Entryprice_and_Currentprice = 0; //No price change
           dbl_Price_change_between_Tradeprice_and_Currentprice = 0; //No price change
-          bln_Buy = true; //=== Place a buy order
-        
+
           break;
         
       default:
@@ -229,9 +228,15 @@ function dh_trades(price) {
           break;
       }
 
+    // === Calculate Martin Gale factor ===
+    const f = Math.abs(Number(dbl_Price_change_between_Entryprice_and_Currentprice / dbl_minimum_Disitance_between_buy_orders).toFixed(0));
+    const f2 = Math.pow(2, f);
+    const dbl_Investment_ETH = (Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2)/price;
+    const dbl_Investment_USDC = Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2;
+    
     // === Calculate average price from arr_buy_Trades, or use current price if empty ===
-    const _Sum_ETH_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_ETH]), 0);
-    const _Sum_USDC_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_USDC]), 0);
+    const _Sum_ETH_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_ETH]) + dbl_Investment_ETH, 0);
+    const _Sum_USDC_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_USDC]) + _Sum_USDC_invested, 0);
     
     _AVG = _Sum_ETH_invested !== 0 ? (_Sum_USDC_invested / _Sum_ETH_invested) : 0;
 
@@ -246,15 +251,11 @@ function dh_trades(price) {
         dbl_Price_change_between_Tradeprice_and_Currentprice <= -dbl_minimum_Disitance_between_buy_orders
       )
     ) {
-      bln_Buy = true;
+      bln_Buy = true; //=== Place a buy order
     } else {
       bln_Buy = false;
     }
 
-    const f = Math.abs(Number(dbl_Price_change_between_Entryprice_and_Currentprice / dbl_minimum_Disitance_between_buy_orders).toFixed(0));
-    const f2 = Math.pow(2, f);
-    const dbl_Investment_ETH = (Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2)/price;
-    const dbl_Investment_USDC = Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2;
     
      // === Add trade to table when Buy == true
     if (bln_Buy === true) {
@@ -286,6 +287,11 @@ function dh_trades(price) {
     console.table(arr_PnL);
     console.log("");
     console.log(`💰 PnL (USD): ${dbl_PnL}`); 
+
+    console.log(`💰 PnL (USD): ${dbl_PnL}`); 
+    console.log(`💰 PnL (USD): ${dbl_PnL}`); 
+    console.log(`💰 PnL (USD): ${dbl_PnL}`); 
+    
   } catch (err) {
     console.error("14 - Trade information error:", err);
   }
