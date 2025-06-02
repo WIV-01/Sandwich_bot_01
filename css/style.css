@@ -149,3 +149,17 @@ h3 + button {
   font-family: 'Quicksand', sans-serif;
   font-size: 16px;
 }
+
+.coin-info-table {
+  width: 100%;
+  max-width: 600px;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.coin-info-table th,
+.coin-info-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
