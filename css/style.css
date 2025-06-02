@@ -128,3 +128,24 @@ h3 + button {
 #pauseBotBtn:hover {
   background-color: #c82333;
 }
+
+.coin-selector-table {
+  width: 100%;
+  max-width: 300px;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.coin-selector-table th,
+.coin-selector-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.coin-selector-table select {
+  width: 100%;
+  padding: 8px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 16px;
+}
