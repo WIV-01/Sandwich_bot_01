@@ -23,6 +23,7 @@ const arr_sell_Trades = [];
 
 //ℹ️ Metamask ETH address used
 const ETH_ADDRESS = "0xA93ab4D0405fBAE445334566B147470AeF9A1528"; // ✅ ETH
+const PEPE_ADDRESS = "0x6982508145454Ce325dDbE47a25d4ec3d2311933" ; // ✅ PEPE
 
 //ℹ️ Mainnet
 /*const CONTRACT_ADDRESS = "0x4243b11b2c5f8bC7053D6a1f812f36cCf5791C83"; // ✅ Your deployed contract
@@ -316,11 +317,11 @@ function getPercentageChange(oldPrice, newPrice) {
 // ========================================================================================
 const tokenData = {
   ETH: {
-    address: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", // Native ETH
+    address: ETH_ADDRESS, 
     id: "ethereum"
   },
   PEPE: {
-    address: "0x6982508145454Ce325dDbE47a25d4ec3d2311933",
+    address: PEPE_ADDRESS, 
     id: "pepe"
   },
 };
