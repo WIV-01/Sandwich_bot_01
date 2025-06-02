@@ -321,8 +321,33 @@ const tokenData = {
 };
 
 const selector = document.getElementById("coinSelector");
-const coinName = document.getElementById("coinName");
-const coinPrice = document.getElementById("coinPrice");
+const priceCell = document.getElementById("coinPrice");
+
+async function fetchPrice(id) {
+  try {
+    const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`);
+    const json = await res.json();
+    return json[id]?.usd || null;
+  } catch {
+    return null;
+  }
+}
+
+async function updatePrice(coin) {
+  if (!coin || !tokenData[coin]) {
+    priceCell.textContent = "-";
+    return;
+  }
+  priceCell.textContent = "Loading...";
+  const price = await fetchPrice(tokenData[coin].id);
+  priceCell.textContent = price ? `$${price.toLocaleString()}` : "Error fetching price";
+}
+
+selector.addEventListener("change", e => {
+  updatePrice(e.target.value);
+});
+
+// ========================================================================================
 
 /*
 const selector = document.getElementById("coinSelector");
@@ -346,37 +371,6 @@ selector.addEventListener("change", async (event) => {
     console.error(err);
   }
 });*/
-// ========================================================================================
-
-
-
-
-
-async function fetchPrice(id) {
-  try {
-    const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`);
-    const json = await res.json();
-    return json[id]?.usd || null;
-  } catch {
-    return null;
-  }
-}
-
-async function updateCoinInfo(coin) {
-  if (!coin || !tokenData[coin]) {
-    coinName.textContent = "-";
-    coinPrice.textContent = "-";
-    return;
-  }
-  coinName.textContent = coin;
-  coinPrice.textContent = "Loading...";
-  const price = await fetchPrice(tokenData[coin].id);
-  coinPrice.textContent = price ? `$${price.toLocaleString()}` : "Error fetching price";
-}
-
-selector.addEventListener("change", e => updateCoinInfo(e.target.value));
-
-
 
 // ========================================================================================
 // === Update wallet balances === 
