@@ -347,7 +347,7 @@ async function updatePrice(coin) {
     priceCell.textContent = "Price not available";
   } else {
     // Format with decimals:
-    priceCell.textContent = `$${price >= 1 ? price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) : price.toFixed(6)}`;
+    priceCell.textContent = `$${price >= 1 ? price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) : price.toFixed(10)}`;
   }
 }
 
