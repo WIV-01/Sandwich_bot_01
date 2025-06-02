@@ -316,16 +316,15 @@ function getPercentageChange(oldPrice, newPrice) {
 // === Coin ddress and value === 
 // ========================================================================================
 const tokenData = {
-  ETH: {
-    address: ETH_ADDRESS, 
-    id: "ethereum"
-  },
-  PEPE: {
-    address: PEPE_ADDRESS, 
-    id: "pepe"
-  },
+  ETH: { id: "ethereum" },
+  PEPE: { id: "pepe" }
 };
 
+const selector = document.getElementById("coinSelector");
+const coinName = document.getElementById("coinName");
+const coinPrice = document.getElementById("coinPrice");
+
+/*
 const selector = document.getElementById("coinSelector");
 const coinName = document.getElementById("coinName");
 const coinAddress = document.getElementById("coinAddress");
@@ -346,8 +345,36 @@ selector.addEventListener("change", async (event) => {
     coinPrice.textContent = "Error fetching price";
     console.error(err);
   }
-});
+});*/
 // ========================================================================================
+
+
+
+
+
+async function fetchPrice(id) {
+  try {
+    const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`);
+    const json = await res.json();
+    return json[id]?.usd || null;
+  } catch {
+    return null;
+  }
+}
+
+async function updateCoinInfo(coin) {
+  if (!coin || !tokenData[coin]) {
+    coinName.textContent = "-";
+    coinPrice.textContent = "-";
+    return;
+  }
+  coinName.textContent = coin;
+  coinPrice.textContent = "Loading...";
+  const price = await fetchPrice(tokenData[coin].id);
+  coinPrice.textContent = price ? `$${price.toLocaleString()}` : "Error fetching price";
+}
+
+selector.addEventListener("change", e => updateCoinInfo(e.target.value));
 
 
 
