@@ -311,6 +311,44 @@ function getPercentageChange(oldPrice, newPrice) {
 // ========================================================================================
 
 
+// ========================================================================================
+// === Coin ddress and value === 
+// ========================================================================================
+const tokenData = {
+  ETH: {
+    address: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", // Native ETH
+    id: "ethereum"
+  },
+  PEPE: {
+    address: "0x6982508145454Ce325dDbE47a25d4ec3d2311933",
+    id: "pepe"
+  },
+};
+
+const selector = document.getElementById("coinSelector");
+const coinName = document.getElementById("coinName");
+const coinAddress = document.getElementById("coinAddress");
+const coinPrice = document.getElementById("coinPrice");
+
+selector.addEventListener("change", async (event) => {
+  const selected = event.target.value;
+  const data = tokenData[selected];
+
+  coinName.textContent = selected;
+  coinAddress.textContent = data.address;
+
+  try {
+    const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${data.id}&vs_currencies=usd`);
+    const json = await res.json();
+    coinPrice.textContent = `$${json[data.id].usd}`;
+  } catch (err) {
+    coinPrice.textContent = "Error fetching price";
+    console.error(err);
+  }
+});
+// ========================================================================================
+
+
 
 // ========================================================================================
 // === Update wallet balances === 
