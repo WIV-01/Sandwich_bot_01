@@ -231,8 +231,8 @@ function dh_trades(price) {
     // === Calculate Martin Gale factor ===
     const f = Math.abs(Number(dbl_Price_change_between_Entryprice_and_Currentprice / dbl_minimum_Disitance_between_buy_orders).toFixed(0));
     const f2 = Math.pow(2, f);
-    const dbl_Investment_ETH = (Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2)/price;
-    const dbl_Investment_USDC = Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2;
+    const dbl_Investment_ETH = (dbl_Initial_investment * f2)/price; //(Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2)/price;
+    const dbl_Investment_USDC = dbl_Initial_investment * f2;  //Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2;
     
     // === Calculate average price from arr_buy_Trades, or use current price if empty ===
     const _Sum_ETH_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_ETH]), 0);
