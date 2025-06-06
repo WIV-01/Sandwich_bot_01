@@ -172,12 +172,16 @@ function dh_trades(price) {
   
   let dbl_Price_change_between_Entryprice_and_Currentprice = 0; // in percentages (%)
   let dbl_Price_change_between_Tradeprice_and_Currentprice = 0; // in percentages (%)
+  let dbl_Investment_ETH = 0; //Investment in ETH
+  let dbl_Investment_USDC = 0; //Investment in USDC
   let bln_Buy = false; //Place a buy order
   let bln_Sell = false; //Place a sell order
   let dbl_Entryprice_temp = 0;
   let dbl_Entryprice = 0;
   let str_Action = "-";
   let _AVG = 0;
+  let f = 0; // Martin Gale factor
+  let f2 = 0; // Martin Gale factor to the power of
   
   try {
     // === Validate price ===
@@ -243,24 +247,35 @@ function dh_trades(price) {
       bln_Buy = false; 
     }
     
-    // === Calculate Martin Gale factor ===
-    const f = Math.abs(Number(dbl_Price_change_between_Entryprice_and_Currentprice / dbl_minimum_Disitance_between_buy_orders).toFixed(0));
-    const f2 = Math.pow(2, f);
-
-    // === Investment ===
-    let dbl_Investment_ETH = (dbl_Initial_investment * f2)/price; //(Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2)/price;
-    let dbl_Investment_USDC = dbl_Initial_investment * f2;  //Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2;
-    
     // === Calculate average price from arr_buy_Trades, or use current price if empty ===
     if (arr_buy_Trades.length === 0) {
+
+      // === Calculate Martin Gale factor ===
+      f = 0;
+      f2 = 1;
+      
+      // === Investment ===
       dbl_Investment_ETH = dbl_Initial_investment/price;
       dbl_Investment_USDC = dbl_Initial_investment;
+
+      // === AVG ===
       _AVG = price;
-    } else {
-        const _Sum_ETH_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_ETH]), 0);
-        const _Sum_USDC_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_USDC]), 0);
       
-        _AVG = _Sum_ETH_invested !== 0 ? (_Sum_USDC_invested / _Sum_ETH_invested) : 0;
+    } else {
+
+      // === Calculate Martin Gale factor ===
+      f = Math.abs(Number(dbl_Price_change_between_Entryprice_and_Currentprice / dbl_minimum_Disitance_between_buy_orders).toFixed(0));
+      f2 = Math.pow(2, f);
+    
+      // === Investment ===
+      dbl_Investment_ETH = (dbl_Initial_investment * f2)/price;
+      dbl_Investment_USDC = dbl_Initial_investment * f2;
+      
+      const _Sum_ETH_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_ETH]), 0);
+      const _Sum_USDC_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_USDC]), 0);
+    
+      _AVG = _Sum_ETH_invested !== 0 ? (_Sum_USDC_invested / _Sum_ETH_invested) : 0;
+      
     }
  
      // === Add trade to table when Buy == true
