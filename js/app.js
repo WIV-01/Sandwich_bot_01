@@ -238,12 +238,6 @@ function dh_trades(price) {
     // === Calculate average price from arr_buy_Trades, or use current price if empty ===
     const _Sum_ETH_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_ETH]), 0);
     const _Sum_USDC_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_USDC]), 0);
-
-    if (arr_buy_Trades.length === 0) {
-      _AVG = price;
-    } else {
-      _AVG = _Sum_ETH_invested !== 0 ? (_Sum_USDC_invested / _Sum_ETH_invested) : 0;
-    }
                                     
     //=== Place a buy order ===
     if (
@@ -261,6 +255,13 @@ function dh_trades(price) {
     
      // === Add trade to table when Buy == true
     if (bln_Buy === true) {
+      
+      if (arr_buy_Trades.length === 0) {
+        _AVG = price;
+      } else {
+        _AVG = _Sum_ETH_invested !== 0 ? (_Sum_USDC_invested / _Sum_ETH_invested) : 0;
+      }
+      
       arr_buy_Trades.push({
       [_colname_Time]: new Date().toLocaleString(),
       [_colname_Entry_price]: dbl_Entryprice,
@@ -277,9 +278,6 @@ function dh_trades(price) {
 
       // === Add trade to table of PnL 
       arr_PnL.push({[_colname_PnL]: -Number(dbl_Investment_USDC.toFixed(8))});    
-
-      console.log(`💰 _AVG: ${(_AVG)}`);
-      
       }
 
     // === PnL
