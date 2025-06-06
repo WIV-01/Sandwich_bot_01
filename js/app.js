@@ -248,8 +248,8 @@ function dh_trades(price) {
     const f2 = Math.pow(2, f);
 
     // === Investment ===
-    const dbl_Investment_ETH = (dbl_Initial_investment * f2)/price; //(Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2)/price;
-    const dbl_Investment_USDC = dbl_Initial_investment * f2;  //Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2;
+    let dbl_Investment_ETH = (dbl_Initial_investment * f2)/price; //(Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2)/price;
+    let dbl_Investment_USDC = dbl_Initial_investment * f2;  //Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2;
     
     // === Calculate average price from arr_buy_Trades, or use current price if empty ===
     if (arr_buy_Trades.length === 0) {
