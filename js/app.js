@@ -274,8 +274,8 @@ function dh_trades(price) {
           dbl_Investment_ETH = (dbl_Initial_investment * f2)/price;
           dbl_Investment_USDC = dbl_Initial_investment * f2;
           
-          _Sum_ETH_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_ETH]), 0);
-          _Sum_USDC_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_USDC]), 0);
+          _Sum_ETH_invested = dbl_Investment_ETH + arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_ETH]), 0);
+          _Sum_USDC_invested = dbl_Investment_USDC + arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_USDC]), 0);
     
           //=== AVG: Calculate average price from arr_buy_Trades, or use current price if empty ===
           _AVG = _Sum_ETH_invested !== 0 ? (_Sum_USDC_invested / _Sum_ETH_invested) : 0;
