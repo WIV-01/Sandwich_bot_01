@@ -276,7 +276,10 @@ function dh_trades(price) {
       });
 
       // === Add trade to table of PnL 
-      arr_PnL.push({[_colname_PnL]: -Number(dbl_Investment_USDC.toFixed(8))});     
+      arr_PnL.push({[_colname_PnL]: -Number(dbl_Investment_USDC.toFixed(8))});    
+
+      console.log(`💰 _AVG: ${(_AVG)}`);
+      
       }
 
     // === PnL
@@ -289,10 +292,10 @@ function dh_trades(price) {
     console.table(arr_PnL);
     console.log("");
     console.log(`💰 PnL (USD): ${dbl_PnL}`); 
-
+    console.log(`💰 _AVG: ${(_AVG)}`);
     console.log(`💰 _Sum_ETH_invested: ${_Sum_ETH_invested}`); 
     console.log(`💰 _Sum_USDC_invested: ${_Sum_USDC_invested}`); 
-    console.log(`💰 _AVG: ${(_AVG)}`); 
+     
     
   } catch (err) {
     console.error("14 - Trade information error:", err);
