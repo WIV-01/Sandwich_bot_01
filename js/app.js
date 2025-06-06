@@ -406,8 +406,8 @@ async function updateBalances(address) {
     
     document.getElementById("ethBalance").innerText = `ETH: ${parseFloat(ethFormatted).toFixed(4)} ETH`;
     document.getElementById("usdcBalance").innerText = `USDC: ${parseFloat(usdValue).toFixed(2)} USDC`;
-    document.getElementById("contract_ethBalance").innerText = `ETH: ${parseFloat(contractEthBalance).toFixed(4)} ETH`;
-    document.getElementById("contract_usdcBalance").innerText = `USDC: ${parseFloat(usdcFormatted).toFixed(2)} USDC`;
+    //document.getElementById("contract_ethBalance").innerText = `ETH: ${parseFloat(contractEthBalance).toFixed(4)} ETH`;
+    //document.getElementById("contract_usdcBalance").innerText = `USDC: ${parseFloat(usdcFormatted).toFixed(2)} USDC`;
     
   } catch (err) {
 
