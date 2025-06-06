@@ -164,7 +164,9 @@ function dh_trades(price) {
   const _colname_f = "f";
   const _colname_f2 = "f2";
   const _colname_Investment_ETH = "Investment (ETH)";
-  const _colname_Investment_USDC = "Investment (USDC)"; 
+  const _colname_Investment_SUM_in_ETH = "SUM (ETH)";
+  const _colname_Investment_USDC = "Investment (USDC)";
+  const _colname_Investment_SUM_in_USDC = "SUM (USDC)";
   const _colname_AVG = "AVG";
   const _colname_PnL = "PnL";
   const _colname_Action = "Action";
@@ -295,7 +297,9 @@ function dh_trades(price) {
       [_colname_f2]: Number(f2.toFixed(0)),
       [_colname_AVG]: _AVG.toFixed(2),
       [_colname_Investment_ETH]: Number(dbl_Investment_ETH.toFixed(8)),
+      [_colname_Investment_SUM_in_ETH]: Number(_Sum_ETH_invested.toFixed(8)),
       [_colname_Investment_USDC]: Number(dbl_Investment_USDC.toFixed(8)),
+      [_colname_Investment_SUM_in_USDC]: Number(_Sum_USDC_invested.toFixed(8)),
       [_colname_Action]: str_Action
       });
 
