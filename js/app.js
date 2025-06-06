@@ -229,6 +229,20 @@ function dh_trades(price) {
           break;
       }
 
+    //=== Place a buy order ===
+    if (
+      arr_buy_Trades.length === 0 ||
+      (
+        arr_buy_Trades.length > 0 &&
+        dbl_Price_change_between_Entryprice_and_Currentprice <= -0 &&
+        dbl_Price_change_between_Tradeprice_and_Currentprice <= -dbl_minimum_Disitance_between_buy_orders
+      )
+    ) {
+      bln_Buy = true; //=== Place a buy order
+    } else {
+      bln_Buy = false;
+    }
+    
     // === Calculate Martin Gale factor ===
     const f = Math.abs(Number(dbl_Price_change_between_Entryprice_and_Currentprice / dbl_minimum_Disitance_between_buy_orders).toFixed(0));
     const f2 = Math.pow(2, f);
@@ -245,19 +259,7 @@ function dh_trades(price) {
       _AVG = _Sum_ETH_invested !== 0 ? (_Sum_USDC_invested / _Sum_ETH_invested) : 0;
     }
     
-    //=== Place a buy order ===
-    if (
-      arr_buy_Trades.length === 0 ||
-      (
-        arr_buy_Trades.length > 0 &&
-        dbl_Price_change_between_Entryprice_and_Currentprice <= -0 &&
-        dbl_Price_change_between_Tradeprice_and_Currentprice <= -dbl_minimum_Disitance_between_buy_orders
-      )
-    ) {
-      bln_Buy = true; //=== Place a buy order
-    } else {
-      bln_Buy = false;
-    }
+
     
      // === Add trade to table when Buy == true
     if (bln_Buy === true) {
