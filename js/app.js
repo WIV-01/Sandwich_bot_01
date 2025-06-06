@@ -229,7 +229,7 @@ function dh_trades(price) {
           break;
       }
 
-    //=== Place a buy order ===
+    //=== Place a buy order or if TP/SL reached.place a sell order ===
     if (
       arr_buy_Trades.length === 0 ||
       (
@@ -240,27 +240,29 @@ function dh_trades(price) {
     ) {
       bln_Buy = true; //=== Place a buy order
     } else {
-      bln_Buy = false;
+      bln_Buy = false; 
     }
     
     // === Calculate Martin Gale factor ===
     const f = Math.abs(Number(dbl_Price_change_between_Entryprice_and_Currentprice / dbl_minimum_Disitance_between_buy_orders).toFixed(0));
     const f2 = Math.pow(2, f);
+
+    // === Investment ===
     const dbl_Investment_ETH = (dbl_Initial_investment * f2)/price; //(Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2)/price;
     const dbl_Investment_USDC = dbl_Initial_investment * f2;  //Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment * f2;
     
     // === Calculate average price from arr_buy_Trades, or use current price if empty ===
-    const _Sum_ETH_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_ETH]), 0);
-    const _Sum_USDC_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_USDC]), 0);
-
     if (arr_buy_Trades.length === 0) {
+      dbl_Investment_ETH = dbl_Initial_investment/price;
+      dbl_Investment_USDC = dbl_Initial_investment;
       _AVG = price;
     } else {
-      _AVG = _Sum_ETH_invested !== 0 ? (_Sum_USDC_invested / _Sum_ETH_invested) : 0;
+        const _Sum_ETH_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_ETH]), 0);
+        const _Sum_USDC_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_USDC]), 0);
+      
+        _AVG = _Sum_ETH_invested !== 0 ? (_Sum_USDC_invested / _Sum_ETH_invested) : 0;
     }
-    
-
-    
+ 
      // === Add trade to table when Buy == true
     if (bln_Buy === true) {
       
