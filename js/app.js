@@ -340,8 +340,9 @@ function getPercentageChange(oldPrice, newPrice) {
 // ========================================================================================
 
 
+
 // ========================================================================================
-// === Coin ddress and value === 
+// === Coin address and value === 
 // ========================================================================================
 const tokenData = {
   ETH: { id: "ethereum" },
@@ -385,28 +386,7 @@ selector.addEventListener("change", e => {
 
 // ========================================================================================
 
-/*
-const selector = document.getElementById("coinSelector");
-const coinName = document.getElementById("coinName");
-const coinAddress = document.getElementById("coinAddress");
-const coinPrice = document.getElementById("coinPrice");
 
-selector.addEventListener("change", async (event) => {
-  const selected = event.target.value;
-  const data = tokenData[selected];
-
-  coinName.textContent = selected;
-  coinAddress.textContent = data.address;
-
-  try {
-    const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${data.id}&vs_currencies=usd`);
-    const json = await res.json();
-    coinPrice.textContent = `$${json[data.id].usd}`;
-  } catch (err) {
-    coinPrice.textContent = "Error fetching price";
-    console.error(err);
-  }
-});*/
 
 // ========================================================================================
 // === Update wallet balances === 
@@ -708,38 +688,3 @@ window.addEventListener("error", (e) => {
   console.error("12 - Global error:", e);
 });
 // ========================================================================================
-
-
-
-/*
-
-
-    // === Diff. between Entryprice and AVG price ===
-    if (firstPrice !== null && !isNaN(avg)) {
-      dbl_delta_Avg_Entryprice = getPercentageChange(firstPrice_temp, avg);
-    } else {
-      dbl_delta_Avg_Entryprice = 0;
-    }
-
-    //Diff. between Price and AVG price
-    if (price !== null && !isNaN(avg)) {
-      dbl_delta_Price_Avg = getPercentageChange(price, avg);
-    } else {
-      dbl_delta_Price_Avg = 0;
-    }
-
-    //Diff. between Entryprice and Price
-    if (price !== null && firstPrice_temp !== null) {
-      dbl_Disitance_betwee_Entryprice_Price = getPercentageChange(price, firstPrice_temp);
-    } else {
-      dbl_Disitance_betwee_Entryprice_Price = 0;
-    }
-
-    "f2": Math.pow(2, Number(f.toFixed(0))),
-    "Invest": Math.pow(dbl_Martingale_factor, arr_buy_Trades.length) * dbl_Initial_investment
-    
-        "Average": avg.toFixed(2),
-        "Price vs AVG": dbl_delta_Price_Avg,
-        "Price vs Entry price": dbl_delta_Price_Entryprice,
-    
-*/
