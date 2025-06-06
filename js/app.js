@@ -174,6 +174,8 @@ function dh_trades(price) {
   let dbl_Price_change_between_Tradeprice_and_Currentprice = 0; // in percentages (%)
   let dbl_Investment_ETH = 0; //Investment in ETH
   let dbl_Investment_USDC = 0; //Investment in USDC
+  let _Sum_ETH_invested = 0; //Total sum Investment in ETH
+  let _Sum_USDC_invested = 0; //Total sum Investment in USDC
   let bln_Buy = false; //Place a buy order
   let bln_Sell = false; //Place a sell order
   let dbl_Entryprice_temp = 0;
@@ -232,6 +234,7 @@ function dh_trades(price) {
       
       str_Action = "Initiate"; // === Action
       bln_Buy = true; //=== Place a buy order
+      
     } else {
       
         if (
@@ -257,7 +260,10 @@ function dh_trades(price) {
       // === Investment ===
       dbl_Investment_ETH = dbl_Initial_investment/price;
       dbl_Investment_USDC = dbl_Initial_investment;
-
+      
+      _Sum_ETH_invested = dbl_Investment_ETH;
+      _Sum_USDC_invested = dbl_Investment_USDC;
+      
       // === AVG ===
       _AVG = price;
       
@@ -271,15 +277,15 @@ function dh_trades(price) {
       dbl_Investment_ETH = (dbl_Initial_investment * f2)/price;
       dbl_Investment_USDC = dbl_Initial_investment * f2;
       
-      const _Sum_ETH_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_ETH]), 0);
-      const _Sum_USDC_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_USDC]), 0);
+      _Sum_ETH_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_ETH]), 0);
+      _Sum_USDC_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_USDC]), 0);
     
       _AVG = _Sum_ETH_invested !== 0 ? (_Sum_USDC_invested / _Sum_ETH_invested) : 0;
       
     }
  
-     // === Add trade to table when Buy == true
-    if (bln_Buy === true) {
+     // === Add trade to table when Buy == true or Sell = true ===
+    if (bln_Buy === true || bln_Sell == true) {
       
       arr_buy_Trades.push({
       [_colname_Time]: new Date().toLocaleString(),
@@ -295,11 +301,11 @@ function dh_trades(price) {
       [_colname_Action]: str_Action
       });
 
-      // === Add trade to table of PnL 
+      // === Add trade to table of PnL ===
       arr_PnL.push({[_colname_PnL]: -Number(dbl_Investment_USDC.toFixed(8))});    
       }
 
-    // === PnL
+    // === PnL ===
     const dbl_PnL = arr_PnL.reduce((sum, _PnL) => sum + Number(_PnL[_colname_PnL] || 0), 0); 
 
     console.log("🛒 Open position(s)");
