@@ -232,8 +232,8 @@ function dh_trades(price) {
     //=== Place a buy order or if TP/SL reached.place a sell order ===
     if (arr_buy_Trades.length === 0) {
       
-      str_Action = "Initiate"; // === Action
-      bln_Buy = true; //=== Place a buy order
+      
+      
       
     } else {
       
@@ -250,9 +250,15 @@ function dh_trades(price) {
         }
     }
     
-    // === Calculate average price from arr_buy_Trades, or use current price if empty ===
+    // ===  ===
     if (arr_buy_Trades.length === 0) {
 
+      // === Action ===
+      str_Action = "Initiate"; 
+
+      //=== Place a buy order? ===
+      bln_Buy = true; 
+      
       // === Calculate Martin Gale factor ===
       f = 0;
       f2 = 1;
@@ -264,11 +270,24 @@ function dh_trades(price) {
       _Sum_ETH_invested = dbl_Investment_ETH;
       _Sum_USDC_invested = dbl_Investment_USDC;
       
-      // === AVG ===
+      //=== AVG: Calculate average price from arr_buy_Trades, or use current price if empty ===
       _AVG = price;
       
     } else {
 
+      //=== Place a buy order? ===
+      if (
+        arr_buy_Trades.length > 0 &&
+        dbl_Price_change_between_Entryprice_and_Currentprice <= -0 &&
+        dbl_Price_change_between_Tradeprice_and_Currentprice <= -dbl_minimum_Disitance_between_buy_orders
+      ) {
+          // === Action ===
+          str_Action = "Buy"; 
+          bln_Buy = true; 
+      } else {
+          bln_Buy = false; 
+      }
+      
       // === Calculate Martin Gale factor ===
       f = Math.abs(Number(dbl_Price_change_between_Entryprice_and_Currentprice / dbl_minimum_Disitance_between_buy_orders).toFixed(0));
       f2 = Math.pow(2, f);
@@ -279,7 +298,8 @@ function dh_trades(price) {
       
       _Sum_ETH_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_ETH]), 0);
       _Sum_USDC_invested = arr_buy_Trades.reduce((sum, trade) => sum + Number(trade[_colname_Investment_USDC]), 0);
-    
+
+      //=== AVG: Calculate average price from arr_buy_Trades, or use current price if empty ===
       _AVG = _Sum_ETH_invested !== 0 ? (_Sum_USDC_invested / _Sum_ETH_invested) : 0;
       
     }
